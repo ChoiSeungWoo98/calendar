@@ -1,0 +1,96 @@
+/*@import 'variables.css';*/
+:root {
+    --main-color-1: rgba(136, 171, 142, 1);
+    --main-color-2: rgba(175, 200, 173, 1);
+    --main-color-3: rgba(238, 231, 218, 1);
+    --main-color-4: rgba(242, 241, 235, 1);
+
+    --font: SOYOMapleBoldTTF;
+    --text-color: rgba(55, 55, 55, 1);
+    --calender-color: rgba(100, 100, 100, 1);
+    --calender-sat-color: rgba(34, 129, 208, 1);
+    --calender-sun-color: rgba(220, 134, 134, 1);;
+}
+
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: var(--font);
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+div, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+#main-view {
+    width: 94%;
+    height: 92%;
+    padding: 3%;
+}
+
+#over-view {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+#left-view {
+    background-color: var(--main-color-1);
+    width: 35%;
+    height: 100%;
+}
+
+#left-view > .main {
+    margin: 20px;
+}
+
+#right-view {
+    width: 65%;
+    display: inline-block;
+    padding: 20px;
+    background-color: var(--main-color-4);
+    color: var(--calender-color);
+}
+
+#right-view > .title {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 22px;
+    margin-bottom: 42px;
+}
+
+.month-button {
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 40px;
+    cursor: pointer;
+}
+#year-list {
+    color: var(--text-color);
+}
+
+#year-list > .year-list-detail {
+    cursor: pointer;
+}
+
+.cancel {
+    text-decoration: line-through;
+}

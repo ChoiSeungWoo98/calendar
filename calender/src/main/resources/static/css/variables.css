@@ -1,0 +1,14 @@
+:root {
+    --main-color-1: rgb(136, 171, 142, 1);
+    --main-color-2: rgb(175, 200, 173, 1);
+    --main-color-3: rgb(238, 231, 218, 1);
+    --main-color-4: rgb(242, 241, 235, 1);
+    --font: SOYOMapleBoldTTF;
+}
+
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
