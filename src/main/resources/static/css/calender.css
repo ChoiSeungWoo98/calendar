@@ -1,5 +1,9 @@
 #calendar {
-    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
 }
 
 #calendar-title {
@@ -12,10 +16,12 @@
 
 #calendar-title > #calendar-before {
     margin-right: 25px;
+    cursor: pointer;
 }
 
 #calendar-title > #calendar-after {
     margin-left: 25px;
+    cursor: pointer;
 }
 
 .sunday {
@@ -36,6 +42,7 @@
 
 table {
     width: 100%;
+    height: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }

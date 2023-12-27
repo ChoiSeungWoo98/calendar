@@ -7,23 +7,23 @@ const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + SI_HEUNG + ',
 $.getJSON(url,
     function (WeatherResult) {
         setAreaName();
-        $('.SeoulNowtemp').append(WeatherResult.main.temp);
+        $('.temperatures').append(WeatherResult.main.temp + ' °C');
 
         var weathericonUrl =
             '<img src= "http://openweathermap.org/img/wn/'
             + WeatherResult.weather[0].icon +
             '.png" alt="' + WeatherResult.weather[0].description + '"/>'
 
-        $('.SeoulIcon').html(weathericonUrl);
+        $('.weather-ico').html(weathericonUrl);
     });
 
 function setAreaName() {
     if(url.includes(SEONG_NAM)) {
-        $('.position').html('성남시')
+        $('.position').html('경기도 성남시')
         return;
     }
     if(url.includes(SI_HEUNG)) {
-        $('.position').html('시흥시')
+        $('.position').html('경기도 시흥시')
         return;
     }
 }

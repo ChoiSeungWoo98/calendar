@@ -1,0 +1,22 @@
+#weather {
+    width: 100%;
+    height: 50%;
+}
+
+#weather > * {
+    width: 100%;
+}
+
+#weather > .date {
+    font-size: 28px;
+    height: 60px;
+}
+
+#weather > .position {
+    font-size: 28px;
+    height: 60px;
+}
+
+#weather > .weather-ico > image {
+    width: 100px;
+}

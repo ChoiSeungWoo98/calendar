@@ -69,5 +69,5 @@ $(document).ready(function () {
         return month + '월' + date + '일';
     }
     var currentTime = convertTime();
-    $('.nowtime').append(currentTime);
+    $('.date').append(currentTime);
 });
