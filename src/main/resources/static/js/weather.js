@@ -9,7 +9,6 @@ $.getJSON(url,
         setAreaName();
         $('.temperatures').append(WeatherResult.main.temp + ' °C');
 
-        console.log(WeatherResult.weather[0].icon);
         var weathericonUrl =
             '<img src= "http://openweathermap.org/img/wn/'
             + WeatherResult.weather[0].icon +

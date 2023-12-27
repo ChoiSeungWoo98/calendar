@@ -18,7 +18,7 @@ function displayCalendar(month, year) {
     var calendarHtml = "";
     calendarHtml += "<div id='calendar-title'>";
     calendarHtml +=     "<div id='calendar-before'>< </div>";
-    calendarHtml +=     "<h2 id='calendar-year-month'>" + months[month] + " " + year + "</h2>";
+    calendarHtml +=     "<div id='calendar-year-month'>" + months[month] + " " + year + "</div>";
     calendarHtml +=     "<div id='calendar-after'>></div>";
     calendarHtml += "</div>";
 
@@ -103,7 +103,9 @@ function handleCalendarAfterClick() {
 
 function handleCalendarYearMonthClick() {
     var inputYear = prompt("이동할 연도를 입력해주세요(2023):");
+    if(inputYear == undefined) return;
     var inputMonth = prompt("이동할 연도의 월을 입력하세요.(1-12):");
+    if(inputMonth == undefined) return;
 
     if (inputYear && !isNaN(inputYear) && inputMonth && !isNaN(inputMonth) && inputMonth >= 1 && inputMonth <= 12) {
         currentYear = parseInt(inputYear);

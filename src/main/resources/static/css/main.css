@@ -121,14 +121,22 @@ a:hover {
     cursor: pointer;
 }
 #year-list {
-    height: 30%;
+    height: 25%;
     color: var(--text-color);
 }
 
-.main > .title {
+.add-target {
+    width: 120px;
+    padding: 5px;
+    border: 1px solid var(--main-color-4);
+    border-radius: 3px;
+}
+
+.main > .targer-title {
     height: 10%;
     font-size: 24px;
     color: rgba(0, 0, 0, 1);
+    cursor: pointer;
 }
 
 #year-list > .year-list-detail {
@@ -137,4 +145,18 @@ a:hover {
 
 .cancel {
     text-decoration: line-through;
+}
+
+.event-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 5%;
+}
+
+.add-event {
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 3px;
 }
