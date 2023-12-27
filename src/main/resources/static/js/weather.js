@@ -9,10 +9,11 @@ $.getJSON(url,
         setAreaName();
         $('.temperatures').append(WeatherResult.main.temp + ' °C');
 
+        console.log(WeatherResult.weather[0].icon);
         var weathericonUrl =
             '<img src= "http://openweathermap.org/img/wn/'
             + WeatherResult.weather[0].icon +
-            '.png" alt="' + WeatherResult.weather[0].description + '"/>'
+            '@2x.png" alt="' + WeatherResult.weather[0].description + '"/>'
 
         $('.weather-ico').html(weathericonUrl);
     });
