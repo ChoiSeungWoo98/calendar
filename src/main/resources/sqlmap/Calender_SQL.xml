@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.choi.calender.mapper.CalenderMapper">
+    <insert id="insertCalenderData" parameterType="calenderBean">
+        INSERT INTO tb_calender
+        (
+            id,
+            name,
+            <if test="pw != null and pw != ''">
+                pw,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name,
+            </if>
+            <if test="position != null and position != ''">
+                position,
+            </if>
+            <if test="etc != null and etc != ''">
+                etc,
+            </if>
+            <if test="approveYn != null and approveYn != ''">
+                approve_yn,
+            </if>
+            auth
+        )
+        VALUES
+        (
+            #{id},
+            #{name},
+            <if test="pw != null and pw != ''">
+                #{pw},
+            </if>
+            <if test="email != null and email != ''">
+                #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                #{companyName},
+            </if>
+            <if test="position != null and position != ''">
+                #{position},
+            </if>
+            <if test="etc != null and etc != ''">
+                #{etc},
+            </if>
+            <if test="approveYn != null and approveYn != ''">
+                #{approveYn},
+            </if>
+            #{auth}
+        )
+    </insert>
+
+
+
+
+
+
+    <select id="isDuplicationIdCheck" parameterType="String" resultType="boolean">
+        SELECT
+            IF(COUNT(1) >= 1, TRUE, FALSE) as dupli
+        FROM
+            tb_user
+        <where>
+            AND id = #{id}
+        </where>
+    </select>
+
+    <update id="updateApproveStatus" parameterType="string">
+        UPDATE tb_user
+        SET approve_yn = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserData" parameterType="calenderBean">
+        UPDATE tb_user
+        SET
+            pw = #{pw},
+            name = #{name},
+            email = #{email},
+            phone = #{phone},
+            company_name = #{companyName},
+            position = #{position},
+            etc = #{etc}
+        WHERE id = #{id}
+    </update>
+</mapper>
