@@ -1,0 +1,41 @@
+spring:
+#  config: # 이 부분은 실제 구현 부분에 작성 ex) -local.yml 와 같은 부분
+#    activate:
+#      on-profile: local
+
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://14.36.171.228:3306/xe_management
+#    username: xe_management
+#    password: xehub!@#123
+    url: jdbc:mysql://localhost:3306/xe_management
+    username: xe
+    password: xehub0602!@#$
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  freemarker:
+    cache: false
+
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
+
+mybatis:
+  type-aliases-package: com.choi.calender.domain.**, com.choi.calender.application.dto.**
+  type-handlers-package: com.choi.calender.domain.**, com.choi.calender.application.dto.**
+  mapper-locations: sqlmap/*_SQL.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: NULL
+
+logging:
+  pattern:
+    console: "[%d{HH:mm:ss}][%-5level][%logger.%method:line%line] - %msg%n"
+
+server:
+  port: 8080
