@@ -1,0 +1,89 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="deleteWork">
+    <div class="modalBackGround hidden z-[99999]">
+        <div class="deleteWork">
+            <div id="modal-title" class="h-[24%] w-full font-bold text-[25px]">해당 프로젝트를 삭제하겠습니까?</div>
+            <div id="modal-content" class="h-[63%] w-full">한번 삭제하시면 다시 되돌릴 수 없습니다.<br>확인 후 삭제해주세요.</div>
+            <div class="modal-btn flex flex-row w-full justify-end">
+                <!-- button -->
+                <button class="modal-btn-delete cursor-pointer inline-flex py-[7px] px-[20px] box-border rounded-[5px] text-[#B02318] border-[#B02318] border-solid border-[1px]">
+                    <span class="w-[70px] text-[12px]">삭제</span>
+                </button>
+                <button class="modal-btn-cancel cursor-pointer inline-flex py-[7px] px-[20px] box-border rounded-[5px] ml-[4px] text-[#515B68] border-[#515B68] border-solid border-[1px]">
+                    <span class="w-[70px] text-[12px]">취소</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-btn-delete:hover {
+            background-color: rgba(171, 36, 32, 0.1);
+        }
+
+        .modal-btn-cancel:hover {
+            background-color: rgba(82, 92, 103, 0.1);
+        }
+
+        .modalBackGround {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background: rgba(55, 55, 55, 0.5);
+        }
+
+        .deleteWork {
+            padding: 30px;
+            width: 30%;
+            height: 25%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            z-index: 9999;
+            border-radius: 50px
+        }
+
+    </style>
+
+    <script>
+        function openDeleteWorkConfirm(title, content) {
+            return new Promise((resolve, reject) => {
+                XE.blockScroll();
+                $('#modal-title').html(title);
+                $('#modal-content').html(content);
+                $('.modalBackGround').removeClass('hidden');
+
+                // 삭제 버튼이 클릭되었을 때 true 반환
+                $('.modal-btn-delete').on('click', function () {
+                    $('.modalBackGround').addClass('hidden');
+                    resolve(true);
+                });
+
+                // 취소 버튼이 클릭되었을 때 false 반환
+                $('.modal-btn-cancel').on('click', function () {
+                    $('.modalBackGround').addClass('hidden');
+                    resolve(false);
+                });
+            });
+        }
+
+        $(function () {
+            // $('.deleteWork').on('click', function (event) {
+            //     event.stopPropagation();
+            // });
+            //
+            // $('.modalBackGround').on('click', function () {
+            //     $(this).addClass('hidden');
+            // });
+
+        });
+    </script>
+</th:block>
+</html>

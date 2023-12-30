@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}"
+>
+
+<th:block layout:fragment="content">
+<div id="main-view">
+    <div id="over-view">
+        <div id="left-view">
+            <div class="main">
+                <div id="weather">
+                    <h4 class="date"></h4>
+                    <h3 class="position"></h3>
+                    <h3 class="weather-ico"></h3>
+                    <h3 class="temperatures"></h3>
+                </div>
+                <div class="targer-title target-change year">연간 목표</div>
+                <div id="year-list">
+                    <div class="year-list-detail">퇴사하기</div>
+                    <div class="year-list-detail">좋은 공부 프로그램 합격</div>
+                    <div class="year-list-detail">정보처리기사 자격증 합격</div>
+                    <div class="year-list-detail">학사 학위 취득</div>
+                </div>
+                <button class="add-target">연간 목표 등록</button>
+            </div>
+        </div>
+        <div id="right-view">
+            <div class="title">한달 뒤 나에게 물어보자,<br> 오늘의 감정은 기억나지 않는다.</div>
+            <div class="event-btn">
+                <button class="add-event">이벤트 등록</button>
+            </div>
+            <div id="calendar"></div>
+            <div class="link">
+                <a class="naver-blog can" href="https://blog.naver.com/choiseungwoo98" target='_blank'><img src="/img/brand/naver.png">Blog</a>
+                <a class="git-blog" href="https://choiseungwoo98.github.io/" target='_blank'><img src="/img/brand/git-pages.png">GitBlog</a>
+                <a class="github" href="https://github.com/ChoiSeungWoo98" target='_blank'><img src="/img/brand/git.png">GitHub</a>
+                <a class="youtube" href="https://www.youtube.com/@user-db6vt3rd1e" target='_blank'><img src="/img/brand/youtube.png">YouTube</a>
+            </div>
+        </div>
+    </div>
+</div>
+</th:block>
+
+<script layout:fragment="script">
+    $(document).ready(function () {
+        $('.year-list-detail').on('click', function () {
+            var hasCancelClass = $(this).hasClass('cancel');
+            if (hasCancelClass) {
+                $(this).removeClass('cancel');
+            } else {
+                $(this).addClass('cancel');
+            }
+        });
+
+        $('.target-change').on('click', function () {
+            var hasCancelClass = $(this).hasClass('month');
+            if (hasCancelClass) {
+                $(this).removeClass('month');
+                $(this).addClass('year');
+                $(this).html('월간 목표');
+                $('.add-target').html('월간 목표 등록');
+            } else {
+                $(this).removeClass('year');
+                $(this).addClass('month');
+                $(this).html('연간 목표');
+                $('.add-target').html('연간 목표 등록');
+            }
+        });
+
+        $('.add-event').on('click', function () {
+            console.log('눌렸다잉');
+        });
+    });
+</script>
+
+</html>

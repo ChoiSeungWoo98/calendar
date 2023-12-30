@@ -1,9 +1,14 @@
 :root {
-    --main-color-1: rgb(136, 171, 142, 1);
-    --main-color-2: rgb(175, 200, 173, 1);
-    --main-color-3: rgb(238, 231, 218, 1);
-    --main-color-4: rgb(242, 241, 235, 1);
+    --main-color-1: rgba(136, 171, 142, 1);
+    --main-color-2: rgba(175, 200, 173, 1);
+    --main-color-3: rgba(238, 231, 218, 1);
+    --main-color-4: rgba(242, 241, 235, 1);
+
     --font: SOYOMapleBoldTTF;
+    --text-color: rgba(55, 55, 55, 1);
+    --calender-color: rgba(100, 100, 100, 1);
+    --calender-sat-color: rgba(34, 129, 208, 1);
+    --calender-sun-color: rgba(220, 134, 134, 1);;
 }
 
 @font-face {
