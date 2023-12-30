@@ -106,13 +106,13 @@ a:hover {
 
 .add-target {
     width: 120px;
-    padding: 5px;
+    height: 7%;
     border: 1px solid var(--main-color-4);
     border-radius: 3px;
 }
 
 .main > .targer-title {
-    height: 10%;
+    height: 8%;
     font-size: 24px;
     color: rgba(0, 0, 0, 1);
     cursor: pointer;
