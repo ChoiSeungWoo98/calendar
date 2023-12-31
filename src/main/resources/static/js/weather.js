@@ -22,6 +22,7 @@ function getWeather(lat, lon) {
             + weatherResult.weather[0].icon +
             '@2x.png" alt="' + weatherResult.weather[0].description + '"/>'
         $('.weather-ico').html(weathericonUrl);
+        $('.weather-txt').append(getTextDescription(weatherResult.weather[0].icon));
     });
 }
 
@@ -37,6 +38,45 @@ function setAreaName(name) {
             $('.position').html(name)
             break;
     }
+}
+
+function getTextDescription(description) {
+    let txt;
+    switch (description) {
+        case '01d':
+        case '01n':
+            txt = '맑음';
+            break;
+        case '02d':
+        case '02n':
+            txt = '구름 약간';
+            break;
+        case '03d':
+        case '03n':
+            txt = '흐림';
+            break;
+        case '04d':
+        case '04n':
+            txt = '구름 없음';
+            break;
+        case '10d':
+        case '10n':
+            txt = '소나기';
+            break;
+        case '11d':
+        case '11n':
+            txt = '천둥번개';
+            break;
+        case '13d':
+        case '13n':
+            txt = '눈';
+            break;
+        case '50d':
+        case '50n':
+            txt = '안개';
+            break;
+    }
+    return txt;
 }
 
 getLocation();
