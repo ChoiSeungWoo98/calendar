@@ -121,8 +121,13 @@
             $this.removeClass(currentClass);
         }
     });
+
     $('#add-img').on('click', function () {
         $('#image-value').click();
+    });
+
+    $('#save-btn').on('click', function () {
+        console.log('저장을 시작합니다.')
     });
 
     $('#add-todo').on('click', async function () {
