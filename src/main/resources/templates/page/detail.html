@@ -18,7 +18,12 @@
                 <div class="left">
                     <div id="weather"><h5 class="weather-txt">날씨 : </h5></div>
                     <div id="mood">
-                        <div>행복</div>
+                        <div class="happy"></div>
+                        <div class="angry"></div>
+                        <div class="cry"></div>
+                        <div class="disbelief"></div>
+                        <div class="love"></div>
+                        <div class="tired"></div>
                     </div>
                 </div>
                 <div id="day-list">
@@ -95,6 +100,21 @@
 <script layout:fragment="script">
     $('#back-btn').on('click', function () {
         history.back();
+    });
+
+    $('#mood > div').on('click', function () {
+        var $this = $(this);
+        var currentClass = $this.attr('class');
+
+        if (currentClass.includes('-select')) {
+            var newClass = currentClass.replace('-select', '');
+            $this.addClass(newClass);
+            $this.removeClass(currentClass);
+        } else {
+            let newClass = currentClass + '-select'
+            $this.addClass(newClass);
+            $this.removeClass(currentClass);
+        }
     });
 </script>
 

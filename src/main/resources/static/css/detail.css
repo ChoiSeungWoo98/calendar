@@ -37,6 +37,20 @@
     height: 40%;
 }
 
+#detail-information > .left > #mood > div {
+    width: 15%;
+    height: 100%;
+    margin-right: 2%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+#detail-information > .left > #mood > div:last-child {
+    margin-right: 0;
+}
+
+
 #detail-information > #day-list {
     height: 100%;
     overflow-y: scroll;
@@ -85,4 +99,52 @@
     width: 15%;
     height: 100%;
     border-radius: 5px;
+}
+
+.angry {
+    background: url("../img/emotion/angry.png");
+}
+
+.angry-select {
+    background: url("../img/emotion/angry-select.png");
+}
+
+.cry {
+    background: url("../img/emotion/cry.png");
+}
+
+.cry-select {
+    background: url("../img/emotion/cry-select.png");
+}
+
+.disbelief {
+    background: url("../img/emotion/disbelief.png");
+}
+
+.disbelief-select {
+    background: url("../img/emotion/disbelief-select.png");
+}
+
+.happy {
+    background: url("../img/emotion/happy.png");
+}
+
+.happy-select {
+    background: url("../img/emotion/happy-select.png");
+}
+
+.love {
+    background: url("../img/emotion/love.png");
+}
+
+.love-select {
+    background: url("../img/emotion/love-select.png");
+}
+
+.tired {
+    background: url("../img/emotion/tired.png");
+}
+
+.tired-select {
+    background: url("../img/emotion/tired-select.png");
 }
