@@ -1,0 +1,99 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="addEvent">
+    <div class="modalBackGround-event hidden z-[99999]">
+        <div class="addEvent">
+            <div id="modal-title" class="h-[24%] w-full font-bold text-[25px]">해당 프로젝트를 삭제하겠습니까?</div>
+            <div id="modal-content" class="h-[62%] w-full">
+                <div class="flex w-full mb-[3%]">
+                    <div id="event-title" class="h-[40%] w-[20%] flex justify-center items-center">이벤트명</div>
+                    <input id="event-title-value" class="h-[40%] w-[80%]" style="border-bottom: 1px solid var(--main-color-2);" />
+                </div>
+                <div class="flex w-full mb-[3%]">
+                    <div id="event-date" class="h-[40%] w-[20%] flex justify-center items-center">날짜</div>
+                    <input type="date" id="event-date-value" class="h-[40%] w-[80%]" style="border-bottom: 1px solid var(--main-color-2);" />
+                </div>
+                <div class="flex w-full">
+                    <div id="event-date-type" class="h-[40%] w-[20%] flex justify-center items-center">양/음력</div>
+                    <div class="h-[40%] w-[80%]">
+                        <label class="w-[20%]"><input type="radio" name="event-date-type-value" class="mr-[15%]" value="Y" checked>양력</label>
+                        <label class="w-[20%]"><input type="radio" name="event-date-type-value" class="mr-[15%]" value="N">음력</label>
+                    </div>
+                </div>
+                <div class="flex w-full">
+                    <div id="event-fix" class="h-[40%] w-[20%] flex justify-center items-center">반복 여부</div>
+                    <div class="h-[40%] w-[80%]">
+                        <label class="w-[20%]"><input type="radio" name="event-fix-value" class="mr-[15%]" value="Y" checked>단건</label>
+                        <label class="w-[20%]"><input type="radio" name="event-fix-value" class="mr-[15%]" value="N">반복</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-btn h-[13%] flex flex-row w-full justify-end">
+                <!-- button -->
+                <button class="modal-btn-event-add cursor-pointer inline-flex py-[7px] px-[20px] box-border rounded-[5px] text-[#B02318] border-[#B02318] border-solid border-[1px]">
+                    <span class="w-[70px] text-[12px]">등록</span>
+                </button>
+                <button class="modal-btn-event-cancel cursor-pointer inline-flex py-[7px] px-[20px] box-border rounded-[5px] ml-[4px] text-[#515B68] border-[#515B68] border-solid border-[1px]">
+                    <span class="w-[70px] text-[12px]">취소</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-btn-event-add:hover {
+            background-color: rgba(171, 36, 32, 0.1);
+        }
+
+        .modal-btn-event-cancel:hover {
+            background-color: rgba(82, 92, 103, 0.1);
+        }
+
+        .modalBackGround-event {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background: rgba(55, 55, 55, 0.5);
+        }
+
+        .addEvent {
+            padding: 30px;
+            width: 70%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            z-index: 9999;
+            border-radius: 20px
+        }
+    </style>
+
+    <script>
+        function openAddEvent(title) {
+            return new Promise((resolve, reject) => {
+                CHOI.blockScroll();
+                $('.addEvent > #modal-title').html(title);
+                $('.modalBackGround-event').removeClass('hidden');
+
+                // 삭제 버튼이 클릭되었을 때 true 반환
+                $('.modal-btn-event-add').on('click', function () {
+                    $('.modalBackGround-event').addClass('hidden');
+                    resolve(true);
+                });
+
+                // 취소 버튼이 클릭되었을 때 false 반환
+                $('.modal-btn-event-cancel').on('click', function () {
+                    $('.modalBackGround-event').addClass('hidden');
+                    resolve(false);
+                });
+            });
+        }
+    </script>
+</th:block>
+</html>
