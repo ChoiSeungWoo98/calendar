@@ -134,7 +134,7 @@ $(document).ready(function () {
         var month = now.getMonth() + 1;
         var date = now.getDate();
 
-        return month + '월' + date + '일';
+        return month + '월 ' + date + '일';
     }
     var currentTime = convertTime();
     $('.date').append(currentTime);
