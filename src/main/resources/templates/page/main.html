@@ -17,14 +17,14 @@
                     <h3 class="weather-ico"></h3>
                     <h3 class="temperatures"></h3>
                 </div>
-                <div class="targer-title target-change year">연간 목표</div>
+                <div class="targer-title target-change year">올해 목표</div>
                 <div id="year-list">
                     <div class="year-list-detail">퇴사하기</div>
                     <div class="year-list-detail">좋은 공부 프로그램 합격</div>
                     <div class="year-list-detail">정보처리기사 자격증 합격</div>
                     <div class="year-list-detail">학사 학위 취득</div>
                 </div>
-                <button class="add-target">연간 목표 등록</button>
+                <button class="add-target">올해 목표 등록</button>
             </div>
         </div>
         <div id="right-view">
@@ -45,7 +45,8 @@
 </th:block>
 
 <th:block layout:fragment="components">
-    <th:block th:include="common/modal/confilm :: deleteWork"></th:block>
+    <th:block th:include="common/modal/addEvent :: addEvent"></th:block>
+    <th:block th:include="common/modal/addTargetList :: addTarget"></th:block>
 </th:block>
 
 <script layout:fragment="script">
@@ -69,75 +70,54 @@
             } else {
                 $(this).removeClass('year');
                 $(this).addClass('month');
-                $(this).html('연간 목표');
-                $('.add-target').html('연간 목표 등록');
+                $(this).html('올해 목표');
+                $('.add-target').html('올해 목표 등록');
             }
         });
 
         $('.add-event').on('click', async function () {
-            const shouldDelete = await openDeleteWorkConfirm('선택하신 프로젝트를 삭제하시겠습니까?', '한번 삭제하시면 다시 되돌릴 수 없습니다.<br>신중히 삭제해주세요.');
+            let title = '원하시는 이벤트를 등록해보세요.'
+            const shouldDelete = await openAddEvent(title);
             if (!shouldDelete) return;
 
-            let checkList = [];
-
-            $("input[name='checkbox']").each(function () {
-                if ($(this).prop("checked")) {
-                    checkList.push($(this).val());
-                }
-            });
-
-            if (checkList.length === 0) openWarningAlert("한 가지 이상 체크 후 시도해주세요.")
-            else {
-                XE.put(
-                    '/xe/management/work/deleteWork',
-                    JSON.stringify(checkList),
-                    '',
-                    'application/json'
-                ).then(function (response) {
-                    if (response.result === '0000') {
-                        openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
-                        totalSize -= checkList.length;
-                        getWorkList(nowPage, viewCnt, $("#search").val());
-                        return;
-                    }
-
-                    openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
-                });
-
-            }
+            // CHOI.put(
+            //     '/xe/management/work/addEvent',
+            //     JSON.stringify(checkList),
+            //     '',
+            //     'application/json'
+            // ).then(function (response) {
+            //     if (response.result === '0000') {
+            //         openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
+            //         totalSize -= checkList.length;
+            //         getWorkList(nowPage, viewCnt, $("#search").val());
+            //         return;
+            //     }
+            //
+            //     openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
+            // });
         });
 
         $('.add-target').on('click', async function () {
-            const shouldDelete = await openDeleteWorkConfirm('선택하신 프로젝트를 삭제하시겠습니까?', '한번 삭제하시면 다시 되돌릴 수 없습니다.<br>신중히 삭제해주세요.');
+            let checkTarget = $(this).html().indexOf('올해') != -1;
+            let title = checkTarget ? '올해 목표 등록' : '월간 목표 등록';
+            let type = checkTarget ? 'Y' : 'M';
+            const shouldDelete = await openAddTargetModal(title);
             if (!shouldDelete) return;
 
-            let checkList = [];
-
-            $("input[name='checkbox']").each(function () {
-                if ($(this).prop("checked")) {
-                    checkList.push($(this).val());
-                }
-            });
-
-            if (checkList.length === 0) openWarningAlert("한 가지 이상 체크 후 시도해주세요.")
-            else {
-                XE.put(
-                    '/xe/management/work/deleteWork',
-                    JSON.stringify(checkList),
-                    '',
-                    'application/json'
-                ).then(function (response) {
-                    if (response.result === '0000') {
-                        openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
-                        totalSize -= checkList.length;
-                        getWorkList(nowPage, viewCnt, $("#search").val());
-                        return;
-                    }
-
-                    openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
-                });
-
-            }
+            // CHOI.put(
+            //     '/xe/management/work/addEvent',
+            //     JSON.stringify(checkList),
+            //     '',
+            //     'application/json'
+            // ).then(function (response) {
+            //     if (response.result === '0000') {
+            //         openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
+            //         totalSize -= checkList.length;
+            //         getWorkList(nowPage, viewCnt, $("#search").val());
+            //         return;
+            //     }
+            //     openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
+            // });
         });
     });
 </script>
