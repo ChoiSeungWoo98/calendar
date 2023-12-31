@@ -85,7 +85,8 @@
             </div>
             <div class="text-title ">
                 <div>하루 정리</div>
-                <button id="add-img" class="btn">사진 등록</button>
+                <button id="add-img" class="btn" >사진 등록</button>
+                <input type="file" accept="image/*,video/*" id="image-value" class="hidden" />
             </div>
             <div id="content">
                 <textarea placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!"></textarea>
@@ -95,6 +96,10 @@
             </div>
         </div>
     </div>
+</th:block>
+
+<th:block layout:fragment="components">
+    <th:block th:include="common/modal/addTodo :: addTodo"></th:block>
 </th:block>
 
 <script layout:fragment="script">
@@ -115,6 +120,31 @@
             $this.addClass(newClass);
             $this.removeClass(currentClass);
         }
+    });
+    $('#add-img').on('click', function () {
+        $('#image-value').click();
+    });
+
+    $('#add-todo').on('click', async function () {
+        let title = 'TO-DO를 등록해보세요.'
+        const shouldDelete = await openAddTodo(title);
+        if (!shouldDelete) return;
+
+        // CHOI.put(
+        //     '/xe/management/work/addEvent',
+        //     JSON.stringify(checkList),
+        //     '',
+        //     'application/json'
+        // ).then(function (response) {
+        //     if (response.result === '0000') {
+        //         openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
+        //         totalSize -= checkList.length;
+        //         getWorkList(nowPage, viewCnt, $("#search").val());
+        //         return;
+        //     }
+        //
+        //     openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
+        // });
     });
 </script>
 
