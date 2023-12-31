@@ -1,0 +1,80 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="addTarget">
+    <div class="modalBackGround-target hidden z-[99999]">
+        <div class="target">
+            <div id="modal-title" class="h-[25%] w-full font-bold text-[25px]">타이틀</div>
+            <div id="modal-content" class="h-[50%] w-full flex pt-[8%]">
+                <div id="target-title" class="h-[40%] w-[20%] flex justify-center items-center">목표</div>
+                <input id="target-value" class="h-[40%] w-[80%]" style="border-bottom: 1px solid var(--main-color-2);" />
+            </div>
+            <div class="modal-btn h-[17%] flex flex-row w-full justify-end">
+                <!-- button -->
+                <button class="modal-btn-add cursor-pointer inline-flex py-[7px] px-[20px] box-border rounded-[5px] text-[#B02318] border-[#B02318] border-solid border-[1px]">
+                    <span class="w-[70px] text-[12px]">등록</span>
+                </button>
+                <button class="modal-btn-cancel cursor-pointer inline-flex py-[7px] px-[20px] box-border rounded-[5px] ml-[4px] text-[#515B68] border-[#515B68] border-solid border-[1px]">
+                    <span class="w-[70px] text-[12px]">취소</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-btn-add:hover {
+            background-color: rgba(171, 36, 32, 0.1);
+        }
+
+        .modal-btn-cancel:hover {
+            background-color: rgba(82, 92, 103, 0.1);
+        }
+
+        .modalBackGround-target {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background: rgba(55, 55, 55, 0.5);
+        }
+
+        .target {
+            padding: 30px;
+            width: 70%;
+            height: 40%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            z-index: 9999;
+            border-radius: 20px
+        }
+
+    </style>
+
+    <script>
+        function openAddTargetModal(title) {
+            return new Promise((resolve, reject) => {
+                CHOI.blockScroll();
+                $('.target > #modal-title').html(title);
+                $('.modalBackGround-target').removeClass('hidden');
+
+                // 등록 버튼이 클릭되었을 때 true 반환
+                $('.modal-btn-add').on('click', function () {
+                    $('.modalBackGround-target').addClass('hidden');
+                    resolve(true);
+                });
+
+                // 취소 버튼이 클릭되었을 때 false 반환
+                $('.modal-btn-cancel').on('click', function () {
+                    $('.modalBackGround-target').addClass('hidden');
+                    resolve(false);
+                });
+            });
+        }
+    </script>
+</th:block>
+</html>
