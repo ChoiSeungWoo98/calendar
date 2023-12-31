@@ -39,3 +39,9 @@ out/
 
 ### default ###
 ../.DS_Store
+
+### npm ###
+node_modules/
+package-lock.json
+package.json
+tailwind.config.js
