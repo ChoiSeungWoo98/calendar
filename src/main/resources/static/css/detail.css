@@ -1,0 +1,79 @@
+* {
+    width: 100%;
+    color: var(--calender-color);
+}
+
+#over-view {
+    padding: 2%;
+    background-color: var(--main-color-4);
+}
+#detail-information {
+    height: 20%;
+    display: flex;
+}
+
+#content {
+    height: 60%;
+}
+
+.text-title {
+    height: 10%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#detail-information > .left > div {
+    display: flex;
+    align-items: center;
+}
+
+#detail-information > .left > #weather {
+    height: 40%;
+}
+
+#detail-information > .left > #mood {
+    height: 40%;
+}
+
+#detail-information > #day-list {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#detail-information > #day-list > table > tbody > tr {
+    height: 25%;
+}
+
+#detail-information > #day-list > table > tbody > tr > th:first-child {
+    width: 20%;
+}
+
+#detail-information > #day-list > table > tbody > tr > th:last-child {
+    width: 15%;
+    cursor: pointer;
+}
+
+#content > textarea {
+    height: 100%;
+    border: 1px solid var(--calender-color);;
+    padding: 15px;
+    resize: none;
+}
+
+.text-title > .btn {
+    width: 20%;
+    height: 70%;
+    font-size: 16px;
+    background-color: var(--main-color-2);
+    border-radius: 5px;
+}
+
+#back-btn {
+    width: 5%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}

@@ -9,71 +9,94 @@
 <th:block layout:fragment="content">
     <div id="main-view">
         <div id="over-view">
-            <div id="left-view">
-                <div class="main">
-                    <div id="weather">
-                        <h4 class="date"></h4>
-                        <h3 class="position"></h3>
-                        <h3 class="weather-ico"></h3>
-                        <h3 class="temperatures"></h3>
+            <div id="date-info" class="text-title">
+                <div th:text="${year} + '년 ' + ${month} + '월 ' + ${day} + '일 ' + ${weekDay}"></div>
+                <div id="add-todo" class="btn">오늘의 일정 등록</div>
+<!--                <div id="back-btn">></div>-->
+            </div>
+            <div id="detail-information">
+                <div class="left">
+                    <div id="weather">맑음</div>
+                    <div id="mood">
+                        <div>행복</div>
                     </div>
-                    <div class="targer-title target-change year">연간 목표</div>
-                    <div id="year-list">
-                        <div class="year-list-detail">퇴사하기</div>
-                        <div class="year-list-detail">좋은 공부 프로그램 합격</div>
-                        <div class="year-list-detail">정보처리기사 자격증 합격</div>
-                        <div class="year-list-detail">학사 학위 취득</div>
-                    </div>
-                    <button class="add-target">연간 목표 등록</button>
+                </div>
+                <div id="day-list">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>7시</th>
+                                <th>기상</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>8시</th>
+                                <th>운동</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>10시</th>
+                                <th>코딩 이론</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>13시</th>
+                                <th>점심</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>14시</th>
+                                <th>비타민 섭취</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>14시</th>
+                                <th>코딩테스트 공부</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>18시</th>
+                                <th>저녁</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>19시</th>
+                                <th>복싱</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>22시</th>
+                                <th>독서</th>
+                                <th>x</th>
+                            </tr>
+                            <tr>
+                                <th>24시</th>
+                                <th>취침</th>
+                                <th>x</th>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div id="right-view">
-                <div class="title">한달 뒤 나에게 물어보자,<br> 오늘의 감정은 기억나지 않는다.</div>
-                <div class="event-btn">
-                    <button class="add-event">이벤트 등록</button>
-                </div>
-                <div id="calendar"></div>
-                <div class="link">
-                    <a class="naver-blog can" href="https://blog.naver.com/choiseungwoo98" target='_blank'><img src="/img/brand/naver.png">Blog</a>
-                    <a class="git-blog" href="https://choiseungwoo98.github.io/" target='_blank'><img src="/img/brand/git-pages.png">GitBlog</a>
-                    <a class="github" href="https://github.com/ChoiSeungWoo98" target='_blank'><img src="/img/brand/git.png">GitHub</a>
-                    <a class="youtube" href="https://www.youtube.com/@user-db6vt3rd1e" target='_blank'><img src="/img/brand/youtube.png">YouTube</a>
-                </div>
+            <div class="text-title ">
+                <div>오늘의 일기</div>
+                <button id="add-img" class="btn">사진 등록</button>
+            </div>
+            <div id="content">
+                <textarea placeholder="오늘의 하루는 잘 보내셨나요? 고생하셨습니다."></textarea>
             </div>
         </div>
     </div>
 </th:block>
 
 <script layout:fragment="script">
-    $(document).ready(function () {
-        $('.year-list-detail').on('click', function () {
-            var hasCancelClass = $(this).hasClass('cancel');
-            if (hasCancelClass) {
-                $(this).removeClass('cancel');
-            } else {
-                $(this).addClass('cancel');
-            }
-        });
-
-        $('.target-change').on('click', function () {
-            var hasCancelClass = $(this).hasClass('month');
-            if (hasCancelClass) {
-                $(this).removeClass('month');
-                $(this).addClass('year');
-                $(this).html('월간 목표');
-                $('.add-target').html('월간 목표 등록');
-            } else {
-                $(this).removeClass('year');
-                $(this).addClass('month');
-                $(this).html('연간 목표');
-                $('.add-target').html('연간 목표 등록');
-            }
-        });
-
-        $('.add-event').on('click', function () {
-            console.log('눌렸다잉');
-        });
+    $('#back-btn').on('click', function () {
+        history.back();
     });
 </script>
+
+<style layout:fragment="style">
+
+</style>
 
 </html>

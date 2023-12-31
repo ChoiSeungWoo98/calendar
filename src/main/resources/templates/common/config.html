@@ -2,19 +2,22 @@
       xmlns:th="http://www.thymeleaf.org">
 
     <th:block th:fragment="Config">
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-                type="text/javascript"
-                integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
-
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <script th:src="@{/js/calender.js}"></script>
         <script th:src="@{/js/weather.js}"></script>
 
+        <th:block th:if="${view == 'main'}">
+            <script th:src="@{/js/calender.js}"></script>
+            <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+        </th:block>
+        <th:block th:if="${view == 'detail'}">
+            <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
+        </th:block>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/css/variables.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/css/calender.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/css/weather.css}">
 

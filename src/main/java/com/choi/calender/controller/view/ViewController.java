@@ -23,6 +23,7 @@ public class ViewController {
 //        if(!xeSessionUtils.isSessionAttributeNotExists(request)) {
 //            return "redirect:/main";
 //        }
+        model.addAttribute("view", "main");
         model.addAttribute("debugCheck", common.isDebugModeCheck());
         return "page/main";
     }
@@ -33,9 +34,11 @@ public class ViewController {
              @RequestParam(name = "year") int year,
              @RequestParam(name = "month") int month,
              @RequestParam(name = "day") int day,
+             @RequestParam(name = "weekDay") String weekDay,
              HttpServletRequest request
     ) {
-        setModelDate(model, year, month, day);
+        model.addAttribute("view", "detail");
+        setModelDate(model, year, month, day, weekDay);
         return "page/detail";
     }
 
@@ -44,10 +47,11 @@ public class ViewController {
         return "error/" + errorNum;
     }
 
-    private void setModelDate(Model model, int year, int month, int day) {
+    private void setModelDate(Model model, int year, int month, int day, String weekDay) {
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         model.addAttribute("day", day);
+        model.addAttribute("weekDay", weekDay);
     }
 
 }
