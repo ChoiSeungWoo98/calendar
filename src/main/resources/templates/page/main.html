@@ -44,6 +44,10 @@
 </div>
 </th:block>
 
+<th:block layout:fragment="components">
+    <th:block th:include="common/modal/confilm :: deleteWork"></th:block>
+</th:block>
+
 <script layout:fragment="script">
     $(document).ready(function () {
         $('.year-list-detail').on('click', function () {

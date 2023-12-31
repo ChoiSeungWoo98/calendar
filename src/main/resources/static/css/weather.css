@@ -20,3 +20,9 @@
 #weather > .weather-ico > image {
     width: 100px;
 }
+
+#weather > .weather-ico {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
