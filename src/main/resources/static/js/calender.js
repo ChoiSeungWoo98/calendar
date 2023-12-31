@@ -47,16 +47,24 @@ function displayCalendar(month, year) {
                 tempCalendarHtml += "<td class='other-month'>" + (dayCounter - endingDay) + "</td>";
                 dayCounter++;
             } else {
+                let now = false;
+                if (dayCounter === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
+                    now = true;
+                }
                 tempCalendarHtml += "<td";
                 if (j === 0) {
-                    tempCalendarHtml += " class='sunday'";
+                    tempCalendarHtml += " class='sunday";
+                    tempCalendarHtml += now ? " today" : "";
+                    tempCalendarHtml += "'";
                 } else if (j === 6) {
-                    tempCalendarHtml += " class='saturday'";
+                    tempCalendarHtml += " class='saturday";
+                    tempCalendarHtml += now ? " today" : "";
+                    tempCalendarHtml += "'";
+                } else {
+                    now ? tempCalendarHtml += " class='today'" : '';
                 }
 
-                if (dayCounter === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
-                    tempCalendarHtml += " class='today'";
-                }
+                tempCalendarHtml += " onClick='goDetail(" + year + ", " + Number(month + 1) + ", " + dayCounter + ");'";
                 tempCalendarHtml += ">" + dayCounter + "</td>";
                 dayCounter++;
             }
@@ -83,6 +91,11 @@ function displayCalendar(month, year) {
     calendarYearMonth.addEventListener('click', handleCalendarYearMonthClick);
 }
 
+function goDetail(year, month, day) {
+    console.log(year, '년 ', month, '월 ', day, '일');
+    location.href = '/detail?year=' + year + "&month=" + month + "&day=" + day;
+
+}
 function handleCalendarBeforeClick() {
     currentMonth--;
     if (currentMonth < 0) {
