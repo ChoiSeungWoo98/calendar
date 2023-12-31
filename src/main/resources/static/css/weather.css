@@ -5,6 +5,7 @@
 
 #weather > * {
     width: 100%;
+    font-size: 22px;
 }
 
 #weather > .date {

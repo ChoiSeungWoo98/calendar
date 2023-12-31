@@ -55,7 +55,7 @@
     <script>
         function openDeleteWorkConfirm(title, content) {
             return new Promise((resolve, reject) => {
-                XE.blockScroll();
+                CHOI.blockScroll();
                 $('#modal-title').html(title);
                 $('#modal-content').html(content);
                 $('.modalBackGround').removeClass('hidden');
