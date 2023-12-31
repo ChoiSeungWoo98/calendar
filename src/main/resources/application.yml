@@ -1,13 +1,5 @@
 spring:
-#  config: # 이 부분은 실제 구현 부분에 작성 ex) -local.yml 와 같은 부분
-#    activate:
-#      on-profile: local
-
   datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://14.36.171.228:3306/xe_management
-#    username: xe_management
-#    password: xehub!@#123
     url: jdbc:mysql://localhost:3306/xe_management
     username: xe
     password: xehub0602!@#$
