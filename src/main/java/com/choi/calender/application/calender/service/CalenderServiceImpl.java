@@ -1,6 +1,6 @@
 package com.choi.calender.application.Impl;
 
-import com.choi.calender.application.dto.calender.CalenderDto;
+import com.choi.calender.application.calender.dto.CalenderDto;
 import com.choi.calender.application.service.CalenderService;
 import com.choi.calender.domain.api.CalenderBean;
 import com.choi.calender.mapper.CalenderMapper;
@@ -14,10 +14,10 @@ public class CalenderServiceImpl implements CalenderService {
     private CalenderMapper calenderMapper;
 
     @Override
-    public String insertCalenderData(CalenderDto calenderDto) {
+    public String insertDiary(CalenderDto calenderDto) {
         CalenderBean calenderBean = new CalenderBean().convertBeanDto(calenderDto);
-        return calenderMapper.insertCalenderData(calenderBean) == 1
-                ? "아이디 : " + calenderBean.getTest6() + ", 비밀번호 : 0000"
-                : "실패하였습니다.";
+        return calenderMapper.insertDiary(calenderBean) == 1
+                ? "오늘도 고생했지만 내일은 더 열심히 해보자!"
+                : "저장에 실패했습니다. 코드를 수정해주세요.";
     }
 }
