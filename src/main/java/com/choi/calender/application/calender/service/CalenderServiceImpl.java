@@ -1,7 +1,6 @@
-package com.choi.calender.application.Impl;
+package com.choi.calender.application.calender.service;
 
 import com.choi.calender.application.calender.dto.CalenderDto;
-import com.choi.calender.application.service.CalenderService;
 import com.choi.calender.domain.api.CalenderBean;
 import com.choi.calender.mapper.CalenderMapper;
 import jakarta.annotation.Resource;

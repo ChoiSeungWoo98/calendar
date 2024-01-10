@@ -1,4 +1,4 @@
-package com.choi.calender.application.service;
+package com.choi.calender.application.calender.service;
 
 import com.choi.calender.application.calender.dto.CalenderDto;
 

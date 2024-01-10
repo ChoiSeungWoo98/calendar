@@ -1,7 +1,7 @@
 package com.choi.calender.controller.api;
 
-import com.choi.calender.application.dto.calender.CalenderDto;
-import com.choi.calender.application.service.CalenderService;
+import com.choi.calender.application.calender.dto.CalenderDto;
+import com.choi.calender.application.calender.service.CalenderService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
 import jakarta.annotation.Resource;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/calender/work")
+@RequestMapping("/calender")
 @Slf4j
 public class CalenderController {
 
     @Resource
     CalenderService calenderService;
 
-    @PostMapping("/add")
-    public ReturnMessage join(
+    @PostMapping("/diary/add")
+    public ReturnMessage addDiary(
             @ModelAttribute("userDto") CalenderDto calenderDto
     ) {
         if(calenderDto.isDataEmptyCheck(calenderDto)) {
@@ -28,7 +28,7 @@ public class CalenderController {
         }
 
         try {
-            return new ReturnMessage(calenderService.insertCalenderData(calenderDto));
+            return new ReturnMessage(calenderService.insertDiary(calenderDto));
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "유저 생성 실패", e);
         }

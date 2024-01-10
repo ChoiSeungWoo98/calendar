@@ -2,60 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.choi.calender.mapper.CalenderMapper">
-    <insert id="insertCalenderData" parameterType="calenderBean">
-        INSERT INTO tb_calender
+    <!-- TypeHandler 등록 -->
+<!--    <typeHandlers>-->
+<!--        <typeHandler handler="com.choi.calender.application.handler.ListToStringTypeHandler" />-->
+<!--    </typeHandlers>-->
+
+    <insert id="insertDiary" parameterType="calenderBean">
+        INSERT INTO tb_diary
         (
-            id,
-            name,
-            <if test="pw != null and pw != ''">
-                pw,
-            </if>
-            <if test="email != null and email != ''">
-                email,
-            </if>
-            <if test="phone != null and phone != ''">
-                phone,
-            </if>
-            <if test="companyName != null and companyName != ''">
-                company_name,
-            </if>
-            <if test="position != null and position != ''">
-                position,
-            </if>
-            <if test="etc != null and etc != ''">
-                etc,
-            </if>
-            <if test="approveYn != null and approveYn != ''">
-                approve_yn,
-            </if>
-            auth
+            dairy_date,
+            day_of_week,
+            weather,
+            emotion,
+            content
         )
         VALUES
         (
-            #{id},
-            #{name},
-            <if test="pw != null and pw != ''">
-                #{pw},
-            </if>
-            <if test="email != null and email != ''">
-                #{email},
-            </if>
-            <if test="phone != null and phone != ''">
-                #{phone},
-            </if>
-            <if test="companyName != null and companyName != ''">
-                #{companyName},
-            </if>
-            <if test="position != null and position != ''">
-                #{position},
-            </if>
-            <if test="etc != null and etc != ''">
-                #{etc},
-            </if>
-            <if test="approveYn != null and approveYn != ''">
-                #{approveYn},
-            </if>
-            #{auth}
+            #{date},
+            #{dayOfWeek},
+            #{weather},
+            #{emotion},
+            #{content}
         )
     </insert>
 
