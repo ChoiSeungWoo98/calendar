@@ -1,6 +1,6 @@
 package com.choi.calender.util;
 
-import com.choi.calender.application.dto.calender.CalenderDto;
+import com.choi.calender.application.calender.dto.CalenderDto;
 import com.choi.calender.domain.api.CalenderBean;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,12 +20,12 @@ public class SessionUtils {
 	public void sessionSetting(HttpSession session, CalenderBean calenderBean) {
 		session.setMaxInactiveInterval(3 * 60 * 60);
 
-		session.setAttribute("test1", calenderBean.getTest1());
-		session.setAttribute("test2", calenderBean.getTest2());
-		session.setAttribute("test3", calenderBean.getTest3());
-		session.setAttribute("test4", calenderBean.getTest4());
-		session.setAttribute("test5", calenderBean.getTest5());
-		session.setAttribute("test6", calenderBean.getTest6());
+//		session.setAttribute("test1", calenderBean.getTest1());
+//		session.setAttribute("test2", calenderBean.getTest2());
+//		session.setAttribute("test3", calenderBean.getTest3());
+//		session.setAttribute("test4", calenderBean.getTest4());
+//		session.setAttribute("test5", calenderBean.getTest5());
+//		session.setAttribute("test6", calenderBean.getTest6());
 
 	}
 
@@ -68,24 +68,24 @@ public class SessionUtils {
 
 	public void setCalenderDto(CalenderDto userDto, String sessionName, Object sessionData) {
 		switch (sessionName) {
-			case "test1" :
-				userDto.setTest1(String.valueOf(sessionData));
-				break;
-			case "test2" :
-				userDto.setTest2(String.valueOf(sessionData));
-				break;
-			case "test3" :
-				userDto.setTest3(String.valueOf(sessionData));
-				break;
-			case "test4" :
-				userDto.setTest4(String.valueOf(sessionData));
-				break;
-			case "test5" :
-				userDto.setTest5(String.valueOf(sessionData));
-				break;
-			case "test6" :
-				userDto.setTest6(String.valueOf(sessionData));
-				break;
+//			case "test1" :
+//				userDto.setTest1(String.valueOf(sessionData));
+//				break;
+//			case "test2" :
+//				userDto.setTest2(String.valueOf(sessionData));
+//				break;
+//			case "test3" :
+//				userDto.setTest3(String.valueOf(sessionData));
+//				break;
+//			case "test4" :
+//				userDto.setTest4(String.valueOf(sessionData));
+//				break;
+//			case "test5" :
+//				userDto.setTest5(String.valueOf(sessionData));
+//				break;
+//			case "test6" :
+//				userDto.setTest6(String.valueOf(sessionData));
+//				break;
 		}
 	}
 
