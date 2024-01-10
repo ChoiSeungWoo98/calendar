@@ -33,11 +33,11 @@
     height: 40%;
 }
 
-#detail-information > .left > #mood {
+#detail-information > .left > #emotion {
     height: 40%;
 }
 
-#detail-information > .left > #mood > div {
+#detail-information > .left > #emotion > div {
     width: 15%;
     height: 100%;
     margin-right: 2%;
@@ -46,7 +46,7 @@
     cursor: pointer;
 }
 
-#detail-information > .left > #mood > div:last-child {
+#detail-information > .left > #emotion > div:last-child {
     margin-right: 0;
 }
 
