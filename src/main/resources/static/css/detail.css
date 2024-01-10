@@ -83,68 +83,71 @@
     background-color: var(--main-color-1);
     color: var(--main-color-4);
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #back-btn {
-    width: 5%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    cursor: pointer;
+width: 5%;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+cursor: pointer;
 }
 
 #save-btn {
-    background: var(--main-color-1);
-    color: var(--main-color-4);
-    width: 15%;
-    height: 100%;
-    border-radius: 5px;
+background: var(--main-color-1);
+color: var(--main-color-4);
+width: 15%;
+height: 100%;
+border-radius: 5px;
 }
 
 .angry {
-    background: url("../img/emotion/angry.png");
+background: url("../img/emotion/angry.png");
 }
 
 .angry-select {
-    background: url("../img/emotion/angry-select.png");
+background: url("../img/emotion/angry-select.png");
 }
 
 .cry {
-    background: url("../img/emotion/cry.png");
+background: url("../img/emotion/cry.png");
 }
 
 .cry-select {
-    background: url("../img/emotion/cry-select.png");
+background: url("../img/emotion/cry-select.png");
 }
 
 .disbelief {
-    background: url("../img/emotion/disbelief.png");
+background: url("../img/emotion/disbelief.png");
 }
 
 .disbelief-select {
-    background: url("../img/emotion/disbelief-select.png");
+background: url("../img/emotion/disbelief-select.png");
 }
 
 .happy {
-    background: url("../img/emotion/happy.png");
+background: url("../img/emotion/happy.png");
 }
 
 .happy-select {
-    background: url("../img/emotion/happy-select.png");
+background: url("../img/emotion/happy-select.png");
 }
 
 .love {
-    background: url("../img/emotion/love.png");
+background: url("../img/emotion/love.png");
 }
 
 .love-select {
-    background: url("../img/emotion/love-select.png");
+background: url("../img/emotion/love-select.png");
 }
 
 .tired {
-    background: url("../img/emotion/tired.png");
+background: url("../img/emotion/tired.png");
 }
 
 .tired-select {
-    background: url("../img/emotion/tired-select.png");
+background: url("../img/emotion/tired-select.png");
 }

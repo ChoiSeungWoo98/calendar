@@ -64,7 +64,7 @@ function displayCalendar(month, year) {
                     now ? tempCalendarHtml += " class='today'" : '';
                 }
 
-                tempCalendarHtml += " onclick='goDetail(" + year + ", " + Number(month + 1) + ", " + dayCounter + ", \`" + korWeekdays[j] + "\`);'";
+                tempCalendarHtml += " onclick='goDetail(" + year + ", " + Number(month + 1) + ", " + dayCounter + ", \`" + korWeekdays[j] + "\`);' style='cursor: pointer;'";
                 tempCalendarHtml += ">" + dayCounter + "</td>";
                 dayCounter++;
             }

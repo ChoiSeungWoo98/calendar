@@ -34,6 +34,9 @@ function setAreaName(name) {
         case 'Siheung-si':
             $('.position').html('경기도 시흥시')
             break;
+        case 'Incheon':
+            $('.position').html('인천광역시')
+            break;
         default:
             $('.position').html(name)
             break;
