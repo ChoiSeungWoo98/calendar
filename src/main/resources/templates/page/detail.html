@@ -11,19 +11,20 @@
         <div id="over-view">
             <div id="date-info" class="text-title">
                 <div th:text="${year} + '년 ' + ${month} + '월 ' + ${day} + '일 ' + ${weekDay}"></div>
+                <input id="date-value" class="hidden" th:value="${year} + '-' + ${month} + '-' + ${day} + '-' + ${weekDay}"/>
                 <div id="add-todo" class="btn">오늘의 일정 등록</div>
 <!--                <div id="back-btn">></div>-->
             </div>
             <div id="detail-information">
                 <div class="left">
-                    <div id="weather"><h5 class="weather-txt">날씨 : </h5></div>
-                    <div id="mood">
-                        <div class="happy"></div>
-                        <div class="angry"></div>
-                        <div class="cry"></div>
-                        <div class="disbelief"></div>
-                        <div class="love"></div>
-                        <div class="tired"></div>
+                    <div id="weather"><h5 class="weather-txt">날씨 : <span id="weather-value"></span></h5></div>
+                    <div id="emotion">
+                        <div class="happy" data-value="happy"></div>
+                        <div class="angry" data-value="angry"></div>
+                        <div class="cry" data-value="cry"></div>
+                        <div class="disbelief" data-value="disbelief"></div>
+                        <div class="love" data-value="love"></div>
+                        <div class="tired" data-value="tired"></div>
                     </div>
                 </div>
                 <div id="day-list">
@@ -89,7 +90,7 @@
                 <input type="file" accept="image/*,video/*" id="image-value" class="hidden" />
             </div>
             <div id="content">
-                <textarea placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!"></textarea>
+                <textarea id="content-value" placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!"></textarea>
                 <div style="display: flex; align-items: center; justify-content: flex-end; height: 10%;">
                     <button id="save-btn">저장</button>
                 </div>
@@ -107,7 +108,7 @@
         history.back();
     });
 
-    $('#mood > div').on('click', function () {
+    $('#emotion > div').on('click', function () {
         var $this = $(this);
         var currentClass = $this.attr('class');
 
@@ -127,7 +128,44 @@
     });
 
     $('#save-btn').on('click', function () {
-        console.log('저장을 시작합니다.')
+        let splitArray = $('#date-value').val().split('-');
+
+        let date = splitArray.slice(0, -1).join('-');
+        let dayOfWeek = splitArray.slice(-1)[0];
+        let weather = $('#weather-value').html();
+        let emotions = [];
+        let content = $('#content-value').val();
+
+        $('#emotion').find('div[class*="-select"]').each(function() {
+            var value = $(this).data('value');
+            emotions.push(value);
+        });
+
+
+
+        $.ajax({
+            url: '/calender/diary/add',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                date: date,
+                dayOfWeek: dayOfWeek,
+                weather: weather,
+                emotions: emotions,
+                content: content
+            },
+            success: function(response) {
+                if(response.result === "0000") {
+                    openSuccesAlert(response.message);
+                    // location.href = '/main';
+                } else {
+                    openErrorAlert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
     });
 
     $('#add-todo').on('click', async function () {
