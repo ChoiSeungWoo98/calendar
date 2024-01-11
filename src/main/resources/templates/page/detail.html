@@ -156,10 +156,10 @@
             },
             success: function(response) {
                 if(response.result === "0000") {
-                    openSuccesAlert(response.message);
-                    // location.href = '/main';
+                    openSuccesAlert(response.value);
+                    location.href = '/main';
                 } else {
-                    openErrorAlert(response.message);
+                    openErrorAlert(response.value);
                 }
             },
             error: function(xhr, status, error) {

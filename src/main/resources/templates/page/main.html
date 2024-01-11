@@ -101,7 +101,7 @@
             let checkTarget = $(this).html().indexOf('올해') != -1;
             let title = checkTarget ? '올해 목표 등록' : '월간 목표 등록';
             let type = checkTarget ? 'Y' : 'M';
-            const shouldDelete = await openAddTargetModal(title);
+            const shouldDelete = await openAddTargetModal(title, type);
             if (!shouldDelete) return;
 
             // CHOI.put(

@@ -31,7 +31,7 @@ public class CalenderController {
         try {
             return new ReturnMessage(calenderService.insertDiary(diaryDto));
         } catch (Exception e) {
-            return new ReturnMessage(ReturnStatus.FAIL, "유저 생성 실패", e);
+            return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
         }
     }
 
@@ -46,7 +46,7 @@ public class CalenderController {
         try {
             return new ReturnMessage(calenderService.insertTarget(targetDto));
         } catch (Exception e) {
-            return new ReturnMessage(ReturnStatus.FAIL, "유저 생성 실패", e);
+            return new ReturnMessage(ReturnStatus.FAIL, "목표 저장 실패", e);
         }
     }
 

@@ -26,7 +26,7 @@ public class CalenderServiceImpl implements CalenderService {
     public String insertTarget(TargetDto targetDto) {
         TargetBean targetBean = new TargetBean().convertBeanDto(targetDto);
         return calenderMapper.insertTarget(targetBean) == 1
-                ? "오늘도 고생했지만 내일은 더 열심히 해보자!"
+                ? "새로운 목표를 향해 화이팅!"
                 : "저장에 실패했습니다. 코드를 수정해주세요.";
     }
 }
