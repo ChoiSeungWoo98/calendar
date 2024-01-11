@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/calender
-    username: xe
-    password: xehub0602!@#$
+    username: choi
+    password: m98dev09tmd@*
 
   devtools:
     livereload:
