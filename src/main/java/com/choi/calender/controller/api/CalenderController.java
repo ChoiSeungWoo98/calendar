@@ -39,7 +39,7 @@ public class CalenderController {
     public ReturnMessage addTarget(
             @ModelAttribute("targetDto") TargetDto targetDto
     ) {
-        if(targetDto.isDataEmptyCheck()) {
+        if(checkValue(targetDto)) {
             return new ReturnMessage(ReturnStatus.NO_VALUE, "필수 값이 존재하지 않습니다.", new Exception("필수 값이 존재하지 않습니다."));
         }
 
@@ -48,6 +48,13 @@ public class CalenderController {
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "목표 저장 실패", e);
         }
+    }
+
+    public boolean checkValue(TargetDto targetDto) {
+        if("Y".equals(targetDto.getType())) return targetDto.isYearDataEmptyCheck();
+        if("M".equals(targetDto.getType())) return targetDto.isMonthDataEmptyCheck();
+        if("D".equals(targetDto.getType())) return targetDto.isAllDataEmptyCheck();
+        return true;
     }
 
 }

@@ -11,7 +11,21 @@
                 </div>
                 <div id="list-two" class="flex">
                     <div id="target-year" class="h-[40%] w-[20%] flex justify-center items-center">연도</div>
-                    <select id="year_select"></select>
+                    <select id="year_select" class="mr-[15%]"></select>
+                    <select id="month-select" class="hidden">
+                        <option value="1">1월</option>
+                        <option value="2">2월</option>
+                        <option value="3">3월</option>
+                        <option value="4">4월</option>
+                        <option value="5">5월</option>
+                        <option value="6">6월</option>
+                        <option value="7">7월</option>
+                        <option value="8">8월</option>
+                        <option value="9">9월</option>
+                        <option value="10">10월</option>
+                        <option value="11">11월</option>
+                        <option value="12">12월</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-btn h-[17%] flex flex-row w-full justify-end">
@@ -62,48 +76,52 @@
     </style>
 
     <script>
+        let nowType;
         function openAddTargetModal(title, type) {
-            return new Promise((resolve, reject) => {
-                CHOI.blockScroll();
-                $('.target > #modal-title').html(title);
-                $('.modalBackGround-target').removeClass('hidden');
-
-                // 등록 버튼이 클릭되었을 때 true 반환
-                $('.modal-btn-add').on('click', function () {
-                    let title = $('#target-title-value').val();
-                    let year = $('#year_select').val();
-                    $.ajax({
-                        url: '/calender/targer/add',
-                        type: 'POST',
-                        contentType: 'application/x-www-form-urlencoded',
-                        data: {
-                            title: title,
-                            type: type,
-                            year: year
-                        },
-                        success: function(response) {
-                            if(response.result === "0000") {
-                                console.log(response);
-                                openSuccesAlert(response.value);
-                            } else {
-                                openErrorAlert(response.value);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                    $('.modalBackGround-target').addClass('hidden');
-                    resolve(true);
-                });
-
-                // 취소 버튼이 클릭되었을 때 false 반환
-                $('.modal-btn-cancel').on('click', function () {
-                    $('.modalBackGround-target').addClass('hidden');
-                    resolve(false);
-                });
-            });
+            CHOI.blockScroll();
+            nowType = type;
+            if(type === 'M') $('#month-select').removeClass('hidden');
+            else $('#month-select').addClass('hidden');
+            $('.target > #modal-title').html(title);
+            $('.modalBackGround-target').removeClass('hidden');
         }
+
+        $('.modal-btn-add').on('click', function () {
+            let title = $('#target-title-value').val();
+            let year = $('#year_select').val();
+            let month = nowType === 'M' ? $('#month-select').val() : undefined;
+
+            $.ajax({
+                url: '/calender/targer/add',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {
+                    title: title,
+                    type: nowType,
+                    year: year,
+                    month: month
+                },
+                success: function(response) {
+                    if(response.result === "0000") {
+                        console.log(response);
+                        openSuccesAlert(response.value);
+                        $('#target-title-value').val('');
+                        $('#year_select').val(new Date().getFullYear());
+                        $('#month-select').val('1');
+                    } else {
+                        openErrorAlert(response.value);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            $('.modalBackGround-target').addClass('hidden');
+        });
+
+        $('.modal-btn-cancel').on('click', function () {
+            $('.modalBackGround-target').addClass('hidden');
+        });
 
         document.addEventListener("DOMContentLoaded", function() {
             // 현재 년도 구하기

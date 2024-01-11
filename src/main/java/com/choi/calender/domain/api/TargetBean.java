@@ -21,6 +21,7 @@ public class TargetBean {
     protected String title;
     protected String type;
     protected String year;
+    protected String month;
     protected String time;
     protected String repeatYn;
     protected String successYn;
@@ -29,6 +30,7 @@ public class TargetBean {
             String title,
             String type,
             String year,
+            String month,
             String time,
             String repeatYn,
             String successYn
@@ -36,6 +38,7 @@ public class TargetBean {
         this.title = title;
         this.type = type;
         this.year = year;
+        this.month = month;
         this.time = time;
         this.repeatYn = repeatYn;
         this.successYn = successYn;
@@ -47,6 +50,7 @@ public class TargetBean {
                 AES256.encrypt(targetDto.getTitle()),
                 targetDto.getType(),
                 targetDto.getYear(),
+                targetDto.getMonth(),
                 targetDto.getTime(),
                 targetDto.getRepeatYn(),
                 targetDto.getSuccessYn()

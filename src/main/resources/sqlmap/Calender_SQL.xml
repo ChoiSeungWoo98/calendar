@@ -31,6 +31,9 @@
         (
             title,
             type,
+            <if test="month != null and month != ''">
+                month,
+            </if>
             <if test="time != null and time != ''">
                 time,
             </if>
@@ -46,6 +49,9 @@
         (
             #{title},
             #{type},
+            <if test="month != null and month != ''">
+                #{month},
+            </if>
             <if test="time != null and time != ''">
                 #{time},
             </if>

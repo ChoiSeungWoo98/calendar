@@ -77,47 +77,14 @@
 
         $('.add-event').on('click', async function () {
             let title = '원하시는 이벤트를 등록해보세요.'
-            const shouldDelete = await openAddEvent(title);
-            if (!shouldDelete) return;
-
-            // CHOI.put(
-            //     '/xe/management/work/addEvent',
-            //     JSON.stringify(checkList),
-            //     '',
-            //     'application/json'
-            // ).then(function (response) {
-            //     if (response.result === '0000') {
-            //         openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
-            //         totalSize -= checkList.length;
-            //         getWorkList(nowPage, viewCnt, $("#search").val());
-            //         return;
-            //     }
-            //
-            //     openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
-            // });
+            openAddEvent(title);
         });
 
         $('.add-target').on('click', async function () {
             let checkTarget = $(this).html().indexOf('올해') != -1;
             let title = checkTarget ? '올해 목표 등록' : '월간 목표 등록';
             let type = checkTarget ? 'Y' : 'M';
-            const shouldDelete = await openAddTargetModal(title, type);
-            if (!shouldDelete) return;
-
-            // CHOI.put(
-            //     '/xe/management/work/addEvent',
-            //     JSON.stringify(checkList),
-            //     '',
-            //     'application/json'
-            // ).then(function (response) {
-            //     if (response.result === '0000') {
-            //         openSuccesAlert("해당 프로젝트가 삭제 되었습니다.");
-            //         totalSize -= checkList.length;
-            //         getWorkList(nowPage, viewCnt, $("#search").val());
-            //         return;
-            //     }
-            //     openErrorAlert("프로젝트가 삭제하지 못했습니다. 지속적인 에러 발생 시 관리자에게 문의해주세요.");
-            // });
+            openAddTargetModal(title, type)
         });
     });
 </script>
