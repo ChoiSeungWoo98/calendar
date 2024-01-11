@@ -33,13 +33,13 @@ public class DiaryDto {
         this.content = content;
     }
 
-    public boolean isDataEmptyCheck(DiaryDto diaryDto) {
+    public boolean isDataEmptyCheck() {
         return
-            StringUtils.isBlank(diaryDto.getDate())
-            || StringUtils.isBlank(diaryDto.getDayOfWeek())
-            || StringUtils.isBlank(diaryDto.getWeather())
-            || ObjectUtils.isEmpty(diaryDto.getEmotions())
-            || StringUtils.isBlank(diaryDto.getContent())
+            StringUtils.isBlank(this.date)
+            || StringUtils.isBlank(this.dayOfWeek)
+            || StringUtils.isBlank(this.weather)
+            || ObjectUtils.isEmpty(this.emotions)
+            || StringUtils.isBlank(this.content)
         ;
     }
 }
