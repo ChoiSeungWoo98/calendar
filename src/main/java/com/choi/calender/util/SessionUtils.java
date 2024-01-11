@@ -1,7 +1,7 @@
 package com.choi.calender.util;
 
 import com.choi.calender.application.calender.dto.DiaryDto;
-import com.choi.calender.domain.api.CalenderBean;
+import com.choi.calender.domain.api.DiaryBean;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
@@ -17,15 +17,15 @@ import java.util.Enumeration;
 @Service
 public class SessionUtils {
 
-	public void sessionSetting(HttpSession session, CalenderBean calenderBean) {
+	public void sessionSetting(HttpSession session, DiaryBean diaryBean) {
 		session.setMaxInactiveInterval(3 * 60 * 60);
 
-//		session.setAttribute("test1", calenderBean.getTest1());
-//		session.setAttribute("test2", calenderBean.getTest2());
-//		session.setAttribute("test3", calenderBean.getTest3());
-//		session.setAttribute("test4", calenderBean.getTest4());
-//		session.setAttribute("test5", calenderBean.getTest5());
-//		session.setAttribute("test6", calenderBean.getTest6());
+//		session.setAttribute("test1", diaryBean.getTest1());
+//		session.setAttribute("test2", diaryBean.getTest2());
+//		session.setAttribute("test3", diaryBean.getTest3());
+//		session.setAttribute("test4", diaryBean.getTest4());
+//		session.setAttribute("test5", diaryBean.getTest5());
+//		session.setAttribute("test6", diaryBean.getTest6());
 
 	}
 

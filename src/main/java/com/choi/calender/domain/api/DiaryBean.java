@@ -16,7 +16,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class CalenderBean {
+public class DiaryBean {
     protected String date;
     protected String dayOfWeek;
     protected String weather;
@@ -24,7 +24,7 @@ public class CalenderBean {
     protected List<String> emotions;
     protected String content;
 
-    public CalenderBean(
+    public DiaryBean(
             String date,
             String dayOfWeek,
             String weather,
@@ -40,7 +40,7 @@ public class CalenderBean {
         this.content = content;
     }
 
-    public CalenderBean convertBeanDto(DiaryDto diaryDto) {
+    public DiaryBean convertBeanDto(DiaryDto diaryDto) {
         try {
             String convertEmotion = "";
             int size = diaryDto.getEmotions().size();
@@ -50,7 +50,7 @@ public class CalenderBean {
                     convertEmotion += ", ";
                 }
             }
-            return new CalenderBean(
+            return new DiaryBean(
                 diaryDto.getDate(),
                 diaryDto.getDayOfWeek(),
                 diaryDto.getWeather(),

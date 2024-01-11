@@ -7,7 +7,7 @@
 <!--        <typeHandler handler="com.choi.calender.application.handler.ListToStringTypeHandler" />-->
 <!--    </typeHandlers>-->
 
-    <insert id="insertDiary" parameterType="calenderBean">
+    <insert id="insertDiary" parameterType="diaryBean">
         INSERT INTO tb_diary
         (
             dairy_date,
@@ -47,7 +47,7 @@
         WHERE id = #{id}
     </update>
 
-    <update id="updateUserData" parameterType="calenderBean">
+    <update id="updateUserData" parameterType="diaryBean">
         UPDATE tb_user
         SET
             pw = #{pw},
