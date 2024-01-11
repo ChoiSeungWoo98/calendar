@@ -12,14 +12,14 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CalenderDto {
+public class DiaryDto {
     protected String date;
     protected String dayOfWeek;
     protected String weather;
     protected List<String> emotions;
     protected String content;
 
-    public CalenderDto(
+    public DiaryDto(
             String date,
             String dayOfWeek,
             String weather,
@@ -33,13 +33,13 @@ public class CalenderDto {
         this.content = content;
     }
 
-    public boolean isDataEmptyCheck(CalenderDto calenderDto) {
+    public boolean isDataEmptyCheck(DiaryDto diaryDto) {
         return
-            StringUtils.isBlank(calenderDto.getDate())
-            || StringUtils.isBlank(calenderDto.getDayOfWeek())
-            || StringUtils.isBlank(calenderDto.getWeather())
-            || ObjectUtils.isEmpty(calenderDto.getEmotions())
-            || StringUtils.isBlank(calenderDto.getContent())
+            StringUtils.isBlank(diaryDto.getDate())
+            || StringUtils.isBlank(diaryDto.getDayOfWeek())
+            || StringUtils.isBlank(diaryDto.getWeather())
+            || ObjectUtils.isEmpty(diaryDto.getEmotions())
+            || StringUtils.isBlank(diaryDto.getContent())
         ;
     }
 }

@@ -1,9 +1,9 @@
 package com.choi.calender.application.calender.service;
 
-import com.choi.calender.application.calender.dto.CalenderDto;
+import com.choi.calender.application.calender.dto.DiaryDto;
 
 public interface CalenderService {
 
-    String insertDiary(CalenderDto calenderDto);
+    String insertDiary(DiaryDto diaryDto);
 
 }

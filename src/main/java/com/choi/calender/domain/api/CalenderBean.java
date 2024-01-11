@@ -1,6 +1,6 @@
 package com.choi.calender.domain.api;
 
-import com.choi.calender.application.calender.dto.CalenderDto;
+import com.choi.calender.application.calender.dto.DiaryDto;
 import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,23 +40,23 @@ public class CalenderBean {
         this.content = content;
     }
 
-    public CalenderBean convertBeanDto(CalenderDto calenderDto) {
+    public CalenderBean convertBeanDto(DiaryDto diaryDto) {
         try {
             String convertEmotion = "";
-            int size = calenderDto.getEmotions().size();
-            for(int i = 0; i < calenderDto.getEmotions().size(); i++) {
-                convertEmotion += calenderDto.getEmotions().get(i);
+            int size = diaryDto.getEmotions().size();
+            for(int i = 0; i < diaryDto.getEmotions().size(); i++) {
+                convertEmotion += diaryDto.getEmotions().get(i);
                 if(i != size -1) {
                     convertEmotion += ", ";
                 }
             }
             return new CalenderBean(
-                calenderDto.getDate(),
-                calenderDto.getDayOfWeek(),
-                calenderDto.getWeather(),
+                diaryDto.getDate(),
+                diaryDto.getDayOfWeek(),
+                diaryDto.getWeather(),
                 convertEmotion,
                 null,
-                AES256.encrypt(calenderDto.getContent())
+                AES256.encrypt(diaryDto.getContent())
             );
         } catch (InvalidAlgorithmParameterException e) {
             throw new RuntimeException(e);

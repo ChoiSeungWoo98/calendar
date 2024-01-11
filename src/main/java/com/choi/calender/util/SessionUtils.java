@@ -1,6 +1,6 @@
 package com.choi.calender.util;
 
-import com.choi.calender.application.calender.dto.CalenderDto;
+import com.choi.calender.application.calender.dto.DiaryDto;
 import com.choi.calender.domain.api.CalenderBean;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -39,17 +39,17 @@ public class SessionUtils {
 		}
 	}
 
-	public CalenderDto getUserDataFromSession(HttpServletRequest request) {
+	public DiaryDto getUserDataFromSession(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Enumeration<String> attributeNames = session.getAttributeNames();
-		CalenderDto calenderDto = new CalenderDto();
+		DiaryDto diaryDto = new DiaryDto();
 		while (attributeNames.hasMoreElements()) {
 			String attributeName = attributeNames.nextElement();
 			Object attributeValue = session.getAttribute(attributeName);
-			setCalenderDto(calenderDto, attributeName, attributeValue);
+			setCalenderDto(diaryDto, attributeName, attributeValue);
 		}
 
-		return calenderDto;
+		return diaryDto;
 	}
 
 	public boolean isSessionAttributeNotExists(HttpServletRequest request) {
@@ -66,25 +66,25 @@ public class SessionUtils {
 		}
 	}
 
-	public void setCalenderDto(CalenderDto userDto, String sessionName, Object sessionData) {
+	public void setCalenderDto(DiaryDto diaryDto, String sessionName, Object sessionData) {
 		switch (sessionName) {
 //			case "test1" :
-//				userDto.setTest1(String.valueOf(sessionData));
+//				diaryDto.setTest1(String.valueOf(sessionData));
 //				break;
 //			case "test2" :
-//				userDto.setTest2(String.valueOf(sessionData));
+//				diaryDto.setTest2(String.valueOf(sessionData));
 //				break;
 //			case "test3" :
-//				userDto.setTest3(String.valueOf(sessionData));
+//				diaryDto.setTest3(String.valueOf(sessionData));
 //				break;
 //			case "test4" :
-//				userDto.setTest4(String.valueOf(sessionData));
+//				diaryDto.setTest4(String.valueOf(sessionData));
 //				break;
 //			case "test5" :
-//				userDto.setTest5(String.valueOf(sessionData));
+//				diaryDto.setTest5(String.valueOf(sessionData));
 //				break;
 //			case "test6" :
-//				userDto.setTest6(String.valueOf(sessionData));
+//				diaryDto.setTest6(String.valueOf(sessionData));
 //				break;
 		}
 	}
