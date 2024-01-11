@@ -1,10 +1,20 @@
 package com.choi.calender.application.calender.dto;
 
 
+import com.choi.calender.domain.api.TargetBean;
+import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @Getter
 @Setter
@@ -40,6 +50,36 @@ public class TargetDto {
         this.repeatYn = repeatYn;
         this.successYn = successYn;
         this.deleteYn = deleteYn;
+    }
+
+    public TargetBean convertBeanDto(TargetBean targetBean) {
+        try {
+            return new TargetBean(
+                    AES256.decrypt(targetBean.getTitle()),
+                    targetBean.getType(),
+                    targetBean.getYear(),
+                    targetBean.getMonth(),
+                    targetBean.getDay(),
+                    targetBean.getTime(),
+                    targetBean.getRepeatYn(),
+                    targetBean.getSuccessYn(),
+                    targetBean.getDeleteYn()
+            );
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean isYearDataEmptyCheck() {

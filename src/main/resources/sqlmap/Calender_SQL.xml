@@ -69,37 +69,42 @@
         )
     </insert>
 
-
-
-
-
-
-    <select id="isDuplicationIdCheck" parameterType="String" resultType="boolean">
+    <select id="selectYearTarget" parameterType="searchTargetBean" resultType="targetBean">
         SELECT
-            IF(COUNT(1) >= 1, TRUE, FALSE) as dupli
-        FROM
-            tb_user
-        <where>
-            AND id = #{id}
-        </where>
+            no,
+            title,
+            type,
+            year,
+            month,
+            day,
+            time,
+            repeat_yn,
+            success_yn,
+            delete_yn,
+            reg_date
+        FROM tb_target
+        WHERE 0=0
+          AND type = #{type}
+          AND year = #{year}
     </select>
 
-    <update id="updateApproveStatus" parameterType="string">
-        UPDATE tb_user
-        SET approve_yn = #{status}
-        WHERE id = #{id}
-    </update>
-
-    <update id="updateUserData" parameterType="diaryBean">
-        UPDATE tb_user
-        SET
-            pw = #{pw},
-            name = #{name},
-            email = #{email},
-            phone = #{phone},
-            company_name = #{companyName},
-            position = #{position},
-            etc = #{etc}
-        WHERE id = #{id}
-    </update>
+    <select id="selectMonthTarget" parameterType="searchTargetBean" resultType="targetBean">
+        SELECT
+            no,
+            title,
+            type,
+            year,
+            month,
+            day,
+            time,
+            repeat_yn,
+            success_yn,
+            delete_yn,
+            reg_date
+        FROM tb_target
+        WHERE 0=0
+          AND type = #{type}
+          AND year = #{year}
+          AND month = #{month}
+    </select>
 </mapper>
