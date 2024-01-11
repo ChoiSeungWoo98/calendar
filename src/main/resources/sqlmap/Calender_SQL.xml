@@ -26,6 +26,39 @@
         )
     </insert>
 
+    <insert id="insertTarget" parameterType="targetBean">
+        INSERT INTO tb_target
+        (
+            title,
+            type,
+            <if test="time != null and time != ''">
+                time,
+            </if>
+            <if test="repeatYn != null and repeatYn != ''">
+                repeat_yn,
+            </if>
+            <if test="successYn != null and successYn != ''">
+                success_yn,
+            </if>
+            year
+        )
+        VALUES
+        (
+            #{title},
+            #{type},
+            <if test="time != null and time != ''">
+                #{time},
+            </if>
+            <if test="repeatYn != null and repeatYn != ''">
+                #{repeatYn},
+            </if>
+            <if test="successYn != null and successYn != ''">
+                #{successYn},
+            </if>
+            #{year}
+        )
+    </insert>
+
 
 
 

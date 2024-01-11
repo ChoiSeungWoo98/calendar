@@ -1,6 +1,7 @@
 package com.choi.calender.controller.api;
 
 import com.choi.calender.application.calender.dto.DiaryDto;
+import com.choi.calender.application.calender.dto.TargetDto;
 import com.choi.calender.application.calender.service.CalenderService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
@@ -23,7 +24,7 @@ public class CalenderController {
     public ReturnMessage addDiary(
             @ModelAttribute("diaryDto") DiaryDto diaryDto
     ) {
-        if(diaryDto.isDataEmptyCheck(diaryDto)) {
+        if(diaryDto.isDataEmptyCheck()) {
             return new ReturnMessage(ReturnStatus.NO_VALUE, "필수 값이 존재하지 않습니다.", new Exception("필수 값이 존재하지 않습니다."));
         }
 
@@ -36,14 +37,14 @@ public class CalenderController {
 
     @PostMapping("/targer/add")
     public ReturnMessage addTarget(
-            @ModelAttribute("userDto") DiaryDto diaryDto
+            @ModelAttribute("targetDto") TargetDto targetDto
     ) {
-        if(diaryDto.isDataEmptyCheck(diaryDto)) {
+        if(targetDto.isDataEmptyCheck()) {
             return new ReturnMessage(ReturnStatus.NO_VALUE, "필수 값이 존재하지 않습니다.", new Exception("필수 값이 존재하지 않습니다."));
         }
 
         try {
-            return new ReturnMessage(calenderService.insertDiary(diaryDto));
+            return new ReturnMessage(calenderService.insertTarget(targetDto));
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "유저 생성 실패", e);
         }
