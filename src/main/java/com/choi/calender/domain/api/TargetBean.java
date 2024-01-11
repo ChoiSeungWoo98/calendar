@@ -22,26 +22,32 @@ public class TargetBean {
     protected String type;
     protected String year;
     protected String month;
+    protected String day;
     protected String time;
     protected String repeatYn;
     protected String successYn;
+    protected String deleteYn;
 
     public TargetBean(
             String title,
             String type,
             String year,
             String month,
+            String day,
             String time,
             String repeatYn,
-            String successYn
+            String successYn,
+            String deleteYn
     ) {
         this.title = title;
         this.type = type;
         this.year = year;
         this.month = month;
+        this.day = day;
         this.time = time;
         this.repeatYn = repeatYn;
         this.successYn = successYn;
+        this.deleteYn = deleteYn;
     }
 
     public TargetBean convertBeanDto(TargetDto targetDto) {
@@ -51,9 +57,11 @@ public class TargetBean {
                 targetDto.getType(),
                 targetDto.getYear(),
                 targetDto.getMonth(),
+                targetDto.getDay(),
                 targetDto.getTime(),
                 targetDto.getRepeatYn(),
-                targetDto.getSuccessYn()
+                targetDto.getSuccessYn(),
+                targetDto.getDeleteYn()
             );
         } catch (InvalidAlgorithmParameterException e) {
             throw new RuntimeException(e);

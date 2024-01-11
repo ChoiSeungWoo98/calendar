@@ -16,8 +16,8 @@
                 <div class="flex w-full">
                     <div id="todo-fix" class="h-[40%] w-[20%] flex justify-center items-center">반복 여부</div>
                     <div class="h-[40%] w-[80%]">
-                        <label class="w-[20%]"><input type="radio" name="todo-fix-value" class="mr-[15%] w-[20%]" value="Y" checked>단건</label>
-                        <label class="w-[20%]"><input type="radio" name="todo-fix-value" class="mr-[15%] w-[20%]" value="N">반복</label>
+                        <label class="w-[20%]"><input type="radio" name="todo-fix-value" id="todo-one-check" class="mr-[15%] w-[20%]" value="N" checked>단건</label>
+                        <label class="w-[20%]"><input type="radio" name="todo-fix-value" class="mr-[15%] w-[20%]" value="Y">반복</label>
                     </div>
                 </div>
             </div>
@@ -69,24 +69,54 @@
 
     <script>
         function openAddTodo(title) {
-            return new Promise((resolve, reject) => {
-                CHOI.blockScroll();
-                $('.addTodo > #modal-title').html(title);
-                $('.modalBackGround-todo').removeClass('hidden');
-
-                // 삭제 버튼이 클릭되었을 때 true 반환
-                $('.modal-btn-todo-add').on('click', function () {
-                    $('.modalBackGround-todo').addClass('hidden');
-                    resolve(true);
-                });
-
-                // 취소 버튼이 클릭되었을 때 false 반환
-                $('.modal-btn-todo-cancel').on('click', function () {
-                    $('.modalBackGround-todo').addClass('hidden');
-                    resolve(false);
-                });
-            });
+            CHOI.blockScroll();
+            $('.addTodo > #modal-title').html(title);
+            $('.modalBackGround-todo').removeClass('hidden');
         }
+
+        $('.modal-btn-todo-add').on('click', function () {
+            let title = $('#todo-title-value').val();
+            let time = $('#todo-date-value').val();
+            let repeatYn = $('input[name="todo-fix-value"]:checked').val();
+            let year = '[[${year}]]';
+            let month = '[[${month}]]';
+            let day = '[[${day}]]';
+            let type = 'D';
+
+            $.ajax({
+                url: '/calender/targer/add',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {
+                    title: title,
+                    type: type,
+                    year: year,
+                    month: month,
+                    day: day,
+                    time: time,
+                    repeatYn: repeatYn
+                },
+                success: function(response) {
+                    if(response.result === "0000") {
+                        $('#todo-title-value').val('');
+                        $('#todo-date-value').val('');
+                        $('#todo-one-check').attr('checked', true);
+                        openSuccesAlert(response.value);
+                    } else {
+                        openErrorAlert(response.value);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+            $('.modalBackGround-todo').addClass('hidden');
+        });
+
+        $('.modal-btn-todo-cancel').on('click', function () {
+            $('.modalBackGround-todo').addClass('hidden');
+        });
     </script>
 </th:block>
 </html>

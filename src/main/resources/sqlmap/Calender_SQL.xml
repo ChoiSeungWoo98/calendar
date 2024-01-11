@@ -30,9 +30,14 @@
         INSERT INTO tb_target
         (
             title,
-            type,
+            <if test="year != null and year != ''">
+                year,
+            </if>
             <if test="month != null and month != ''">
                 month,
+            </if>
+            <if test="day != null and day != ''">
+                day,
             </if>
             <if test="time != null and time != ''">
                 time,
@@ -40,17 +45,19 @@
             <if test="repeatYn != null and repeatYn != ''">
                 repeat_yn,
             </if>
-            <if test="successYn != null and successYn != ''">
-                success_yn,
-            </if>
-            year
+            type
         )
         VALUES
         (
             #{title},
-            #{type},
+            <if test="year != null and year != ''">
+                #{year},
+            </if>
             <if test="month != null and month != ''">
                 #{month},
+            </if>
+            <if test="day != null and day != ''">
+                #{day},
             </if>
             <if test="time != null and time != ''">
                 #{time},
@@ -58,10 +65,7 @@
             <if test="repeatYn != null and repeatYn != ''">
                 #{repeatYn},
             </if>
-            <if test="successYn != null and successYn != ''">
-                #{successYn},
-            </if>
-            #{year}
+            #{type}
         )
     </insert>
 

@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.ObjectUtils;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,26 +14,32 @@ public class TargetDto {
     protected String type;
     protected String year;
     protected String month;
+    protected String day;
     protected String time;
     protected String repeatYn;
     protected String successYn;
+    protected String deleteYn;
 
     public TargetDto(
             String title,
             String type,
             String year,
             String month,
+            String day,
             String time,
             String repeatYn,
-            String successYn
+            String successYn,
+            String deleteYn
     ) {
         this.title = title;
         this.type = type;
         this.year = year;
         this.month = month;
+        this.day = day;
         this.time = time;
         this.repeatYn = repeatYn;
         this.successYn = successYn;
+        this.deleteYn = deleteYn;
     }
 
     public boolean isYearDataEmptyCheck() {
@@ -56,15 +59,15 @@ public class TargetDto {
         ;
     }
 
-    public boolean isAllDataEmptyCheck() {
+    public boolean isDayDataEmptyCheck() {
         return
             StringUtils.isBlank(this.title)
             || StringUtils.isBlank(this.type)
             || StringUtils.isBlank(this.year)
             || StringUtils.isBlank(this.month)
+            || StringUtils.isBlank(this.day)
             || StringUtils.isBlank(this.time)
             || StringUtils.isBlank(this.repeatYn)
-            || StringUtils.isBlank(this.successYn)
         ;
     }
 }

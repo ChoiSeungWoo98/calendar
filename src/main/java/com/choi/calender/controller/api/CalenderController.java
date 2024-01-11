@@ -53,7 +53,7 @@ public class CalenderController {
     public boolean checkValue(TargetDto targetDto) {
         if("Y".equals(targetDto.getType())) return targetDto.isYearDataEmptyCheck();
         if("M".equals(targetDto.getType())) return targetDto.isMonthDataEmptyCheck();
-        if("D".equals(targetDto.getType())) return targetDto.isAllDataEmptyCheck();
+        if("D".equals(targetDto.getType())) return targetDto.isDayDataEmptyCheck();
         return true;
     }
 
