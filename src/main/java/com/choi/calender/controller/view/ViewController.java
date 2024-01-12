@@ -1,10 +1,10 @@
 package com.choi.calender.controller.view;
 
 
-import com.choi.calender.application.calender.dto.TargetDto;
-import com.choi.calender.application.calender.service.CalenderService;
+import com.choi.calender.application.target.dto.TargetDto;
+import com.choi.calender.application.diary.service.DiaryService;
+import com.choi.calender.application.target.service.TargetService;
 import com.choi.calender.domain.api.SearchTargetBean;
-import com.choi.calender.domain.api.TargetBean;
 import com.choi.calender.util.Common;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,21 +26,18 @@ public class ViewController {
     Common common;
 
     @Resource
-    CalenderService calenderService;
+    TargetService targetService;
 
     @GetMapping("/main")
-    public String main(Model model, HttpServletRequest request) {
-//        if(!xeSessionUtils.isSessionAttributeNotExists(request)) {
-//            return "redirect:/main";
-//        }
+    public String main(Model model) {
         LocalDate currentDate = LocalDate.now();
         String year = String.valueOf(currentDate.getYear());
         String month = String.valueOf(currentDate.getMonthValue());
 
         SearchTargetBean searchYearTargetBean = new SearchTargetBean("Y", year, month);
         SearchTargetBean searchMonthTargetBean = new SearchTargetBean("M", year, month);
-        List<TargetDto> yearList = calenderService.selectYearTarget(searchYearTargetBean);
-        List<TargetDto> monthList = calenderService.selectMonthTarget(searchMonthTargetBean);
+        List<TargetDto> yearList = targetService.selectYearTarget(searchYearTargetBean);
+        List<TargetDto> monthList = targetService.selectMonthTarget(searchMonthTargetBean);
 
         model.addAttribute("yearList", yearList);
         model.addAttribute("monthList", monthList);

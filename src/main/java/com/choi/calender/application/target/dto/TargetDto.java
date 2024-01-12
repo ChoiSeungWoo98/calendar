@@ -1,4 +1,4 @@
-package com.choi.calender.application.calender.dto;
+package com.choi.calender.application.target.dto;
 
 
 import com.choi.calender.domain.api.TargetBean;

@@ -1,4 +1,4 @@
-package com.choi.calender.application.calender.dto;
+package com.choi.calender.application.diary.dto;
 
 
 import lombok.Getter;

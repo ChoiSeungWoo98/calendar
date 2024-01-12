@@ -1,7 +1,6 @@
 package com.choi.calender.domain.api;
 
-import com.choi.calender.application.calender.dto.DiaryDto;
-import com.choi.calender.application.calender.dto.TargetDto;
+import com.choi.calender.application.target.dto.TargetDto;
 import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor

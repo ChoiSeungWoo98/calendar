@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.choi.calender.mapper.DiaryMapper">
+    <insert id="insertDiary" parameterType="diaryBean">
+        INSERT INTO tb_diary
+        (
+            dairy_date,
+            day_of_week,
+            weather,
+            emotion,
+            content
+        )
+        VALUES
+        (
+            #{date},
+            #{dayOfWeek},
+            #{weather},
+            #{emotion},
+            #{content}
+        )
+    </insert>
+</mapper>

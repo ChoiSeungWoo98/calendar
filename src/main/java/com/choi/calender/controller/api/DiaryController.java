@@ -1,8 +1,7 @@
 package com.choi.calender.controller.api;
 
-import com.choi.calender.application.calender.dto.DiaryDto;
-import com.choi.calender.application.calender.dto.TargetDto;
-import com.choi.calender.application.calender.service.CalenderService;
+import com.choi.calender.application.diary.dto.DiaryDto;
+import com.choi.calender.application.diary.service.DiaryService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
 import jakarta.annotation.Resource;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DiaryController {
 
     @Resource
-    CalenderService calenderService;
+    DiaryService diaryService;
 
     @PostMapping("/add")
     public ReturnMessage addDiary(
@@ -29,7 +28,7 @@ public class DiaryController {
         }
 
         try {
-            return new ReturnMessage(calenderService.insertDiary(diaryDto));
+            return new ReturnMessage(diaryService.insertDiary(diaryDto));
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
         }
