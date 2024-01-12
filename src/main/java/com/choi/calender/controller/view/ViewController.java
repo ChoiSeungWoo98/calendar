@@ -61,7 +61,11 @@ public class ViewController {
     ) {
         String diaryDate = year + "-" + month + "-" + day;
         DiaryDto diary = diaryService.selectDiary(diaryDate);
-        SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day);
+        int diaryNo = 0;
+        if(diary != null) {
+            diaryNo = diary.getNo();
+        }
+        SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day, diaryNo);
         List<TargetDto> todoList = targetService.selectRepeatTodoTarget(searchTargetBean);
 
         model.addAttribute("diary", diary);

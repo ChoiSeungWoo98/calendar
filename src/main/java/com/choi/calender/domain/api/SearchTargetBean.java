@@ -10,17 +10,20 @@ public class SearchTargetBean {
     protected String year;
     protected String month;
     protected String day;
+    protected int diaryNo;
 
     public SearchTargetBean(
             String type,
             String year,
             String month,
-            String day
+            String day,
+            int diaryNo
     ) {
         this.type = type;
         this.year = year;
         this.month = month;
         this.day = day;
+        this.diaryNo = diaryNo;
     }
 
     public SearchTargetBean(

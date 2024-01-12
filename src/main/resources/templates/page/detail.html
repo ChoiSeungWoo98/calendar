@@ -42,7 +42,7 @@
                                 <th:block th:if="${list.successYn eq 'Y'}">
                                     <th><input type="checkbox" class="checkbox w-[15px] h-[15px] rounded ml-[5px]" th:value="${list.no}" checked></th>
                                 </th:block>
-                                <th:block th:if="${list.successYn eq 'N'}">
+                                <th:block th:if="${list.successYn eq 'N' || list.successYn == null}">
                                     <th><input type="checkbox" class="checkbox w-[15px] h-[15px] rounded ml-[5px]" th:value="${list.no}"></th>
                                 </th:block>
                             </tr>
@@ -96,24 +96,29 @@
     });
 
     $('.checkbox').on('click', function () {
-        var successYn = $(this).prop("checked") ? 'Y' : 'N';
-        var no = $(this).val();
+        var diaryNo = '[[${diary?.no}]]'.trim();
+        if(diaryNo != null) {
+            var successYn = $(this).prop("checked") ? 'Y' : 'N';
+            var targetNo = $(this).val();
 
-        let url = '/calender/targer/insert/todo/successYn';
-        let contentType = 'application/x-www-form-urlencoded';
-        let data = { no: no, successYn: successYn };
 
-        CHOI.post(url, contentType, data)
-            .then(function (response) {
-                if(response.result === "0000") {
-                    openSuccesAlert(response.value);
-                    location.href = '/main';
-                } else {
-                    openErrorAlert(response.value);
-                }
-            }).catch(function (error) {
-            console.error(error);
-        });
+            let url = '/calender/targer/insert/todo/successYn';
+            let contentType = 'application/x-www-form-urlencoded';
+            let data = {targetNo: targetNo, diaryNo: diaryNo, successYn: successYn};
+
+            CHOI.post(url, contentType, data)
+                .then(function (response) {
+                    if (response.result === "0000") {
+                        openSuccesAlert(response.value);
+                    } else {
+                        openErrorAlert(response.value);
+                    }
+                }).catch(function (error) {
+                console.error(error);
+            });
+        } else {
+            openErrorAlert('일기 저장 후 목표 달성을 수정하실 수 있습니다.');
+        }
     });
 
     $('#add-img').on('click', function () {
@@ -143,6 +148,9 @@
         .then(function (response) {
             if(response.result === "0000") {
                 openSuccesAlert(response.value);
+                setInterval(function () {
+                    location.reload();
+                }, 3000)
             } else {
                 openErrorAlert(response.value);
             }

@@ -24,6 +24,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class DiaryDto {
+    protected int no;
     protected String date;
     protected String dayOfWeek;
     protected String weather;
@@ -32,6 +33,7 @@ public class DiaryDto {
     protected String content;
 
     public DiaryDto(
+            int no,
             String date,
             String dayOfWeek,
             String weather,
@@ -39,6 +41,7 @@ public class DiaryDto {
             List<String> emotions,
             String content
     ) {
+        this.no = no;
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.weather = weather;
@@ -55,6 +58,7 @@ public class DiaryDto {
             }
 
             return new DiaryDto(
+                    diaryBean.getNo(),
                     diaryBean.getDate(),
                     diaryBean.getDayOfWeek(),
                     diaryBean.getWeather(),
