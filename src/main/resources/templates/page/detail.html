@@ -17,7 +17,12 @@
             </div>
             <div id="detail-information">
                 <div class="left">
-                    <div id="weather"><h5 class="weather-txt">날씨 : <span id="weather-value">불러오는 중</span> ( <span class="temp">0</span> °C)</h5></div>
+                    <th:block th:if="${diary == null}">
+                        <div id="weather"><h5 class="weather-txt">날씨 : <span id="weather-value">불러오는 중</span> ( <span class="temp">0</span> °C)</h5></div>
+                    </th:block>
+                    <th:block th:if="${diary != null}">
+                        <div id="weather"><h5 class="weather-txt">날씨 : <span th:text="${diary.weather}"></span> ( <span th:text="${diary.temp}"></span> °C)</h5></div>
+                    </th:block>
                     <div id="emotion">
                         <div class="happy" data-value="happy"></div>
                         <div class="angry" data-value="angry"></div>
@@ -52,9 +57,14 @@
                 <input type="file" accept="image/*,video/*" id="image-value" class="hidden" />
             </div>
             <div id="content">
-                <textarea id="content-value" placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!"></textarea>
+                <textarea id="content-value" placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!" th:text="${diary?.content}"></textarea>
                 <div style="display: flex; align-items: center; justify-content: flex-end; height: 10%;">
-                    <button id="save-btn">저장</button>
+                    <th:block th:if="${diary != null}">
+                        <button id="update-btn">수정</button>
+                    </th:block>
+                    <th:block th:if="${diary == null}">
+                        <button id="save-btn">등록</button>
+                    </th:block>
                 </div>
             </div>
         </div>
@@ -144,6 +154,18 @@
     $('#add-todo').on('click', async function () {
         let title = 'TO-DO를 등록해보세요.'
         openAddTodo(title);
+    });
+
+    $(document).ready(function () {
+        let getEmotions = '[[${diary?.emotions}]]'.trim();
+        if(getEmotions.length != 0) {
+            getEmotions = getEmotions.replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',');
+            getEmotions.forEach(emotion => {
+                let active_emotion = $('.' + emotion);
+                active_emotion.addClass(emotion + '-select');
+                active_emotion.removeClass(emotion);
+            });
+        }
     });
 </script>
 
