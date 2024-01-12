@@ -60,7 +60,7 @@
     margin: 40px;
     cursor: pointer;
 }
-#year-list {
+#year-list, #month-list {
     height: 25%;
     color: var(--text-color);
 }
@@ -79,7 +79,7 @@
     cursor: pointer;
 }
 
-#year-list > .year-list-detail {
+#year-list > .list-detail, #month-list > .list-detail {
     cursor: pointer;
 }
 
