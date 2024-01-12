@@ -20,6 +20,7 @@ public class DiaryBean {
     protected String date;
     protected String dayOfWeek;
     protected String weather;
+    protected String temp;
     protected String emotion;
     protected List<String> emotions;
     protected String content;
@@ -28,6 +29,7 @@ public class DiaryBean {
             String date,
             String dayOfWeek,
             String weather,
+            String temp,
             String emotion,
             List<String> emotions,
             String content
@@ -35,6 +37,7 @@ public class DiaryBean {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.weather = weather;
+        this.temp = temp;
         this.emotion = emotion;
         this.emotions = emotions;
         this.content = content;
@@ -54,6 +57,7 @@ public class DiaryBean {
                 diaryDto.getDate(),
                 diaryDto.getDayOfWeek(),
                 diaryDto.getWeather(),
+                diaryDto.getTemp(),
                 convertEmotion,
                 null,
                 AES256.encrypt(diaryDto.getContent())

@@ -22,7 +22,9 @@ function getWeather(lat, lon) {
             + weatherResult.weather[0].icon +
             '@2x.png" alt="' + weatherResult.weather[0].description + '"/>'
         $('.weather-ico').html(weathericonUrl);
-        $('#weather-value').append(getTextDescription(weatherResult.weather[0].icon));
+
+        $('#weather-value').html(getTextDescription(weatherResult.weather[0].icon));
+        $('.temp').html(temp);
         // $('.weather-txt').append(getTextDescription(weatherResult.weather[0].icon));
     });
 }

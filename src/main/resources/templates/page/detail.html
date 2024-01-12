@@ -17,7 +17,7 @@
             </div>
             <div id="detail-information">
                 <div class="left">
-                    <div id="weather"><h5 class="weather-txt">날씨 : <span id="weather-value"></span></h5></div>
+                    <div id="weather"><h5 class="weather-txt">날씨 : <span id="weather-value">불러오는 중</span> ( <span class="temp">0</span> °C)</h5></div>
                     <div id="emotion">
                         <div class="happy" data-value="happy"></div>
                         <div class="angry" data-value="angry"></div>
@@ -86,7 +86,24 @@
     });
 
     $('.checkbox').on('click', function () {
+        var successYn = $(this).prop("checked") ? 'Y' : 'N';
+        var no = $(this).val();
 
+        let url = '/calender/targer/insert/todo/successYn';
+        let contentType = 'application/x-www-form-urlencoded';
+        let data = { no: no, successYn: successYn };
+
+        CHOI.post(url, contentType, data)
+            .then(function (response) {
+                if(response.result === "0000") {
+                    openSuccesAlert(response.value);
+                    location.href = '/main';
+                } else {
+                    openErrorAlert(response.value);
+                }
+            }).catch(function (error) {
+            console.error(error);
+        });
     });
 
     $('#add-img').on('click', function () {
@@ -99,6 +116,7 @@
         let date = splitArray.slice(0, -1).join('-');
         let dayOfWeek = splitArray.slice(-1)[0];
         let weather = $('#weather-value').html();
+        let temp = $('.temp').html();
         let emotions = [];
         let content = $('#content-value').val();
 
@@ -109,13 +127,12 @@
 
         let url = '/calender/diary/add';
         let contentType = 'application/x-www-form-urlencoded';
-        let data = { date: date, dayOfWeek: dayOfWeek, weather: weather, emotions: emotions, content: content };
+        let data = { date: date, dayOfWeek: dayOfWeek, weather: weather, temp: temp, emotions: emotions, content: content };
 
         CHOI.post(url, contentType, data)
         .then(function (response) {
             if(response.result === "0000") {
                 openSuccesAlert(response.value);
-                location.href = '/main';
             } else {
                 openErrorAlert(response.value);
             }

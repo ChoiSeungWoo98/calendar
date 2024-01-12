@@ -8,6 +8,7 @@
             dairy_date,
             day_of_week,
             weather,
+            temp,
             emotion,
             content
         )
@@ -16,6 +17,7 @@
             #{date},
             #{dayOfWeek},
             #{weather},
+            #{temp},
             #{emotion},
             #{content}
         )
