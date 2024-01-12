@@ -38,10 +38,12 @@ public class ViewController {
         String month = String.valueOf(currentDate.getMonthValue());
 
         SearchTargetBean searchYearTargetBean = new SearchTargetBean("Y", year, month);
+        SearchTargetBean searchMonthTargetBean = new SearchTargetBean("M", year, month);
         List<TargetDto> yearList = calenderService.selectYearTarget(searchYearTargetBean);
-        SearchTargetBean searchMonthTargetDto = new SearchTargetBean("M", year, month);
-        List<TargetDto> monthList = calenderService.selectMonthTarget(searchMonthTargetDto);
+        List<TargetDto> monthList = calenderService.selectMonthTarget(searchMonthTargetBean);
 
+        model.addAttribute("yearList", yearList);
+        model.addAttribute("monthList", monthList);
         model.addAttribute("view", "main");
         model.addAttribute("debugCheck", common.isDebugModeCheck());
         return "page/main";

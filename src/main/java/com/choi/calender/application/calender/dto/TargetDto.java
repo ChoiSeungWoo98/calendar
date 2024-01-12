@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 @Setter
 @NoArgsConstructor
 public class TargetDto {
+    protected int no;
     protected String title;
     protected String type;
     protected String year;
@@ -31,6 +32,7 @@ public class TargetDto {
     protected String deleteYn;
 
     public TargetDto(
+            int no,
             String title,
             String type,
             String year,
@@ -41,6 +43,7 @@ public class TargetDto {
             String successYn,
             String deleteYn
     ) {
+        this.no = no;
         this.title = title;
         this.type = type;
         this.year = year;
@@ -52,9 +55,10 @@ public class TargetDto {
         this.deleteYn = deleteYn;
     }
 
-    public TargetBean convertBeanDto(TargetBean targetBean) {
+    public TargetDto convertBeanToDto(TargetBean targetBean) {
         try {
-            return new TargetBean(
+            return new TargetDto(
+                    targetBean.getNo(),
                     AES256.decrypt(targetBean.getTitle()),
                     targetBean.getType(),
                     targetBean.getYear(),

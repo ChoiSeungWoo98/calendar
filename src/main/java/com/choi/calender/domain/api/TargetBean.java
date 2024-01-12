@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class TargetBean {
+    protected int no;
     protected String title;
     protected String type;
     protected String year;
@@ -29,6 +30,7 @@ public class TargetBean {
     protected String deleteYn;
 
     public TargetBean(
+            int no,
             String title,
             String type,
             String year,
@@ -39,6 +41,7 @@ public class TargetBean {
             String successYn,
             String deleteYn
     ) {
+        this.no = no;
         this.title = title;
         this.type = type;
         this.year = year;
@@ -50,9 +53,10 @@ public class TargetBean {
         this.deleteYn = deleteYn;
     }
 
-    public TargetBean convertBeanDto(TargetDto targetDto) {
+    public TargetBean convertBeanToDto(TargetDto targetDto) {
         try {
             return new TargetBean(
+                targetDto.getNo(),
                 AES256.encrypt(targetDto.getTitle()),
                 targetDto.getType(),
                 targetDto.getYear(),
