@@ -39,6 +39,9 @@ CHOI = {
     delete: function(url, data, submit, contentType) {
         return this.ajax('DELETE', url, contentType, data);
     },
+    blockScroll: function () {
+        $('body').css({ overflow: 'hidden' });
+    },
     isBlank: function (text) {
         let trimText = text.trim();
         return trimText == '' || trimText == null || trimText == undefined;
