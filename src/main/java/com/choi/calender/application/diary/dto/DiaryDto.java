@@ -25,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DiaryDto {
     protected int no;
-    protected String date;
+    protected String diaryDate;
     protected String dayOfWeek;
     protected String weather;
     protected String temp;
@@ -34,7 +34,7 @@ public class DiaryDto {
 
     public DiaryDto(
             int no,
-            String date,
+            String diaryDate,
             String dayOfWeek,
             String weather,
             String temp,
@@ -42,7 +42,7 @@ public class DiaryDto {
             String content
     ) {
         this.no = no;
-        this.date = date;
+        this.diaryDate = diaryDate;
         this.dayOfWeek = dayOfWeek;
         this.weather = weather;
         this.temp = temp;
@@ -59,7 +59,7 @@ public class DiaryDto {
 
             return new DiaryDto(
                     diaryBean.getNo(),
-                    diaryBean.getDate(),
+                    diaryBean.getDiaryDate(),
                     diaryBean.getDayOfWeek(),
                     diaryBean.getWeather(),
                     diaryBean.getTemp(),
@@ -85,7 +85,7 @@ public class DiaryDto {
 
     public boolean isDataEmptyCheck() {
         return
-            StringUtils.isBlank(this.date)
+            StringUtils.isBlank(this.diaryDate)
             || StringUtils.isBlank(this.dayOfWeek)
             || StringUtils.isBlank(this.weather)
             || StringUtils.isBlank(this.temp)

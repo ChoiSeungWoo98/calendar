@@ -5,7 +5,7 @@
     <insert id="insertDiary" parameterType="diaryBean">
         INSERT INTO tb_diary
         (
-            dairy_date,
+            diary_date,
             day_of_week,
             weather,
             temp,
@@ -14,7 +14,7 @@
         )
         VALUES
         (
-            #{date},
+            #{diaryDate},
             #{dayOfWeek},
             #{weather},
             #{temp},
@@ -23,7 +23,7 @@
         )
     </insert>
 
-    <update id="updateDiary" parameterType="targetBean">
+    <update id="updateDiary" parameterType="diaryBean">
         UPDATE tb_diary
         SET
             emotion = #{emotion},
@@ -31,10 +31,20 @@
         WHERE no = #{no}
     </update>
 
+    <select id="selectThisMonthDiaryList" parameterType="string" resultType="diaryBean">
+        SELECT
+            no,
+            diary_date
+        FROM tb_diary
+        WHERE 0=0
+            AND diary_date like CONCAT('%',#{diaryDate},'%')
+        ORDER BY diary_date
+    </select>
+
     <select id="selectDiary" parameterType="string" resultType="diaryBean">
         SELECT
             no,
-            dairy_date,
+            diary_date,
             day_of_week,
             weather,
             temp,
@@ -44,6 +54,6 @@
             reg_date
         FROM tb_diary
         WHERE 0=0
-            AND dairy_date = #{diaryDate}
+            AND diary_date = #{diaryDate}
     </select>
 </mapper>

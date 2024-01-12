@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DiaryBean {
     protected int no;
-    protected String date;
+    protected String diaryDate;
     protected String dayOfWeek;
     protected String weather;
     protected String temp;
@@ -28,7 +28,7 @@ public class DiaryBean {
 
     public DiaryBean(
             int no,
-            String date,
+            String diaryDate,
             String dayOfWeek,
             String weather,
             String temp,
@@ -37,7 +37,7 @@ public class DiaryBean {
             String content
     ) {
         this.no = no;
-        this.date = date;
+        this.diaryDate = diaryDate;
         this.dayOfWeek = dayOfWeek;
         this.weather = weather;
         this.temp = temp;
@@ -58,7 +58,7 @@ public class DiaryBean {
             }
             return new DiaryBean(
                 diaryDto.getNo(),
-                diaryDto.getDate(),
+                diaryDto.getDiaryDate(),
                 diaryDto.getDayOfWeek(),
                 diaryDto.getWeather(),
                 diaryDto.getTemp(),

@@ -124,7 +124,7 @@
     $('#save-btn').on('click', function () {
         let splitArray = $('#date-value').val().split('-');
 
-        let date = splitArray.slice(0, -1).join('-');
+        let diaryDate = splitArray.slice(0, -1).join('-');
         let dayOfWeek = splitArray.slice(-1)[0];
         let weather = $('#weather-value').html();
         let temp = $('.temp').html();
@@ -137,7 +137,7 @@
         });
 
         let url = '/calender/diary/add';
-        let data = { date: date, dayOfWeek: dayOfWeek, weather: weather, temp: temp, emotions: emotions, content: content };
+        let data = { diaryDate: diaryDate, dayOfWeek: dayOfWeek, weather: weather, temp: temp, emotions: emotions, content: content };
 
         CHOI.post(url, data)
         .then(function (response) {
