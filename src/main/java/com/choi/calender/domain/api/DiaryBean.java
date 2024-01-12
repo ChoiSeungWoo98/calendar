@@ -43,7 +43,7 @@ public class DiaryBean {
         this.content = content;
     }
 
-    public DiaryBean convertBeanDto(DiaryDto diaryDto) {
+    public DiaryBean convertDtoToBean(DiaryDto diaryDto) {
         try {
             String convertEmotion = "";
             int size = diaryDto.getEmotions().size();

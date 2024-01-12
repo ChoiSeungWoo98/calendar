@@ -8,4 +8,6 @@ public interface DiaryMapper {
 
     int insertDiary(DiaryBean diaryBean);
 
+    DiaryBean selectDiary(String diaryDate);
+
 }

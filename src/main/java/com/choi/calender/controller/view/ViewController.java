@@ -1,6 +1,7 @@
 package com.choi.calender.controller.view;
 
 
+import com.choi.calender.application.diary.dto.DiaryDto;
 import com.choi.calender.application.target.dto.TargetDto;
 import com.choi.calender.application.diary.service.DiaryService;
 import com.choi.calender.application.target.service.TargetService;
@@ -28,16 +29,19 @@ public class ViewController {
     @Resource
     TargetService targetService;
 
+    @Resource
+    DiaryService diaryService;
+
     @GetMapping("/main")
     public String main(Model model) {
         LocalDate currentDate = LocalDate.now();
         String year = String.valueOf(currentDate.getYear());
         String month = String.valueOf(currentDate.getMonthValue());
 
-        SearchTargetBean searchYearTargetBean = new SearchTargetBean("Y", year, month);
+        SearchTargetBean searchYearTargetBean = new SearchTargetBean("Y", year, null);
         SearchTargetBean searchMonthTargetBean = new SearchTargetBean("M", year, month);
-        List<TargetDto> yearList = targetService.selectYearTarget(searchYearTargetBean);
-        List<TargetDto> monthList = targetService.selectMonthTarget(searchMonthTargetBean);
+        List<TargetDto> yearList = targetService.selectTarget(searchYearTargetBean);
+        List<TargetDto> monthList = targetService.selectTarget(searchMonthTargetBean);
 
         model.addAttribute("yearList", yearList);
         model.addAttribute("monthList", monthList);
@@ -49,12 +53,19 @@ public class ViewController {
     @GetMapping("/detail")
     public String detail(
             Model model,
-             @RequestParam(name = "year") int year,
-             @RequestParam(name = "month") int month,
-             @RequestParam(name = "day") int day,
+             @RequestParam(name = "year") String year,
+             @RequestParam(name = "month") String month,
+             @RequestParam(name = "day") String day,
              @RequestParam(name = "weekDay") String weekDay,
              HttpServletRequest request
     ) {
+        String diaryDate = year + "-" + month + "-" + day;
+        DiaryDto diary = diaryService.selectDiary(diaryDate);
+        SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day);
+        List<TargetDto> todoList = targetService.selectRepeatTodoTarget(searchTargetBean);
+
+        model.addAttribute("diary", diary);
+        model.addAttribute("todoList", todoList);
         model.addAttribute("view", "detail");
         setModelDate(model, year, month, day, weekDay);
         return "page/detail";
@@ -65,7 +76,7 @@ public class ViewController {
         return "error/" + errorNum;
     }
 
-    private void setModelDate(Model model, int year, int month, int day, String weekDay) {
+    private void setModelDate(Model model, String year, String month, String day, String weekDay) {
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         model.addAttribute("day", day);

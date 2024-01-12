@@ -6,4 +6,6 @@ public interface DiaryService {
 
     String insertDiary(DiaryDto diaryDto);
 
+    DiaryDto selectDiary(String diaryDate);
+
 }

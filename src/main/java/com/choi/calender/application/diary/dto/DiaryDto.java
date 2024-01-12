@@ -1,12 +1,23 @@
 package com.choi.calender.application.diary.dto;
 
 
+import com.choi.calender.domain.api.DiaryBean;
+import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -34,6 +45,38 @@ public class DiaryDto {
         this.temp = temp;
         this.emotions = emotions;
         this.content = content;
+    }
+
+    public DiaryDto convertBeanToDto(DiaryBean diaryBean) {
+        try {
+            List<String> emotions = new ArrayList<>();
+            if(StringUtils.isNotBlank(diaryBean.getEmotion())) {
+                emotions = List.of(diaryBean.getEmotion().split(","));
+            }
+
+            return new DiaryDto(
+                    diaryBean.getDate(),
+                    diaryBean.getDayOfWeek(),
+                    diaryBean.getWeather(),
+                    diaryBean.getTemp(),
+                    emotions,
+                    StringUtils.isBlank(diaryBean.getContent()) ? null : AES256.decrypt(diaryBean.getContent())
+            );
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean isDataEmptyCheck() {

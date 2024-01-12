@@ -22,4 +22,20 @@
             #{content}
         )
     </insert>
+
+    <select id="selectDiary" parameterType="string" resultType="diaryBean">
+        SELECT
+            no,
+            dairy_date,
+            day_of_week,
+            weather,
+            temp,
+            emotion,
+            content,
+            delete_yn,
+            reg_date
+        FROM tb_diary
+        WHERE 0=0
+            AND dairy_date = #{diaryDate}
+    </select>
 </mapper>
