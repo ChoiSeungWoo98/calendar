@@ -80,7 +80,7 @@
                 <textarea id="content-value" placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!" th:text="${diary?.content}"></textarea>
                 <div style="display: flex; align-items: center; justify-content: flex-end; height: 10%;">
                     <th:block th:if="${diary != null}">
-                        <button id="update-btn">수정</button>
+                        <button id="modify-btn">수정</button>
                     </th:block>
                     <th:block th:if="${diary == null}">
                         <button id="save-btn">등록</button>
@@ -123,10 +123,9 @@
 
 
             let url = '/calender/targer/insert/todo/successYn';
-            let contentType = 'application/x-www-form-urlencoded';
             let data = {targetNo: targetNo, diaryNo: diaryNo, successYn: successYn};
 
-            CHOI.post(url, contentType, data)
+            CHOI.post(url, data)
                 .then(function (response) {
                     if (response.result === "0000") {
                         openSuccesAlert(response.value);
@@ -161,10 +160,37 @@
         });
 
         let url = '/calender/diary/add';
-        let contentType = 'application/x-www-form-urlencoded';
         let data = { date: date, dayOfWeek: dayOfWeek, weather: weather, temp: temp, emotions: emotions, content: content };
 
-        CHOI.post(url, contentType, data)
+        CHOI.post(url, data)
+        .then(function (response) {
+            if(response.result === "0000") {
+                openSuccesAlert(response.value);
+                setInterval(function () {
+                    location.reload();
+                }, 3000)
+            } else {
+                openErrorAlert(response.value);
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
+    });
+
+    $('#modify-btn').on('click', function () {
+        var no = '[[${diary?.no}]]'.trim();
+        let emotions = [];
+        let content = $('#content-value').val();
+
+        $('#emotion').find('div[class*="-select"]').each(function() {
+            var value = $(this).data('value');
+            emotions.push(value);
+        });
+
+        let url = '/calender/diary/modify';
+        let data = { no: no, emotions: emotions, content: content };
+
+        CHOI.put(url, data)
         .then(function (response) {
             if(response.result === "0000") {
                 openSuccesAlert(response.value);

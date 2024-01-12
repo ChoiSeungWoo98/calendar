@@ -7,7 +7,7 @@ $(document).ajaxStop(function(data) {
 });
 
 CHOI = {
-    ajax: function(method, url, contentType, data) {
+    ajax: function(method, url, data, contentType) {
         return new Promise(function (resolve, reject) {
             if(contentType === '' || contentType === undefined || contentType === null) contentType = 'application/x-www-form-urlencoded';
 
@@ -27,17 +27,17 @@ CHOI = {
             }
         });
     },
-    get: function(url, contentType, data) {
-        return this.ajax('GET', url, contentType, data);
+    get: function(url, data, contentType) {
+        return this.ajax('GET', url, data, contentType);
     },
-    post: function(url, contentType, data) {
-        return this.ajax('POST', url, contentType, data);
+    post: function(url, data, contentType) {
+        return this.ajax('POST', url, data, contentType);
     },
-    put: function(url, contentType, data) {
-        return this.ajax('PUT', url, contentType, data);
+    put: function(url, data, contentType) {
+        return this.ajax('PUT', url, data, contentType);
     },
-    delete: function(url, data, submit, contentType) {
-        return this.ajax('DELETE', url, contentType, data);
+    delete: function(url, data, contentType) {
+        return this.ajax('DELETE', url, data, contentType);
     },
     blockScroll: function () {
         $('body').css({ overflow: 'hidden' });

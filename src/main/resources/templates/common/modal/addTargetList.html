@@ -92,10 +92,9 @@
             let month = nowType === 'M' ? $('#month-select').val() : undefined;
 
             let url = '/calender/targer/add';
-            let contentType = 'application/x-www-form-urlencoded';
             let data = { title: title, type: nowType, year: year, month: month };
 
-            CHOI.post(url, contentType, data)
+            CHOI.post(url, data)
             .then(function (response) {
                 if(response.result === "0000") {
                     console.log(response);

@@ -84,10 +84,9 @@
             let type = 'D';
 
             let url = '/calender/targer/add';
-            let contentType = 'application/x-www-form-urlencoded';
             let data = { title: title, type: type, year: year, month: month, day: day, time: time, repeatYn: repeatYn };
 
-            CHOI.post(url, contentType, data)
+            CHOI.post(url, data)
                 .then(function (response) {
                     if(response.result === "0000") {
                         $('#todo-title-value').val('');
