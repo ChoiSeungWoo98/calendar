@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/calender")
 @Slf4j
-public class CalenderController {
+public class TargetController {
 
     @Resource
     CalenderService calenderService;
