@@ -19,10 +19,14 @@
                 </div>
                 <div class="targer-title target-change year">올해 목표</div>
                 <div id="year-list">
-                    <div class="year-list-detail">퇴사하기</div>
-                    <div class="year-list-detail">좋은 공부 프로그램 합격</div>
-                    <div class="year-list-detail">정보처리기사 자격증 합격</div>
-                    <div class="year-list-detail">학사 학위 취득</div>
+                    <th:block th:each="list : ${yearList}">
+                    <div class="list-detail" th:text="${list.title}"></div>
+                    </th:block>
+                </div>
+                <div id="month-list" class="hidden">
+                    <th:block th:each="list : ${monthList}">
+                        <div class="list-detail" th:text="${list.title}"></div>
+                    </th:block>
                 </div>
                 <button class="add-target">올해 목표 등록</button>
             </div>
@@ -65,13 +69,21 @@
             if (hasCancelClass) {
                 $(this).removeClass('month');
                 $(this).addClass('year');
-                $(this).html('월간 목표');
-                $('.add-target').html('월간 목표 등록');
+
+                $(this).html('올해 목표');
+                $('.add-target').html('올해 목표 등록');
+
+                $('#year-list').removeClass('hidden');
+                $('#month-list').addClass('hidden');
             } else {
                 $(this).removeClass('year');
                 $(this).addClass('month');
-                $(this).html('올해 목표');
-                $('.add-target').html('올해 목표 등록');
+
+                $(this).html('월간 목표');
+                $('.add-target').html('월간 목표 등록');
+
+                $('#year-list').addClass('hidden');
+                $('#month-list').removeClass('hidden');
             }
         });
 
