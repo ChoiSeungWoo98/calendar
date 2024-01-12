@@ -1,11 +1,10 @@
 package com.choi.calender.application.target.service;
 
-import com.choi.calender.application.diary.dto.DiaryDto;
 import com.choi.calender.application.target.dto.TargetDto;
-import com.choi.calender.domain.api.DiaryBean;
+import com.choi.calender.application.target.dto.TodoTargetDto;
 import com.choi.calender.domain.api.SearchTargetBean;
 import com.choi.calender.domain.api.TargetBean;
-import com.choi.calender.mapper.DiaryMapper;
+import com.choi.calender.domain.api.TodoTargetBean;
 import com.choi.calender.mapper.TargetMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -36,12 +35,28 @@ public class TargetServiceImpl implements TargetService {
     }
 
     @Override
-    public List<TargetDto> selectYearTarget(SearchTargetBean searchTargetBean) {
-        return targetMapper.selectYearTarget(searchTargetBean).stream().map(targetBean -> new TargetDto().convertBeanToDto(targetBean)).collect(Collectors.toList());
+    public String insertTodoSuccessYn(TodoTargetDto todoTargetDto) {
+        TodoTargetBean todoTargetBean = new TodoTargetBean().convertDtoToBean(todoTargetDto);
+        return targetMapper.insertTodoSuccessYn(todoTargetBean) == 1
+                ? "Y".equals(todoTargetBean.getSuccessYn()) ? "목표 달성했네요!! 고생하셨습니다!" : "목표 달성을 취소하였습니다! 달성을 위해 화이팅!"
+                : "Y".equals(todoTargetBean.getSuccessYn()) ? "목표 달성했네요!! 고생하셨습니다!" : "목표 달성을 취소하였습니다! 달성을 위해 화이팅!";
     }
 
     @Override
-    public List<TargetDto> selectMonthTarget(SearchTargetBean searchTargetBean) {
-        return targetMapper.selectMonthTarget(searchTargetBean).stream().map(targetBean -> new TargetDto().convertBeanToDto(targetBean)).collect(Collectors.toList());
+    public List<TargetDto> selectTarget(SearchTargetBean searchTargetBean) {
+        List<TargetBean> targetBeanList = targetMapper.selectTarget(searchTargetBean);
+        if(targetBeanList == null) {
+            return null;
+        }
+        return targetBeanList.stream().map(targetBean -> new TargetDto().convertBeanToDto(targetBean)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TargetDto> selectRepeatTodoTarget(SearchTargetBean searchTargetBean) {
+        List<TargetBean> targetBeanList = targetMapper.selectRepeatTodoTarget(searchTargetBean);
+        if(targetBeanList == null) {
+            return null;
+        }
+        return targetBeanList.stream().map(targetBean -> new TargetDto().convertBeanToDto(targetBean)).collect(Collectors.toList());
     }
 }

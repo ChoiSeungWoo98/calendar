@@ -2,6 +2,7 @@ package com.choi.calender.mapper;
 
 import com.choi.calender.domain.api.SearchTargetBean;
 import com.choi.calender.domain.api.TargetBean;
+import com.choi.calender.domain.api.TodoTargetBean;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,8 +14,10 @@ public interface TargetMapper {
 
     int updateSuccessYn(TargetBean targetBean);
 
-    List<TargetBean> selectYearTarget(SearchTargetBean searchTargetBean);
+    int insertTodoSuccessYn(TodoTargetBean todoTargetBean);
 
-    List<TargetBean> selectMonthTarget(SearchTargetBean searchTargetBean);
+    List<TargetBean> selectTarget(SearchTargetBean searchTargetBean);
+
+    List<TargetBean> selectRepeatTodoTarget(SearchTargetBean searchTargetBean);
 
 }
