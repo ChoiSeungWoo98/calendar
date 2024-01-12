@@ -23,13 +23,18 @@
                     <th:block th:if="${diary != null}">
                         <div id="weather"><h5 class="weather-txt">날씨 : <span th:text="${diary.weather}"></span> ( <span th:text="${diary.temp}"></span> °C)</h5></div>
                     </th:block>
-                    <div id="emotion">
+                    <div id="emotion" class="flex-wrap">
                         <div class="happy" data-value="happy"></div>
                         <div class="angry" data-value="angry"></div>
                         <div class="cry" data-value="cry"></div>
+                        <div class="neutral" data-value="neutral"></div>
+                        <div class="shy" data-value="shy"></div>
+
+                        <div class="sleep" data-value="sleep"></div>
+                        <div class="sick" data-value="sick"></div>
                         <div class="disbelief" data-value="disbelief"></div>
+                        <div class="thinking" data-value="thinking"></div>
                         <div class="love" data-value="love"></div>
-                        <div class="tired" data-value="tired"></div>
                     </div>
                 </div>
                 <div id="day-list">
@@ -53,27 +58,7 @@
             </div>
             <div class="text-title ">
                 <div>하루 정리</div>
-                <div>
-                    <!-- upload area -->
-                    <div class="dropbox flex flex-row" style="border-radius:10px;">
-                        <input type="file" id="project-file" class="hidden" multiple>
-                        <div class="file-none w-[100%]" style="height: auto;">
-                            <label for="project-file" class="dragabled flex flex-col w-[100%] items-center box-border py-[18px] rounded-[10px] border-[#515B68] border-[1px] border-dashed cursor-pointer">
-                            <span class="flex mb-[5px]">
-                                <svg width="41" height="28" viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.99854 28.0008C7.49854 28.0008 5.3732 27.1341 3.62254 25.4008C1.8732 23.6675 0.998535 21.5508 0.998535 19.0508C0.998535 16.6841 1.8152 14.6261 3.44853 12.8768C5.08187 11.1261 6.99854 10.1841 9.19853 10.0508C9.63187 7.15079 10.9652 4.75079 13.1985 2.85079C15.4319 0.950794 18.0319 0.000793457 20.9985 0.000793457C24.3319 0.000793457 27.1652 1.16746 29.4985 3.50079C31.8319 5.83413 32.9985 8.66746 32.9985 12.0008V14.0008H34.2485C36.1485 14.0675 37.7485 14.7755 39.0485 16.1248C40.3485 17.4755 40.9985 19.1008 40.9985 21.0008C40.9985 22.9675 40.3319 24.6261 38.9985 25.9768C37.6652 27.3261 36.0319 28.0008 34.0985 28.0008H23.2485C22.3152 28.0008 21.5405 27.6928 20.9245 27.0768C20.3072 26.4595 19.9985 25.6841 19.9985 24.7508V13.1508L15.7985 17.3508L14.3985 15.9508L20.9985 9.35079L27.5985 15.9508L26.1985 17.3508L21.9985 13.1508V24.7508C21.9985 25.0841 22.1239 25.3755 22.3745 25.6248C22.6239 25.8755 22.9152 26.0008 23.2485 26.0008H33.9985C35.3985 26.0008 36.5819 25.5175 37.5485 24.5508C38.5152 23.5841 38.9985 22.4008 38.9985 21.0008C38.9985 19.6008 38.5152 18.4175 37.5485 17.4508C36.5819 16.4841 35.3985 16.0008 33.9985 16.0008H30.9985V12.0008C30.9985 9.23413 30.0239 6.87546 28.0745 4.92479C26.1239 2.97546 23.7652 2.00079 20.9985 2.00079C18.2319 2.00079 15.8739 2.97546 13.9245 4.92479C11.9739 6.87546 10.9985 9.23413 10.9985 12.0008H9.89853C8.0652 12.0008 6.45654 12.6841 5.07254 14.0508C3.68987 15.4175 2.99854 17.0675 2.99854 19.0008C2.99854 20.9341 3.68187 22.5841 5.04854 23.9508C6.4152 25.3175 8.0652 26.0008 9.99854 26.0008H14.9985V28.0008H9.99854Z" fill="#BBBBBB"/></svg>
-                            </span>
-                                <p class="text-[14px] text-[#888888] mb-[0px] mt-[8px]">클릭하여 파일을 업로드 하거나 파일을 끌어서 올려주세요.</p>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="file-in w-[100%] hidden" style="height: auto;">
-                        <label class="file-name-label flex flex-col w-[100%] items-center box-border py-[18px] rounded-[10px] border-[#515B68] border-[1px] border-dashed cursor-pointer">
-                            <span class="flex mb-[5px]">
-                            </span>
-                        </label>
-                    </div>
-                    <!--//upload area -->
-                </div>
+                <button id="add-img" class="btn" >등록</button>
                 <input type="file" accept="image/*,video/*" id="image-value" class="hidden" />
             </div>
             <div id="content">
@@ -96,10 +81,6 @@
 </th:block>
 
 <script layout:fragment="script">
-    $('#back-btn').on('click', function () {
-        history.back();
-    });
-
     $('#emotion > div').on('click', function () {
         var $this = $(this);
         var currentClass = $this.attr('class');
@@ -138,10 +119,6 @@
         } else {
             openErrorAlert('일기 저장 후 목표 달성을 수정하실 수 있습니다.');
         }
-    });
-
-    $('#add-img').on('click', function () {
-        $('#image-value').click();
     });
 
     $('#save-btn').on('click', function () {
@@ -210,23 +187,12 @@
         openAddTodo(title);
     });
 
-    $('.dropbox').on({
-        drop: function (event) {
-            event.preventDefault();
-            $('.dragabled').removeClass('bg-[#F4F4F4]');
-            onFileSelected(event.originalEvent.dataTransfer.files);
-        },
-        dragover: function (event) {
-            event.preventDefault();
-        },
-        dragenter: function (event) {
-            event.preventDefault();
-            $('.dragabled').addClass('bg-[#F4F4F4]');
-        },
-        dragleave: function (event) {
-            event.preventDefault();
-            $('.dragabled').removeClass('bg-[#F4F4F4]');
-        }
+    $('#back-btn').on('click', function () {
+        history.back();
+    });
+
+    $('#add-img').on('click', function () {
+        $('#image-value').click();
     });
 
     function onFileSelected(files) {
@@ -266,28 +232,6 @@
 
         addFileListToHtml();
         if(inputFileInfos.length === 0) $('.file-in').addClass('hidden');
-    }
-
-    function addFileListToHtml() {
-        var inputFileNameTag = '';
-        var idx = 1;
-        inputFileInfos.forEach(data => {
-            var divTag = '<div class="flex w-full h-[20px] mb-[15px]">';
-            if(idx === inputFileInfos.length) divTag = '<div class="flex w-full h-[20px]">'
-
-            inputFileNameTag +=
-                divTag +
-                '<img src="/img/common/file/' + data.ext + '-icon.png" class="w-[20px] h-[20px] ml-[20px]">' +
-                '<p class="text-[14px] text-[#888888] w-auto whitespace-nowrap" style="padding-left: 20px">' + data.name + '</p>' +
-                '<p class="text-[14px] text-[#888888] w-auto whitespace-nowrap" style="padding-left: 20px">' + data.ext + '</p>' +
-                '<p class="text-[14px] text-[#888888] w-auto whitespace-nowrap" style="padding-left: 20px">' + XE.byteToHumanReadableFormat(data.size) + '</p>' +
-                '<a class="delete-btn flex text-[14px] w-[20px] ml-[15px] justify-center items-center" onclick="deleteFile(\'' + data.name + '\');" style="color: #B02318">X</a>' +
-                '</div>';
-
-            idx++;
-        });
-
-        $('.file-name-label').html(inputFileNameTag);
     }
 
     $('#project-file').on('change', function (event) {

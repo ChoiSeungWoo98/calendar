@@ -38,16 +38,13 @@
 }
 
 #detail-information > .left > #emotion > div {
-    width: 15%;
-    height: 100%;
+    width: 18%;
+    height: 80%;
+    margin-bottom: 2%;
     margin-right: 2%;
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
-}
-
-#detail-information > .left > #emotion > div:last-child {
-    margin-right: 0;
 }
 
 
@@ -113,51 +110,83 @@
 }
 
 .angry {
-background: url("../img/emotion/square/angry.png");
+background: url("../img/emotion/circle/angry.png");
 }
 
 .angry-select {
-background: url("../img/emotion/square/angry-select.png");
+background: url("../img/emotion/circle/angry-select.png");
 }
 
 .cry {
-background: url("../img/emotion/square/cry.png");
+background: url("../img/emotion/circle/cry.png");
 }
 
 .cry-select {
-background: url("../img/emotion/square/cry-select.png");
+background: url("../img/emotion/circle/cry-select.png");
 }
 
 .disbelief {
-background: url("../img/emotion/square/disbelief.png");
+background: url("../img/emotion/circle/disbelief.png");
 }
 
 .disbelief-select {
-background: url("../img/emotion/square/disbelief-select.png");
+background: url("../img/emotion/circle/disbelief-select.png");
 }
 
 .happy {
-background: url("../img/emotion/square/happy.png");
+background: url("../img/emotion/circle/happy.png");
 }
 
 .happy-select {
-background: url("../img/emotion/square/happy-select.png");
+background: url("../img/emotion/circle/happy-select.png");
 }
 
 .love {
-background: url("../img/emotion/square/love.png");
+background: url("../img/emotion/circle/love.png");
 }
 
 .love-select {
-background: url("../img/emotion/square/love-select.png");
+background: url("../img/emotion/circle/love-select.png");
 }
 
-.tired {
-background: url("../img/emotion/square/tired.png");
+.sick {
+background: url("../img/emotion/circle/sick.png");
 }
 
-.tired-select {
-background: url("../img/emotion/square/tired-select.png");
+.sick-select {
+background: url("../img/emotion/circle/sick-select.png");
+}
+
+.neutral {
+background: url("../img/emotion/circle/neutral.png");
+}
+
+.neutral-select {
+background: url("../img/emotion/circle/neutral-select.png");
+}
+
+.shy {
+background: url("../img/emotion/circle/shy.png");
+}
+
+.shy-select {
+background: url("../img/emotion/circle/shy-select.png");
+}
+
+.sleep {
+background: url("../img/emotion/circle/sleep.png");
+}
+
+.sleep-select {
+background: url("../img/emotion/circle/sleep-select.png");
+}
+
+.thinking {
+background: url("../img/emotion/circle/thinking.png");
+}
+
+.thinking-select {
+background: url("../img/emotion/circle/thinking-select.png");
 }
 
 .checkbox {
