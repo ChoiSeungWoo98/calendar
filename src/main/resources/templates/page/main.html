@@ -17,7 +17,7 @@
                     <h3 class="weather-ico"></h3>
                     <h3 class="temperatures"></h3>
                 </div>
-                <div class="targer-title target-change year">올해 목표</div>
+                <div class="targer-title target-change year flex justify-center items-center">올해 목표</div>
                 <div id="year-list">
                     <th:block th:each="list : ${yearList}">
                     <div class="list-detail" th:text="${list.title}"></div>
@@ -55,7 +55,7 @@
 
 <script layout:fragment="script">
     $(document).ready(function () {
-        $('.year-list-detail').on('click', function () {
+        $('.list-detail').on('click', function () {
             var hasCancelClass = $(this).hasClass('cancel');
             if (hasCancelClass) {
                 $(this).removeClass('cancel');
