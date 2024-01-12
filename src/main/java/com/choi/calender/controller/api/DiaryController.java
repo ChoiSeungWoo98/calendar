@@ -13,33 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/calender/targer")
+@RequestMapping("/calender/diary")
 @Slf4j
-public class TargetController {
+public class DiaryController {
 
     @Resource
     CalenderService calenderService;
 
     @PostMapping("/add")
-    public ReturnMessage addTarget(
-            @ModelAttribute("targetDto") TargetDto targetDto
+    public ReturnMessage addDiary(
+            @ModelAttribute("diaryDto") DiaryDto diaryDto
     ) {
-        if(checkValue(targetDto)) {
+        if(diaryDto.isDataEmptyCheck()) {
             return new ReturnMessage(ReturnStatus.NO_VALUE, "필수 값이 존재하지 않습니다.", new Exception("필수 값이 존재하지 않습니다."));
         }
 
         try {
-            return new ReturnMessage(calenderService.insertTarget(targetDto));
+            return new ReturnMessage(calenderService.insertDiary(diaryDto));
         } catch (Exception e) {
-            return new ReturnMessage(ReturnStatus.FAIL, "목표 저장 실패", e);
+            return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
         }
-    }
-
-    public boolean checkValue(TargetDto targetDto) {
-        if("Y".equals(targetDto.getType())) return targetDto.isYearDataEmptyCheck();
-        if("M".equals(targetDto.getType())) return targetDto.isMonthDataEmptyCheck();
-        if("D".equals(targetDto.getType())) return targetDto.isDayDataEmptyCheck();
-        return true;
     }
 
 }
