@@ -93,4 +93,12 @@ public class DiaryDto {
             || StringUtils.isBlank(this.content)
         ;
     }
+
+    public boolean isUpdateDataEmptyCheck() {
+        return
+            this.no == 0
+            || ObjectUtils.isEmpty(this.emotions)
+            || StringUtils.isBlank(this.content)
+        ;
+    }
 }

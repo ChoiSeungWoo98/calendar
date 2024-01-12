@@ -23,6 +23,14 @@
         )
     </insert>
 
+    <update id="updateDiary" parameterType="targetBean">
+        UPDATE tb_diary
+        SET
+            emotion = #{emotion},
+            content = #{content}
+        WHERE no = #{no}
+    </update>
+
     <select id="selectDiary" parameterType="string" resultType="diaryBean">
         SELECT
             no,
