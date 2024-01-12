@@ -10,6 +10,8 @@ public interface TargetService {
 
     String insertTarget(TargetDto targetDto);
 
+    String updateSuccessYn(TargetDto targetDto);
+
     List<TargetDto> selectYearTarget(SearchTargetBean searchTargetBean);
 
     List<TargetDto> selectMonthTarget(SearchTargetBean searchTargetBean);

@@ -11,6 +11,8 @@ public interface TargetMapper {
 
     int insertTarget(TargetBean targetBean);
 
+    int updateSuccessYn(TargetBean targetBean);
+
     List<TargetBean> selectYearTarget(SearchTargetBean searchTargetBean);
 
     List<TargetBean> selectMonthTarget(SearchTargetBean searchTargetBean);

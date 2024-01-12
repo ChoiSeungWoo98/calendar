@@ -28,6 +28,14 @@ public class TargetServiceImpl implements TargetService {
     }
 
     @Override
+    public String updateSuccessYn(TargetDto targetDto) {
+        TargetBean targetBean = new TargetBean().convertBeanToDto(targetDto);
+        return targetMapper.updateSuccessYn(targetBean) == 1
+                ? "Y".equals(targetBean.getSuccessYn()) ? "목표 달성했네요!! 고생하셨습니다!" : "목표 달성을 취소하였습니다! 달성을 위해 화이팅!"
+                : "업데이트에 실패했습니다. 코드를 수정해주세요.";
+    }
+
+    @Override
     public List<TargetDto> selectYearTarget(SearchTargetBean searchTargetBean) {
         return targetMapper.selectYearTarget(searchTargetBean).stream().map(targetBean -> new TargetDto().convertBeanToDto(targetBean)).collect(Collectors.toList());
     }

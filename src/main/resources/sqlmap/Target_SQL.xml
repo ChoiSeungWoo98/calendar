@@ -49,6 +49,13 @@
             #{type}
         )
     </insert>
+    
+    <update id="updateSuccessYn" parameterType="targetBean">
+        UPDATE tb_target
+        SET
+            success_yn = #{successYn}
+        WHERE no = #{no}
+    </update>
 
     <select id="selectYearTarget" parameterType="searchTargetBean" resultType="targetBean">
         SELECT

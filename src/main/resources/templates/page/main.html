@@ -20,12 +20,17 @@
                 <div class="targer-title target-change year flex justify-center items-center">올해 목표</div>
                 <div id="year-list">
                     <th:block th:each="list : ${yearList}">
-                    <div class="list-detail" th:text="${list.title}"></div>
+                        <th:block th:if="${list.successYn eq 'Y'}">
+                            <div class="list-detail mb-[1%] cancel" th:value="${list.no}" th:text="${list.title}"></div>
+                        </th:block>
+                        <th:block th:if="${list.successYn eq 'N'}">
+                            <div class="list-detail mb-[1%]" th:value="${list.no}" th:text="${list.title}"></div>
+                        </th:block>
                     </th:block>
                 </div>
                 <div id="month-list" class="hidden">
                     <th:block th:each="list : ${monthList}">
-                        <div class="list-detail" th:text="${list.title}"></div>
+                        <div class="list-detail mb-[1%]" th:text="${list.title}"></div>
                     </th:block>
                 </div>
                 <button class="add-target">올해 목표 등록</button>
@@ -56,12 +61,39 @@
 <script layout:fragment="script">
     $(document).ready(function () {
         $('.list-detail').on('click', function () {
+            let successYn;
+            let no = $(this).attr('value');
             var hasCancelClass = $(this).hasClass('cancel');
             if (hasCancelClass) {
+                successYn = 'N';
                 $(this).removeClass('cancel');
             } else {
+                successYn = 'Y';
                 $(this).addClass('cancel');
             }
+
+            $.ajax({
+                url: '/calender/targer/update/successYn',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {
+                    no: no,
+                    successYn: successYn
+                },
+                success: function(response) {
+                    if(response.result === "0000") {
+                        $('#todo-title-value').val('');
+                        $('#todo-date-value').val('');
+                        $('#todo-one-check').attr('checked', true);
+                        openSuccesAlert(response.value);
+                    } else {
+                        openErrorAlert(response.value);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
 
         $('.target-change').on('click', function () {

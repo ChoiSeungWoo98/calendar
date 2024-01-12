@@ -4,6 +4,7 @@ import com.choi.calender.application.target.dto.TargetDto;
 import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -55,7 +56,7 @@ public class TargetBean {
         try {
             return new TargetBean(
                 targetDto.getNo(),
-                AES256.encrypt(targetDto.getTitle()),
+                StringUtils.isBlank(targetDto.getTitle()) ? null : AES256.encrypt(targetDto.getTitle()),
                 targetDto.getType(),
                 targetDto.getYear(),
                 targetDto.getMonth(),
