@@ -72,27 +72,22 @@
                 $(this).addClass('cancel');
             }
 
-            $.ajax({
-                url: '/calender/targer/update/successYn',
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded',
-                data: {
-                    no: no,
-                    successYn: successYn
-                },
-                success: function(response) {
-                    if(response.result === "0000") {
-                        $('#todo-title-value').val('');
-                        $('#todo-date-value').val('');
-                        $('#todo-one-check').attr('checked', true);
-                        openSuccesAlert(response.value);
-                    } else {
-                        openErrorAlert(response.value);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
+            let url = '/calender/targer/update/successYn';
+            let contentType = 'application/x-www-form-urlencoded';
+            let data = { no: no, successYn: successYn };
+
+            CHOI.put(url, contentType, data)
+            .then(function (response) {
+                if(response.result === "0000") {
+                    $('#todo-title-value').val('');
+                    $('#todo-date-value').val('');
+                    $('#todo-one-check').attr('checked', true);
+                    openSuccesAlert(response.value);
+                } else {
+                    openErrorAlert(response.value);
                 }
+            }).catch(function (error) {
+                console.error(error);
             });
         });
 

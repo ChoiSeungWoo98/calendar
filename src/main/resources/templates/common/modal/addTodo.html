@@ -83,20 +83,12 @@
             let day = '[[${day}]]';
             let type = 'D';
 
-            $.ajax({
-                url: '/calender/targer/add',
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded',
-                data: {
-                    title: title,
-                    type: type,
-                    year: year,
-                    month: month,
-                    day: day,
-                    time: time,
-                    repeatYn: repeatYn
-                },
-                success: function(response) {
+            let url = '/calender/targer/add';
+            let contentType = 'application/x-www-form-urlencoded';
+            let data = { title: title, type: type, year: year, month: month, day: day, time: time, repeatYn: repeatYn };
+
+            CHOI.post(url, contentType, data)
+                .then(function (response) {
                     if(response.result === "0000") {
                         $('#todo-title-value').val('');
                         $('#todo-date-value').val('');
@@ -105,10 +97,8 @@
                     } else {
                         openErrorAlert(response.value);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
+                }).catch(function (error) {
+                console.error(error);
             });
 
             $('.modalBackGround-todo').addClass('hidden');

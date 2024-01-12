@@ -91,31 +91,25 @@
             let year = $('#year_select').val();
             let month = nowType === 'M' ? $('#month-select').val() : undefined;
 
-            $.ajax({
-                url: '/calender/targer/add',
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded',
-                data: {
-                    title: title,
-                    type: nowType,
-                    year: year,
-                    month: month
-                },
-                success: function(response) {
-                    if(response.result === "0000") {
-                        console.log(response);
-                        openSuccesAlert(response.value);
-                        $('#target-title-value').val('');
-                        $('#year_select').val(new Date().getFullYear());
-                        $('#month-select').val('1');
-                    } else {
-                        openErrorAlert(response.value);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
+            let url = '/calender/targer/add';
+            let contentType = 'application/x-www-form-urlencoded';
+            let data = { title: title, type: nowType, year: year, month: month };
+
+            CHOI.post(url, contentType, data)
+            .then(function (response) {
+                if(response.result === "0000") {
+                    console.log(response);
+                    openSuccesAlert(response.value);
+                    $('#target-title-value').val('');
+                    $('#year_select').val(new Date().getFullYear());
+                    $('#month-select').val('1');
+                } else {
+                    openErrorAlert(response.value);
                 }
+            }).catch(function (error) {
+                console.error(error);
             });
+
             $('.modalBackGround-target').addClass('hidden');
         });
 
