@@ -79,6 +79,7 @@ public class ViewController {
 
             SearchFileBean searchFileBean = new SearchFileBean(diaryNo, FileIdentifier.Diary.getValue());
             List<FileDto> fileList = fileService.selectDiaryFiles(searchFileBean);
+            setFilePath(fileList);
 
             model.addAttribute("todoList", todoList);
             model.addAttribute("fileList", fileList);
@@ -102,4 +103,10 @@ public class ViewController {
         model.addAttribute("weekDay", weekDay);
     }
 
+    private void setFilePath(List<FileDto> fileList) {
+        fileList.forEach(file -> {
+            String path = common.getBase64ImgFile(file.getIdentifier(), file.getKeyNo(), file.getFileName(), file.getExt());
+            file.setFilePath(path);
+        });
+    }
 }

@@ -20,6 +20,7 @@ public class FileDto {
     protected String ext;
     protected long size;
     protected Instant regDate;
+    protected String filePath;
 
     public FileDto(
         int no,

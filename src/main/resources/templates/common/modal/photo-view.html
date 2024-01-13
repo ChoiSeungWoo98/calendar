@@ -1,0 +1,56 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="photo-view">
+    <div class="modalBackGround-photo-view z-[99999] hidden">
+        <div class="photo-view">
+            <div id="photo-header" class="flex h-[7%] mb-[3%]">
+                <h1 id="photo-title" class="flex items-center justify-start">지난 추억</h1>
+                <a id="photo-view-close-btn" class="flex items-center justify-center cursor-pointer w-[30px]">x</a>
+            </div>
+            <div id="photo-view-image-list" class="flex overflow-x-scroll h-[90%]">
+                <th:block th:each="list : ${fileList}">
+                    <img th:src="|data:image/png;base64,${list.filePath}|" th:alt="${list.oriFileName}" class="w-[50%] mr-[5%]">
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modalBackGround-photo-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background: rgba(55, 55, 55, 0.5);
+        }
+        .photo-view {
+            padding: 30px;
+            width: 85%;
+            height: 85%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            z-index: 9999;
+            border-radius: 20px
+        }
+
+        #photo-header > * {
+            font-size: 22px;
+        }
+    </style>
+
+    <script>
+        function openPhotoView() {
+            CHOI.blockScroll();
+            $('.modalBackGround-photo-view').removeClass('hidden');
+        }
+
+        $('#photo-view-close-btn').on('click', function () {
+            $('.modalBackGround-photo-view').addClass('hidden');
+        });
+    </script>
+</th:block>
+</html>
