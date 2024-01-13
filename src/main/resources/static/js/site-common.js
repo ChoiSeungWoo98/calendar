@@ -24,6 +24,7 @@ CHOI = {
                 ajaxOption = {
                     url : url,
                     type : method,
+                    encrype: 'multipart/form-data',
                     processData : false,
                     contentType : false,
                     data : data,

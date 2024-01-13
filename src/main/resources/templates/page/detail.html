@@ -59,7 +59,9 @@
             <div class="text-title ">
                 <div>하루 정리</div>
                 <button id="add-img" class="btn" >등록</button>
-                <input type="file" accept="image/*,video/*" id="diary-file" class="hidden" />
+                <form id="fileForm" method="post" enctype="multipart/form-data" class="hidden">
+                    <input type="file" name="file" accept="image/*,video/*" id="diary-file" class="hidden" multiple/>
+                </form>
             </div>
             <div id="content">
                 <textarea id="content-value" placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!" th:text="${diary?.content}"></textarea>
@@ -211,8 +213,7 @@
         }
 
         let url = '/calender/diary/add/file';
-        let fileData = new FormData();
-        fileData.append('file', files[0]);
+        let fileData = new FormData($('#fileForm')[0]);
         fileData.append('no', diaryNo);
 
         CHOI.post(url, fileData, 'file')
@@ -225,9 +226,6 @@
             }).catch(function (error) {
             console.error(error);
         });
-
-
-
     }
 
     $('#diary-file').on('change', function (event) {
