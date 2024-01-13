@@ -98,9 +98,9 @@ public class Common {
         return file;
     }
 
-    public String getBase64ImgFile(String key, String fileName, String fileExt) {
+    public String getBase64ImgFile(String identifier, String key, String fileName, String fileExt) {
         String base64Image = "";
-        String imgPath = System.getProperty("user.dir") + File.separator + "file" + File.separator + key + File.separator + fileName + "." +fileExt;
+        String imgPath = System.getProperty("user.dir") + File.separator + "file" + File.separator + identifier + File.separator + key + File.separator + fileName + "." +fileExt;
 
         try {
             File file = new File(imgPath);
