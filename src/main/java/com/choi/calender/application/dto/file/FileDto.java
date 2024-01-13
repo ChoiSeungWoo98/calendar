@@ -1,0 +1,37 @@
+package com.xe.management.application.dto.file;
+
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.Instant;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class FileDto {
+    protected int no;
+    protected int key;
+    protected String oriFileName;
+    protected String fileName;
+    protected String ext;
+    protected long size;
+    protected Instant regDate;
+
+    public FileDto(
+        int key,
+        String oriFileName,
+        String fileName,
+        String ext,
+        long size
+    ) {
+        this.key = key;
+        this.oriFileName = oriFileName;
+        this.fileName = fileName;
+        this.ext = ext;
+        this.size = size;
+    }
+
+
+}
