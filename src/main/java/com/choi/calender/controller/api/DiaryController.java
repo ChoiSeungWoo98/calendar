@@ -1,6 +1,6 @@
 package com.choi.calender.controller.api;
 
-import com.choi.calender.application.dto.DiaryDto;
+import com.choi.calender.application.dto.diary.DiaryDto;
 import com.choi.calender.application.service.DiaryService;
 import com.choi.calender.application.service.FileService;
 import com.choi.calender.domain.value.ReturnStatus;
@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/calender/diary")
@@ -69,18 +73,23 @@ public class DiaryController {
 
     @PostMapping("/add/file")
     public ReturnMessage addFile(
-            @RequestParam("file") MultipartFile file,
+            MultipartHttpServletRequest request,
             @RequestParam("no") String no
     ) {
         if(StringUtils.isBlank(no)) {
             return new ReturnMessage(ReturnStatus.NO_VALUE, "필수 값이 존재하지 않습니다.", new Exception("필수 값이 존재하지 않습니다."));
         }
+        List<MultipartFile> files = request.getFiles("file");
 
         try {
             fileService.deleteFile(no);
-            return new ReturnMessage("파일저장 성공");
+            if(files == null) {
+                throw new IOException("파일이 존재하지 않습니다.");
+            }
+
+            return new ReturnMessage(fileService.insertFile(files, no));
         } catch (Exception e) {
-            return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
+            return new ReturnMessage(ReturnStatus.FAIL, "파일 저장 실패", e);
         }
     }
 

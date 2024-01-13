@@ -1,13 +1,18 @@
 package com.choi.calender.application.impl;
 
 import com.choi.calender.application.service.FileService;
+import com.choi.calender.domain.api.file.FileBean;
+import com.choi.calender.domain.value.FileIdentifier;
 import com.choi.calender.mapper.FileMapper;
 import com.choi.calender.util.Common;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -19,9 +24,32 @@ public class FileServiceImpl implements FileService {
     private FileMapper fileMapper;
 
     @Override
-    public String insertFile(String no) {
-        return fileMapper.insertFile(no) == 1
-                ? "오늘도 고생했지만 내일은 더 열심히 해보자!"
+    public String insertFile(List<MultipartFile> files, String no) throws IOException {
+        String identifier = FileIdentifier.Diary.getValue();
+        String path = common.checkAndCreateForder("file" + File.separator + identifier + File.separator +no);
+        List<FileBean> fileList = new ArrayList<>();
+
+        files.forEach(file -> {
+            try {
+                String uniqueFileName = common.saveMultipartFile(file, path);
+                int subIdx = uniqueFileName.lastIndexOf(".");
+                fileList.add(
+                    new FileBean(
+                        no,
+                        identifier,
+                        file.getOriginalFilename(),
+                        uniqueFileName.substring(0, subIdx),
+                        uniqueFileName.substring(subIdx + 1),
+                        file.getSize()
+                    )
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        return fileMapper.insertFiles(fileList) >= 1
+                ? "파일 저장에 성공했습니다!"
                 : "저장에 실패했습니다. 코드를 수정해주세요.";
     }
 
@@ -32,7 +60,8 @@ public class FileServiceImpl implements FileService {
     }
 
     public void deleteRealFolder(String no) throws IOException {
-        String path = common.checkAndCreateForder("file" + File.separator + no);
+        String identifier = FileIdentifier.Diary.getValue();
+        String path = common.checkAndCreateForder("file" + File.separator + identifier + File.separator +no);
         File deleteDirectory = new File(path);
 
         if (!deleteDirectory.exists()) return ;
