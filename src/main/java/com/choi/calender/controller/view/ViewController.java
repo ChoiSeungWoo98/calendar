@@ -2,10 +2,14 @@ package com.choi.calender.controller.view;
 
 
 import com.choi.calender.application.dto.diary.DiaryDto;
+import com.choi.calender.application.dto.file.FileDto;
 import com.choi.calender.application.dto.target.TargetDto;
 import com.choi.calender.application.service.DiaryService;
+import com.choi.calender.application.service.FileService;
 import com.choi.calender.application.service.TargetService;
+import com.choi.calender.domain.api.file.SearchFileBean;
 import com.choi.calender.domain.api.target.SearchTargetBean;
+import com.choi.calender.domain.value.FileIdentifier;
 import com.choi.calender.util.Common;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +35,9 @@ public class ViewController {
 
     @Resource
     DiaryService diaryService;
+
+    @Resource
+    FileService fileService;
 
     @GetMapping("/main")
     public String main(Model model) {
@@ -65,11 +72,19 @@ public class ViewController {
         if(diary != null) {
             diaryNo = diary.getNo();
         }
-        SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day, diaryNo);
-        List<TargetDto> todoList = targetService.selectRepeatTodoTarget(searchTargetBean);
+
+        if(diaryNo != 0) {
+            SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day, diaryNo);
+            List<TargetDto> todoList = targetService.selectRepeatTodoTarget(searchTargetBean);
+
+            SearchFileBean searchFileBean = new SearchFileBean(diaryNo, FileIdentifier.Diary.getValue());
+            List<FileDto> fileList = fileService.selectDiaryFiles(searchFileBean);
+
+            model.addAttribute("todoList", todoList);
+            model.addAttribute("fileList", fileList);
+        }
 
         model.addAttribute("diary", diary);
-        model.addAttribute("todoList", todoList);
         model.addAttribute("view", "detail");
         setModelDate(model, year, month, day, weekDay);
         return "page/detail";

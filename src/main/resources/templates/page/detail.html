@@ -58,6 +58,9 @@
             </div>
             <div class="text-title ">
                 <div>하루 정리</div>
+                <th:block th:if="${fileList != null && fileList.size() != 0}">
+                    <button id="show-img" class="btn mr-1" >보기</button>
+                </th:block>
                 <button id="add-img" class="btn" >등록</button>
                 <form id="fileForm" method="post" enctype="multipart/form-data" class="hidden">
                     <input type="file" name="file" accept="image/*,video/*" id="diary-file" class="hidden" multiple/>
@@ -230,6 +233,10 @@
 
     $('#diary-file').on('change', function (event) {
         onFileSelected(event.target.files);
+    });
+
+    $('#show-img').on('click', function () {
+
     });
 
     $(document).ready(function () {
