@@ -1,8 +1,8 @@
 package com.choi.calender.mapper;
 
-import com.choi.calender.domain.api.SearchTargetBean;
-import com.choi.calender.domain.api.TargetBean;
-import com.choi.calender.domain.api.TodoTargetBean;
+import com.choi.calender.domain.api.target.SearchTargetBean;
+import com.choi.calender.domain.api.target.TargetBean;
+import com.choi.calender.domain.api.target.TodoTargetBean;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

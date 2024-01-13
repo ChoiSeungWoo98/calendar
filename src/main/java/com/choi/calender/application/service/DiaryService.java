@@ -1,6 +1,6 @@
 package com.choi.calender.application.service;
 
-import com.choi.calender.application.dto.DiaryDto;
+import com.choi.calender.application.dto.diary.DiaryDto;
 
 import java.util.List;
 

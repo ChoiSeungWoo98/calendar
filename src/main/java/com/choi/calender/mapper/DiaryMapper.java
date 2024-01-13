@@ -1,6 +1,6 @@
 package com.choi.calender.mapper;
 
-import com.choi.calender.domain.api.DiaryBean;
+import com.choi.calender.domain.api.diary.DiaryBean;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

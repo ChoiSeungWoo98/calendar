@@ -1,7 +1,7 @@
 package com.choi.calender.util;
 
-import com.choi.calender.application.dto.DiaryDto;
-import com.choi.calender.domain.api.DiaryBean;
+import com.choi.calender.application.dto.diary.DiaryDto;
+import com.choi.calender.domain.api.diary.DiaryBean;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;

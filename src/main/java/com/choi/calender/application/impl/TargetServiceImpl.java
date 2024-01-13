@@ -1,11 +1,11 @@
 package com.choi.calender.application.impl;
 
-import com.choi.calender.application.dto.TargetDto;
-import com.choi.calender.application.dto.TodoTargetDto;
+import com.choi.calender.application.dto.target.TargetDto;
+import com.choi.calender.application.dto.target.TodoTargetDto;
 import com.choi.calender.application.service.TargetService;
-import com.choi.calender.domain.api.SearchTargetBean;
-import com.choi.calender.domain.api.TargetBean;
-import com.choi.calender.domain.api.TodoTargetBean;
+import com.choi.calender.domain.api.target.SearchTargetBean;
+import com.choi.calender.domain.api.target.TargetBean;
+import com.choi.calender.domain.api.target.TodoTargetBean;
 import com.choi.calender.mapper.TargetMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;

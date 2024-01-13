@@ -1,7 +1,7 @@
 package com.choi.calender.controller.api;
 
-import com.choi.calender.application.dto.TargetDto;
-import com.choi.calender.application.dto.TodoTargetDto;
+import com.choi.calender.application.dto.target.TargetDto;
+import com.choi.calender.application.dto.target.TodoTargetDto;
 import com.choi.calender.application.service.TargetService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
