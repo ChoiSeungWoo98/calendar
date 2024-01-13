@@ -1,10 +1,10 @@
 package com.choi.calender.controller.view;
 
 
-import com.choi.calender.application.diary.dto.DiaryDto;
-import com.choi.calender.application.target.dto.TargetDto;
-import com.choi.calender.application.diary.service.DiaryService;
-import com.choi.calender.application.target.service.TargetService;
+import com.choi.calender.application.dto.DiaryDto;
+import com.choi.calender.application.dto.TargetDto;
+import com.choi.calender.application.service.DiaryService;
+import com.choi.calender.application.service.TargetService;
 import com.choi.calender.domain.api.SearchTargetBean;
 import com.choi.calender.util.Common;
 import jakarta.annotation.Resource;

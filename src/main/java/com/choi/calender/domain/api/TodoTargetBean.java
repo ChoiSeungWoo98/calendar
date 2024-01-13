@@ -1,6 +1,6 @@
 package com.choi.calender.domain.api;
 
-import com.choi.calender.application.target.dto.TodoTargetDto;
+import com.choi.calender.application.dto.TodoTargetDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

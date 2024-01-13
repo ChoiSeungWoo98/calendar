@@ -1,8 +1,8 @@
 package com.choi.calender.controller.api;
 
-import com.choi.calender.application.target.dto.TargetDto;
-import com.choi.calender.application.target.dto.TodoTargetDto;
-import com.choi.calender.application.target.service.TargetService;
+import com.choi.calender.application.dto.TargetDto;
+import com.choi.calender.application.dto.TodoTargetDto;
+import com.choi.calender.application.service.TargetService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
 import jakarta.annotation.Resource;

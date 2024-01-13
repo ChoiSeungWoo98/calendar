@@ -1,7 +1,7 @@
 package com.choi.calender.controller.api;
 
-import com.choi.calender.application.diary.dto.DiaryDto;
-import com.choi.calender.application.diary.service.DiaryService;
+import com.choi.calender.application.dto.DiaryDto;
+import com.choi.calender.application.service.DiaryService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
 import jakarta.annotation.Resource;
@@ -9,9 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/calender/diary")

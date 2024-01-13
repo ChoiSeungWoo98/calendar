@@ -1,7 +1,7 @@
-package com.choi.calender.application.diary.service;
+package com.choi.calender.application.impl;
 
-import com.choi.calender.application.diary.dto.DiaryDto;
-import com.choi.calender.application.target.dto.TargetDto;
+import com.choi.calender.application.dto.DiaryDto;
+import com.choi.calender.application.service.DiaryService;
 import com.choi.calender.domain.api.DiaryBean;
 import com.choi.calender.mapper.DiaryMapper;
 import jakarta.annotation.Resource;

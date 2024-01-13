@@ -1,4 +1,4 @@
-package com.choi.calender.application.diary.dto;
+package com.choi.calender.application.dto;
 
 
 import com.choi.calender.domain.api.DiaryBean;
@@ -17,7 +17,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
