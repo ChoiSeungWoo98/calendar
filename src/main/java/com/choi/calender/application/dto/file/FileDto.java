@@ -1,4 +1,4 @@
-package com.xe.management.application.dto.file;
+package com.choi.calender.application.dto.file;
 
 
 import lombok.Getter;
@@ -12,7 +12,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class FileDto {
     protected int no;
-    protected int key;
+    protected String key;
+    protected String identifier;
     protected String oriFileName;
     protected String fileName;
     protected String ext;
@@ -20,13 +21,15 @@ public class FileDto {
     protected Instant regDate;
 
     public FileDto(
-        int key,
+        String key,
+        String identifier,
         String oriFileName,
         String fileName,
         String ext,
         long size
     ) {
         this.key = key;
+        this.identifier = identifier;
         this.oriFileName = oriFileName;
         this.fileName = fileName;
         this.ext = ext;

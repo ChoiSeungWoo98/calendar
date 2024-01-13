@@ -1,7 +1,7 @@
 package com.choi.calender.application.dto.target;
 
 
-import com.choi.calender.domain.api.TargetBean;
+import com.choi.calender.domain.api.target.TargetBean;
 import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
