@@ -1,4 +1,4 @@
-package com.choi.calender.domain.api;
+package com.choi.calender.domain.api.target;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

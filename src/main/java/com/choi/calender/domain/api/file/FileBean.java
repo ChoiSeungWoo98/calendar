@@ -1,6 +1,6 @@
-package com.xe.management.domain.file;
+package com.choi.calender.domain.api.file;
 
-import com.xe.management.application.dto.file.FileDto;
+import com.choi.calender.application.dto.file.FileDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +10,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class FileBean {
     protected int no;
-    protected int key;
+    protected String key;
+    protected String identifier;
     protected String oriFileName;
     protected String fileName;
     protected String ext;
@@ -18,13 +19,15 @@ public class FileBean {
     protected Instant regDate;
 
     public FileBean(
-        int key,
+        String key,
+        String identifier,
         String oriFileName,
         String fileName,
         String ext,
         long size
     ) {
         this.key = key;
+        this.identifier = identifier;
         this.oriFileName = oriFileName;
         this.fileName = fileName;
         this.ext = ext;
@@ -34,6 +37,7 @@ public class FileBean {
     public FileBean convertFileDto(FileDto fileDto) {
         return new FileBean(
                 fileDto.getKey(),
+                fileDto.getIdentifier(),
                 fileDto.getOriFileName(),
                 fileDto.getFileName(),
                 fileDto.getExt(),
