@@ -2,6 +2,7 @@ package com.choi.calender.controller.api;
 
 import com.choi.calender.application.dto.DiaryDto;
 import com.choi.calender.application.service.DiaryService;
+import com.choi.calender.application.service.FileService;
 import com.choi.calender.domain.value.ReturnStatus;
 import com.choi.calender.util.ReturnMessage;
 import jakarta.annotation.Resource;
@@ -17,6 +18,9 @@ public class DiaryController {
 
     @Resource
     DiaryService diaryService;
+
+    @Resource
+    FileService fileService;
 
     @PostMapping("/add")
     public ReturnMessage addDiary(
@@ -73,6 +77,7 @@ public class DiaryController {
         }
 
         try {
+            fileService.deleteFile(no);
             return new ReturnMessage("파일저장 성공");
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
