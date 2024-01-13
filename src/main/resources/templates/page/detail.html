@@ -83,6 +83,7 @@
 
 <th:block layout:fragment="components">
     <th:block th:include="common/modal/addTodo :: addTodo"></th:block>
+    <th:block th:include="common/modal/photo-view :: photo-view"></th:block>
 </th:block>
 
 <script layout:fragment="script">
@@ -236,7 +237,7 @@
     });
 
     $('#show-img').on('click', function () {
-
+        openPhotoView();
     });
 
     $(document).ready(function () {
