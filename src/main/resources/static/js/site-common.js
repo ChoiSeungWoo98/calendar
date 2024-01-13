@@ -20,6 +20,18 @@ CHOI = {
                 error : reject
             };
 
+            if(contentType === 'file') {
+                ajaxOption = {
+                    url : url,
+                    type : method,
+                    processData : false,
+                    contentType : false,
+                    data : data,
+                    success : resolve,
+                    error : reject
+                };
+            }
+
             try {
                 $.ajax(ajaxOption);
             } catch (error) {

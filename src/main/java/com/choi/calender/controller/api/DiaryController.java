@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,6 +61,22 @@ public class DiaryController {
 
         try {
             return new ReturnMessage(diaryService.selectThisMonthDiaryList(diaryDto.getDiaryDate()));
+        } catch (Exception e) {
+            return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
+        }
+    }
+
+    @PostMapping("/add/file")
+    public ReturnMessage addFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("no") String no
+    ) {
+        if(StringUtils.isBlank(no)) {
+            return new ReturnMessage(ReturnStatus.NO_VALUE, "필수 값이 존재하지 않습니다.", new Exception("필수 값이 존재하지 않습니다."));
+        }
+
+        try {
+            return new ReturnMessage("파일저장 성공");
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
         }

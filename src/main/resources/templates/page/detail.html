@@ -59,7 +59,7 @@
             <div class="text-title ">
                 <div>하루 정리</div>
                 <button id="add-img" class="btn" >등록</button>
-                <input type="file" accept="image/*,video/*" id="image-value" class="hidden" />
+                <input type="file" accept="image/*,video/*" id="diary-file" class="hidden" />
             </div>
             <div id="content">
                 <textarea id="content-value" placeholder="오늘의 하루는 잘 보내셨나요? &#13;&#10;고생하셨습니다.&#13;&#10;오늘 하루를 잘 정리하고 내일도 화이팅입니다!" th:text="${diary?.content}"></textarea>
@@ -81,6 +81,9 @@
 </th:block>
 
 <script layout:fragment="script">
+    var inputFileInfos = [];
+    var diaryNo = '[[${diary?.no}]]'.trim();
+
     $('#emotion > div').on('click', function () {
         var $this = $(this);
         var currentClass = $this.attr('class');
@@ -97,28 +100,28 @@
     });
 
     $('.checkbox').on('click', function () {
-        var diaryNo = '[[${diary?.no}]]'.trim();
-        if(diaryNo != null) {
-            var successYn = $(this).prop("checked") ? 'Y' : 'N';
-            var targetNo = $(this).val();
-
-
-            let url = '/calender/targer/insert/todo/successYn';
-            let data = {targetNo: targetNo, diaryNo: diaryNo, successYn: successYn};
-
-            CHOI.post(url, data)
-                .then(function (response) {
-                    if (response.result === "0000") {
-                        openSuccesAlert(response.value);
-                    } else {
-                        openErrorAlert(response.value);
-                    }
-                }).catch(function (error) {
-                console.error(error);
-            });
-        } else {
+        if(diaryNo == null) {
             openErrorAlert('일기 저장 후 목표 달성을 수정하실 수 있습니다.');
+            return ;
         }
+
+        var successYn = $(this).prop("checked") ? 'Y' : 'N';
+        var targetNo = $(this).val();
+
+
+        let url = '/calender/targer/insert/todo/successYn';
+        let data = {targetNo: targetNo, diaryNo: diaryNo, successYn: successYn};
+
+        CHOI.post(url, data)
+            .then(function (response) {
+                if (response.result === "0000") {
+                    openSuccesAlert(response.value);
+                } else {
+                    openErrorAlert(response.value);
+                }
+            }).catch(function (error) {
+            console.error(error);
+        });
     });
 
     $('#save-btn').on('click', function () {
@@ -155,7 +158,11 @@
     });
 
     $('#modify-btn').on('click', function () {
-        var no = '[[${diary?.no}]]'.trim();
+        if(diaryNo == null) {
+            openErrorAlert('일기 번호가 유실되었습니다. 다시 시도해주세요.');
+            return ;
+        }
+
         let emotions = [];
         let content = $('#content-value').val();
 
@@ -165,7 +172,7 @@
         });
 
         let url = '/calender/diary/modify';
-        let data = { no: no, emotions: emotions, content: content };
+        let data = { no: diaryNo, emotions: emotions, content: content };
 
         CHOI.put(url, data)
         .then(function (response) {
@@ -192,49 +199,38 @@
     });
 
     $('#add-img').on('click', function () {
-        $('#image-value').click();
+        $('#diary-file').click();
     });
 
     function onFileSelected(files) {
         if (files.length === 0) return;
-        // 다중 업로드 시 File 확장자 구분은 첫번째 파일을 기준으로 수행
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            var fileName = file.name.substring(0, file.name.lastIndexOf("."));
-            var fileExt = file.name.substring(file.name.lastIndexOf(".") + 1);
-            var fileSize = file.size;
-            var fileJson = {};
 
-            // fileExts.push(fileExt);
-            // inputFileInfos.push(fileName);
-            fileJson["name"] = fileName;
-            fileJson["ext"] = fileExt;
-            fileJson["size"] = fileSize;
-            inputFileInfos.push(fileJson);
+        if(diaryNo == null) {
+            openErrorAlert('일기 저장 후 파일을 등록할 수 있습니다.');
+            return ;
         }
 
-        $('.file-in').removeClass('hidden');
-        // $('.file-none').addClass('hidden');
-        addFileListToHtml();
+        let url = '/calender/diary/add/file';
+        let fileData = new FormData();
+        fileData.append('file', files[0]);
+        fileData.append('no', diaryNo);
+
+        CHOI.post(url, fileData, 'file')
+            .then(function (response) {
+                if (response.result === "0000") {
+                    openSuccesAlert(response.value);
+                } else {
+                    openErrorAlert(response.value);
+                }
+            }).catch(function (error) {
+            console.error(error);
+        });
+
+
+
     }
 
-    function deleteFile(deleteFileName) {
-        let findIndex = inputFileInfos.findIndex(item => item.name === deleteFileName);
-        if(findIndex > -1) inputFileInfos.splice(findIndex, 1);
-
-        const dataTransfer = new DataTransfer();
-        let files = $('#project-file')[0].files;
-        let fileArray = Array.from(files);
-
-        fileArray.splice(findIndex, 1);
-        fileArray.forEach(file => { dataTransfer.items.add(file); });
-        $('#project-file')[0].files = dataTransfer.files;
-
-        addFileListToHtml();
-        if(inputFileInfos.length === 0) $('.file-in').addClass('hidden');
-    }
-
-    $('#project-file').on('change', function (event) {
+    $('#diary-file').on('change', function (event) {
         onFileSelected(event.target.files);
     });
 
@@ -250,9 +246,6 @@
         }
     });
 </script>
-
 <style layout:fragment="style">
-
 </style>
-
 </html>
