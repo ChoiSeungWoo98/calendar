@@ -91,7 +91,7 @@
             let year = $('#year_select').val();
             let month = nowType === 'M' ? $('#month-select').val() : undefined;
 
-            let url = '/calender/targer/add';
+            let url = '/calender/target/add';
             let data = { title: title, type: nowType, year: year, month: month };
 
             CHOI.post(url, data)

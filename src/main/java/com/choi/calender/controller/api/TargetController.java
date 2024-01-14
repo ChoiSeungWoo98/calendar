@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/calender/targer")
+@RequestMapping("/calender/target")
 @Slf4j
 public class TargetController {
 
