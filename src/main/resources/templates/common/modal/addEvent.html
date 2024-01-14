@@ -76,24 +76,38 @@
 
     <script>
         function openAddEvent(title) {
-            return new Promise((resolve, reject) => {
-                CHOI.blockScroll();
-                $('.addEvent > #modal-title').html(title);
-                $('.modalBackGround-event').removeClass('hidden');
-
-                // 삭제 버튼이 클릭되었을 때 true 반환
-                $('.modal-btn-event-add').on('click', function () {
-                    $('.modalBackGround-event').addClass('hidden');
-                    resolve(true);
-                });
-
-                // 취소 버튼이 클릭되었을 때 false 반환
-                $('.modal-btn-event-cancel').on('click', function () {
-                    $('.modalBackGround-event').addClass('hidden');
-                    resolve(false);
-                });
-            });
+            CHOI.blockScroll();
+            $('.addEvent > #modal-title').html(title);
+            $('.modalBackGround-event').removeClass('hidden');
         }
+
+        $('.modal-btn-event-add').on('click', function () {
+            let title = $('#event-title-value').val();
+            let eventDate = $('#event-date-value').val();
+            let type = $('input[name="event-date-type-value"]:checked').val();
+            let repeatYn = $('input[name="event-fix-value"]:checked').val();
+
+            let url = '/calender/event/add'
+            let data = { title: title, eventDate: eventDate, type: type, repeatYn: repeatYn };
+
+            CHOI.post(url, data)
+            .then(function (response) {
+                if(response.result === "0000") {
+                    $('#event-title-value').val('');
+                    $('#event-date-value').val('');
+                    $('.modalBackGround-event').addClass('hidden');
+                    openSuccesAlert(response.value);
+                } else {
+                    openErrorAlert(response.value);
+                }
+            }).catch(function (err) {
+                console.error(err);
+            })
+        });
+
+        $('.modal-btn-event-cancel').on('click', function () {
+            $('.modalBackGround-event').addClass('hidden');
+        });
     </script>
 </th:block>
 </html>
