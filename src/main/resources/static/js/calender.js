@@ -49,7 +49,6 @@ function getHoliday(eventDate) {
                     holidays.push(new Date(data.eventDate).getDate());
                 });
             }
-            console.log(holidays);
             displayCalendar(currentMonth, currentYear);
         }).catch(function (err) {
         console.error(err);
