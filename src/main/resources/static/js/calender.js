@@ -114,15 +114,17 @@ function displayCalendar(month, year) {
                     }
                 }
                 tempCalendarHtml += "<td";
-                if(holiday && holidayYns[0] == 'N') {
+                if(holiday && holidayYns[0] == 'Y') {
+                    holidayYns.shift();
+                    tempCalendarHtml += " class='sunday";
+                    tempCalendarHtml += now ? " today" : "";
+                    tempCalendarHtml += "'";
+                } else if(holiday && holidayYns[0] == 'N') {
                     tempCalendarHtml += " class='my-event";
                     tempCalendarHtml += now ? " today" : "";
                     tempCalendarHtml += "'";
                     holidayYns.shift();
-                } else if (j === 0 || holiday) {
-                    if(holiday) {
-                        holidayYns.shift();
-                    }
+                } else if (j === 0) {
                     tempCalendarHtml += " class='sunday";
                     tempCalendarHtml += now ? " today" : "";
                     tempCalendarHtml += "'";
