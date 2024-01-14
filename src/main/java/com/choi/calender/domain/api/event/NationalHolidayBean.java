@@ -55,8 +55,7 @@ public class NationalHolidayBean {
     }
 
     public NationalHolidayBean convertMapToBean(Map data) {
-        String tempTitle = (String) data.get("dateName");
-        tempTitle = "1월1일".equals(tempTitle) ? "신년" : tempTitle;
+        String changeTitle = changeTitle((String) data.get("dateName"));
         Date paseDate = null;
 
         try {
@@ -66,12 +65,22 @@ public class NationalHolidayBean {
         }
 
         return new NationalHolidayBean(
-            tempTitle,
+            changeTitle,
             paseDate,
             "S",
             (String) data.get("isHoliday"),
             "N"
         );
+    }
+
+    public String changeTitle(String title) {
+        if("1월1일".equals(title)) {
+            return "신년";
+        }
+        if("기독탄신일".equals(title)) {
+            return "크리스마스";
+        }
+        return title;
     }
 
 }
