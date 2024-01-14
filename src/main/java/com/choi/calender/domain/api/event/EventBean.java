@@ -1,7 +1,9 @@
 package com.choi.calender.domain.api.event;
 
+import com.choi.calender.application.dto.event.EventDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
@@ -36,6 +38,19 @@ public class EventBean {
         this.repeatYn = repeatYn;
         this.deleteYn = deleteYn;
         this.regDate = regDate;
+    }
+
+    public EventBean convertDtoToBean(EventDto eventDto) {
+        return new EventBean(
+            eventDto.getNo(),
+            eventDto.getTitle(),
+            eventDto.getEventDate(),
+            eventDto.getType(),
+            StringUtils.isBlank(eventDto.getHolidayYn()) ? "N" : eventDto.getHolidayYn(),
+            eventDto.getRepeatYn(),
+            eventDto.getDeleteYn(),
+            eventDto.getRegDate()
+        );
     }
 
 }

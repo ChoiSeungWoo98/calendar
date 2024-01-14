@@ -16,15 +16,15 @@
                 <div class="flex w-full">
                     <div id="event-date-type" class="h-[40%] w-[20%] flex justify-center items-center">양/음력</div>
                     <div class="h-[40%] w-[80%]">
-                        <label class="w-[20%]"><input type="radio" name="event-date-type-value" class="mr-[15%]" value="Y" checked>양력</label>
-                        <label class="w-[20%]"><input type="radio" name="event-date-type-value" class="mr-[15%]" value="N">음력</label>
+                        <label class="w-[20%]"><input type="radio" name="event-date-type-value" class="mr-[15%]" value="S" checked>양력</label>
+                        <label class="w-[20%]"><input type="radio" name="event-date-type-value" class="mr-[15%]" value="L">음력</label>
                     </div>
                 </div>
                 <div class="flex w-full">
                     <div id="event-fix" class="h-[40%] w-[20%] flex justify-center items-center">반복 여부</div>
                     <div class="h-[40%] w-[80%]">
-                        <label class="w-[20%]"><input type="radio" name="event-fix-value" class="mr-[15%]" value="Y" checked>단건</label>
-                        <label class="w-[20%]"><input type="radio" name="event-fix-value" class="mr-[15%]" value="N">반복</label>
+                        <label class="w-[20%]"><input type="radio" name="event-fix-value" class="mr-[15%]" value="N" checked>단건</label>
+                        <label class="w-[20%]"><input type="radio" name="event-fix-value" class="mr-[15%]" value="Y">반복</label>
                     </div>
                 </div>
             </div>
@@ -87,22 +87,23 @@
             let type = $('input[name="event-date-type-value"]:checked').val();
             let repeatYn = $('input[name="event-fix-value"]:checked').val();
 
-            let url = '/calender/event/add'
+            let url = '/calender/event/add';
             let data = { title: title, eventDate: eventDate, type: type, repeatYn: repeatYn };
 
             CHOI.post(url, data)
-            .then(function (response) {
-                if(response.result === "0000") {
-                    $('#event-title-value').val('');
-                    $('#event-date-value').val('');
-                    $('.modalBackGround-event').addClass('hidden');
-                    openSuccesAlert(response.value);
-                } else {
-                    openErrorAlert(response.value);
-                }
-            }).catch(function (err) {
-                console.error(err);
-            })
+                .then(function (response) {
+                    if(response.result === "0000") {
+                        openSuccesAlert(response.value);
+                        $('#event-title-value').val('');
+                        $('#event-date-value').val('');
+                    } else {
+                        openErrorAlert(response.value);
+                    }
+                }).catch(function (error) {
+                console.error(error);
+            });
+
+            $('.modalBackGround-event').addClass('hidden');
         });
 
         $('.modal-btn-event-cancel').on('click', function () {

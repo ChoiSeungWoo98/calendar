@@ -13,6 +13,8 @@ public interface EventService {
 
     List<EventDto> selectEventList(SearchEventDto searchEventDto);
 
+    String addEvent(EventDto eventDto);
+
     boolean insertEvents(List<NationalHolidayBean> list) throws IOException;
 
 }

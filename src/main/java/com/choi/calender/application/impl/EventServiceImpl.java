@@ -2,6 +2,7 @@ package com.choi.calender.application.impl;
 
 import com.choi.calender.application.dto.event.EventDto;
 import com.choi.calender.application.service.EventService;
+import com.choi.calender.domain.api.event.EventBean;
 import com.choi.calender.domain.api.event.NationalHolidayBean;
 import com.choi.calender.domain.api.event.SearchEventDto;
 import com.choi.calender.mapper.EventMapper;
@@ -26,6 +27,14 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> selectEventList(SearchEventDto searchEventDto) {
         return eventMapper.selectEventList(searchEventDto).stream().map(event -> new EventDto().convertBeanToDto(event)).collect(Collectors.toList());
+    }
+
+    @Override
+    public String addEvent(EventDto eventDto) {
+        EventBean eventBean = new EventBean().convertDtoToBean(eventDto);
+        return eventMapper.addEvent(eventBean) > 0
+                ? "이벤트를 성공적으로 등록했어요!"
+                : "실패했어요! 코드를 수정해주세요.";
     }
 
     @Override
