@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.choi.calender.mapper.FileMapper">
+    <select id="selectDiaryFiles" parameterType="searchFileBean" resultType="fileBean">
+        SELECT
+            no,
+            key_no,
+            identifier,
+            ori_file_name,
+            file_name,
+            ext,
+            size,
+            reg_date
+        FROM tb_file
+        WHERE 0=0
+            AND identifier = #{identifier}
+            AND key_no = #{keyNo}
+    </select>
+
+    <insert id="insertFiles" parameterType="list">
+        INSERT INTO tb_file
+        (
+            key_no,
+            identifier,
+            ori_file_name,
+            file_name,
+            ext,
+            size
+        )
+        VALUES
+        <foreach collection="list" item="file" separator=",">
+        (
+            #{file.keyNo},
+            #{file.identifier},
+            #{file.oriFileName},
+            #{file.fileName},
+            #{file.ext},
+            #{file.size}
+        )
+        </foreach>
+    </insert>
+
+    <delete id="deleteFile" parameterType="string">
+        DELETE FROM tb_file
+        WHERE key_no = #{keyNo}
+    </delete>
+</mapper>
