@@ -32,16 +32,16 @@ function getMonthDiaryList() {
                     diaryMonths.push(day);
                 });
 
-                getHoliday(date);
+                getHoliday(date, month);
             }
         }).catch(function (error) {
         console.error(error);
     });
 }
 
-function getHoliday(eventDate) {
+function getHoliday(eventDate, month) {
     let url = '/calender/event/find/month';
-    let data = { eventDate: eventDate }
+    let data = { eventDate: eventDate, month: month }
     CHOI.get(url, data)
         .then(function (response) {
             if(response.result === "0000") {
