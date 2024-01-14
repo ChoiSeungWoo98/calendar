@@ -88,8 +88,8 @@
             let repeatYn = $('input[name="event-fix-value"]:checked').val();
 
             let url = '/calender/event/add';
-            let data = { title: title, eventDate: eventDate, type: type, repeatYn: repeatYn };
-
+            let data = { title: title, eventDate: new Date(eventDate), type: type, repeatYn: repeatYn };
+            
             CHOI.post(url, data)
                 .then(function (response) {
                     if(response.result === "0000") {
