@@ -3,8 +3,10 @@ let currentDate;
 let currentMonth;
 let currentYear;
 let diaryMonths = [];
+
 let holidays = [];
 let holidayTitles = [];
+let holidayYns = [];
 // var months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 var korWeekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -49,6 +51,7 @@ function getHoliday(eventDate, month) {
                 list.forEach(data => {
                     holidays.push(new Date(data.eventDate).getDate());
                     holidayTitles.push(data.title);
+                    holidayYns.push(data.holidayYn);
                 });
             }
             displayCalendar(currentMonth, currentYear);
@@ -111,7 +114,15 @@ function displayCalendar(month, year) {
                     }
                 }
                 tempCalendarHtml += "<td";
-                if (j === 0 || holiday) {
+                if(holiday && holidayYns[0] == 'N') {
+                    tempCalendarHtml += " class='my-event";
+                    tempCalendarHtml += now ? " today" : "";
+                    tempCalendarHtml += "'";
+                    holidayYns.shift();
+                } else if (j === 0 || holiday) {
+                    if(holiday) {
+                        holidayYns.shift();
+                    }
                     tempCalendarHtml += " class='sunday";
                     tempCalendarHtml += now ? " today" : "";
                     tempCalendarHtml += "'";

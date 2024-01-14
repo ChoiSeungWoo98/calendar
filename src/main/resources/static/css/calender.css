@@ -41,6 +41,10 @@
     color: var(--calender-sat-color);
 }
 
+.my-event {
+    color: var(--main-color-1);
+}
+
 .today {
     border-bottom: 2px solid var(--main-color-1);
 }
