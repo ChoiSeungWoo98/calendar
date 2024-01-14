@@ -33,6 +33,12 @@
     cursor: pointer;
 }
 
+.holidayAndEvent {
+    background: linear-gradient(to top, var(--main-color-1), var(--calender-sun-color));
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
 .sunday {
     color: var(--calender-sun-color);
 }
