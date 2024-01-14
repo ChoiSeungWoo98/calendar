@@ -4,6 +4,7 @@ let currentMonth;
 let currentYear;
 let diaryMonths = [];
 let holidays = [];
+let holidayTitles = [];
 // var months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 var korWeekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -47,6 +48,7 @@ function getHoliday(eventDate) {
                 let list = response.value;
                 list.forEach(data => {
                     holidays.push(new Date(data.eventDate).getDate());
+                    holidayTitles.push(data.title);
                 });
             }
             displayCalendar(currentMonth, currentYear);
@@ -122,9 +124,14 @@ function displayCalendar(month, year) {
                 }
                 tempCalendarHtml += " style='";
                 if(writeDiary) {
-                    tempCalendarHtml += "text-decoration: overline;     text-decoration-color: var(--calender-sun-color);";
+                    tempCalendarHtml += "text-decoration: overline; text-decoration-color: var(--calender-sun-color);";
                 }
                 tempCalendarHtml += " cursor: pointer;'";
+
+                if(holiday) {
+                    tempCalendarHtml += "title='" + holidayTitles[0] + "'";
+                    holidayTitles.shift();
+                }
 
                 tempCalendarHtml += " onclick='goDetail(" + year + ", " + Number(month + 1) + ", " + dayCounter + ", \`" + korWeekdays[j] + "\`);'";
                 tempCalendarHtml += ">" + dayCounter + "</td>";
