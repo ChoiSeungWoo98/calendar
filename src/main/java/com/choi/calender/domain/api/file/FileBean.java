@@ -3,7 +3,8 @@ package com.choi.calender.domain.api.file;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import java.util.Date;
+
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class FileBean {
     protected String fileName;
     protected String ext;
     protected long size;
-    protected Instant regDate;
+    protected Date regDate;
 
     public FileBean(
         int no,
@@ -25,7 +26,7 @@ public class FileBean {
         String fileName,
         String ext,
         long size,
-        Instant regDate
+        Date regDate
     ) {
         this.no = no;
         this.keyNo = keyNo;

@@ -3,29 +3,39 @@ package com.choi.calender.domain.api.event;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import java.util.Date;
+
 
 @Getter
 @NoArgsConstructor
 public class EventBean {
-    protected int seq;
-    protected String dateKind;
-    protected String dateName;
-    protected String isHoliday;
-    protected Instant locdate;
+    protected int no;
+    protected String title;
+    protected Date eventDate;
+    protected String type;
+    protected String holidayYn;
+    protected String repeatYn;
+    protected String deleteYn;
+    protected Date regDate;
 
     public EventBean(
-            int seq,
-            String dateKind,
-            String dateName,
-            String isHoliday,
-            Instant locdate
+        int no,
+        String title,
+        Date eventDate,
+        String type,
+        String holidayYn,
+        String repeatYn,
+        String deleteYn,
+        Date regDate
     ) {
-        this.seq = seq;
-        this.dateKind = dateKind;
-        this.dateName = dateName;
-        this.isHoliday = isHoliday;
-        this.locdate = locdate;
+        this.no = no;
+        this.title = title;
+        this.eventDate = eventDate;
+        this.type = type;
+        this.holidayYn = holidayYn;
+        this.repeatYn = repeatYn;
+        this.deleteYn = deleteYn;
+        this.regDate = regDate;
     }
 
 }

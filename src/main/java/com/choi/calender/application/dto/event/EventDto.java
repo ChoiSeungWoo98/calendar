@@ -1,12 +1,12 @@
 package com.choi.calender.application.dto.event;
 
 
-import com.choi.calender.domain.api.file.FileBean;
+import com.choi.calender.domain.api.event.EventBean;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,31 +14,44 @@ import java.time.Instant;
 public class EventDto {
     protected int no;
     protected String title;
-    protected Instant event_date;
+    protected Date eventDate;
     protected String type;
-    protected String holiday_yn;
-    protected String repeat_yn;
-    protected String delete_yn;
-    protected Instant reg_date;
+    protected String holidayYn;
+    protected String repeatYn;
+    protected String deleteYn;
+    protected Date regDate;
 
     public EventDto(
         int no,
         String title,
-        Instant event_date,
+        Date eventDate,
         String type,
-        String holiday_yn,
-        String repeat_yn,
-        String delete_yn,
-        Instant reg_date
+        String holidayYn,
+        String repeatYn,
+        String deleteYn,
+        Date regDate
     ) {
         this.no = no;
         this.title = title;
-        this.event_date = event_date;
+        this.eventDate = eventDate;
         this.type = type;
-        this.holiday_yn = holiday_yn;
-        this.repeat_yn = repeat_yn;
-        this.delete_yn = delete_yn;
-        this.reg_date = reg_date;
+        this.holidayYn = holidayYn;
+        this.repeatYn = repeatYn;
+        this.deleteYn = deleteYn;
+        this.regDate = regDate;
+    }
+
+    public EventDto convertBeanToDto(EventBean eventBean) {
+        return new EventDto(
+            eventBean.getNo(),
+            eventBean.getTitle(),
+            eventBean.getEventDate(),
+            eventBean.getType(),
+            eventBean.getHolidayYn(),
+            eventBean.getRepeatYn(),
+            eventBean.getDeleteYn(),
+            eventBean.getRegDate()
+        );
     }
 
 }

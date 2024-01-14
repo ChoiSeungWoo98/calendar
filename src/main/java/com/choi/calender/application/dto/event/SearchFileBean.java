@@ -1,10 +1,7 @@
-package com.choi.calender.domain.api.file;
+package com.choi.calender.application.dto.event;
 
-import com.choi.calender.application.dto.file.FileDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.Instant;
 
 @Getter
 @NoArgsConstructor

@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class FileDto {
     protected String fileName;
     protected String ext;
     protected long size;
-    protected Instant regDate;
+    protected Date regDate;
     protected String filePath;
 
     public FileDto(
@@ -30,7 +31,7 @@ public class FileDto {
         String fileName,
         String ext,
         long size,
-        Instant regDate
+        Date regDate
     ) {
         this.no = no;
         this.keyNo = keyNo;
