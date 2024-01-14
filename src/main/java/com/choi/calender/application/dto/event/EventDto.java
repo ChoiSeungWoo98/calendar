@@ -5,6 +5,9 @@ import com.choi.calender.domain.api.event.EventBean;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.ObjectUtils;
+import org.thymeleaf.util.DateUtils;
 
 import java.util.Date;
 
@@ -52,6 +55,15 @@ public class EventDto {
             eventBean.getDeleteYn(),
             eventBean.getRegDate()
         );
+    }
+
+    public boolean isDataEmptyCheck() {
+        return
+            StringUtils.isBlank(this.title)
+                || ObjectUtils.isEmpty(this.eventDate)
+                || StringUtils.isBlank(this.type)
+                || StringUtils.isBlank(this.repeatYn)
+            ;
     }
 
 }
