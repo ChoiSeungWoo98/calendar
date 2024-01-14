@@ -3,6 +3,7 @@ let currentDate;
 let currentMonth;
 let currentYear;
 let diaryMonths = [];
+let holidays = [];
 // var months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 var korWeekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -18,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function getMonthDiaryList() {
     let url = '/calender/diary/find/month';
     let month = currentMonth <= 8 && currentMonth >= 0 ? '0' + (currentMonth + 1) : currentMonth + 1;
-    let diaryDate = currentYear + '-' + month;
-    let data = { diaryDate: diaryDate };
+    let date = currentYear + '-' + month;
+    let data = { diaryDate: date };
 
     CHOI.get(url, data)
         .then(function (response) {
@@ -29,11 +30,30 @@ function getMonthDiaryList() {
                     let day = data.diaryDate.split('-')[2];
                     diaryMonths.push(day);
                 });
-                displayCalendar(currentMonth, currentYear);
+
+                getHoliday(date);
             }
         }).catch(function (error) {
         console.error(error);
     });
+}
+
+function getHoliday(eventDate) {
+    let url = '/calender/event/find/month';
+    let data = { eventDate: eventDate }
+    CHOI.get(url, data)
+        .then(function (response) {
+            if(response.result === "0000") {
+                let list = response.value;
+                list.forEach(data => {
+                    holidays.push(new Date(data.eventDate).getDate());
+                });
+            }
+            console.log(holidays);
+            displayCalendar(currentMonth, currentYear);
+        }).catch(function (err) {
+        console.error(err);
+    })
 }
 
 function displayCalendar(month, year) {
@@ -71,6 +91,7 @@ function displayCalendar(month, year) {
             } else {
                 let now = false;
                 let writeDiary = false;
+                let holiday = false;
                 if (dayCounter === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
                     now = true;
                 }
@@ -81,8 +102,15 @@ function displayCalendar(month, year) {
                         diaryMonths.shift();
                     }
                 }
+                if(holidays.length != 0) {
+                    let checkDay = holidays[0];
+                    if(dayCounter == checkDay) {
+                        holiday = true;
+                        holidays.shift();
+                    }
+                }
                 tempCalendarHtml += "<td";
-                if (j === 0) {
+                if (j === 0 || holiday) {
                     tempCalendarHtml += " class='sunday";
                     tempCalendarHtml += now ? " today" : "";
                     tempCalendarHtml += "'";

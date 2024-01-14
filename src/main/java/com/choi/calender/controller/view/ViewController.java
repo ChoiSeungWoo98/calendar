@@ -8,7 +8,7 @@ import com.choi.calender.application.service.DiaryService;
 import com.choi.calender.application.service.EventService;
 import com.choi.calender.application.service.FileService;
 import com.choi.calender.application.service.TargetService;
-import com.choi.calender.domain.api.file.SearchFileBean;
+import com.choi.calender.application.dto.event.SearchFileBean;
 import com.choi.calender.domain.api.target.SearchTargetBean;
 import com.choi.calender.domain.value.FileIdentifier;
 import com.choi.calender.util.Common;
@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j

@@ -10,20 +10,20 @@
             AND event_date like CONCAT('%',#{year},'%')
     </select>
 
-    <select id="selectEventList" parameterType="searchFileBean" resultType="fileBean">
+    <select id="selectEventList" parameterType="searchEventDto" resultType="EventBean">
         SELECT
             no,
-            key_no,
-            identifier,
-            ori_file_name,
-            file_name,
-            ext,
-            size,
+            title,
+            event_date,
+            type,
+            holiday_yn,
+            repeat_yn,
+            delete_yn,
             reg_date
-        FROM tb_file
+        FROM tb_event
         WHERE 0=0
-            AND identifier = #{identifier}
-            AND key_no = #{keyNo}
+          AND event_date like CONCAT('%',#{eventDate},'%')
+        ORDER BY event_date
     </select>
 
     <insert id="insertEvents" parameterType="list">
