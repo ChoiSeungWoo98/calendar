@@ -1,45 +1,85 @@
 package com.choi.calender.util;
 
-import org.springframework.http.ResponseEntity;
+import com.choi.calender.application.service.EventService;
+import com.choi.calender.domain.api.event.NationalHolidayBean;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
-public class MyRestTemplate {
+public class MyRestApi {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Resource
+    EventService eventService;
 
-    public void send(String url, List<Map<String, String>> params) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
+    public void sendNatureHoliday(String year) {
+        try {
+            String apiUrl = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo";
+            String serviceKey = "U3F3wbF6hrTzEdO7ERe2XmNqq7vCJhCxp/oVYKmcOqBM5M6b+s484JtBGvOJpBdC17kK1LheFWzXZlmEVJHg2w==";
+            int numOfRows = 100;
+            String type = "json";
+            String methodType = "GET";
 
-        // 각각의 쿼리 파라미터를 추가
-        for (Map<String, String> param : params) {
-            try {
-                // ServiceKey 값은 이미 인코딩된 상태이므로 디코딩하여 추가
-                builder.queryParam(param.get("key"), URLDecoder.decode(param.get("value"), StandardCharsets.UTF_8.toString()));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+            String urlWithParams = apiUrl
+                    + "?solYear=" + year
+                    + "&ServiceKey=" + URLEncoder.encode(serviceKey, "UTF-8")
+                    + "&numOfRows=" + numOfRows
+                    + "&_type=" + type;
+
+            conection(urlWithParams, methodType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void conection(String urlWithParams, String methodType) throws IOException {
+        URL url = new URL(urlWithParams);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try {
+            connection.setRequestMethod(methodType);
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String response = readResponseValue(connection);
+                List<NationalHolidayBean> list = convertHolidayData(response);
+                eventService.insertEvents(list);
+            } else {
+                System.out.println("API 요청 실패. 응답 코드: " + responseCode);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            connection.disconnect();
         }
+    }
 
-        String finalUrl = builder.build(false).toString();
+    private String readResponseValue(HttpURLConnection connection) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String line;
+        StringBuilder response = new StringBuilder();
 
-        ResponseEntity<String> response = restTemplate.getForEntity(finalUrl, String.class);
-
-        // 응답 처리
-        if (response.getStatusCode().is2xxSuccessful()) {
-            String responseBody = response.getBody();
-            // TODO: 응답 데이터 처리 로직 추가
-            System.out.println(responseBody);
-        } else {
-            System.out.println("공휴일 api 실패");
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
         }
+        reader.close();
+        return response.toString();
+    }
+
+    private List<NationalHolidayBean> convertHolidayData(String response) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> resultMap = objectMapper.readValue(response.toString(), Map.class);
+        Map<String, Object> items = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items");
+        List<Map<String, Object>> item = (List<Map<String, Object>>) items.get("item");
+        return item.stream().map(it -> new NationalHolidayBean().convertMapToBean(it)).collect(Collectors.toList());
     }
 }

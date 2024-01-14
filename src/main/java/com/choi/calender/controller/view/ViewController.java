@@ -5,12 +5,14 @@ import com.choi.calender.application.dto.diary.DiaryDto;
 import com.choi.calender.application.dto.file.FileDto;
 import com.choi.calender.application.dto.target.TargetDto;
 import com.choi.calender.application.service.DiaryService;
+import com.choi.calender.application.service.EventService;
 import com.choi.calender.application.service.FileService;
 import com.choi.calender.application.service.TargetService;
 import com.choi.calender.domain.api.file.SearchFileBean;
 import com.choi.calender.domain.api.target.SearchTargetBean;
 import com.choi.calender.domain.value.FileIdentifier;
 import com.choi.calender.util.Common;
+import com.choi.calender.util.MyRestApi;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -29,6 +34,9 @@ public class ViewController {
 
     @Resource
     Common common;
+
+    @Resource
+    MyRestApi myRestApi;
 
     @Resource
     TargetService targetService;
@@ -39,11 +47,15 @@ public class ViewController {
     @Resource
     FileService fileService;
 
+    @Resource
+    EventService eventService;
+
     @GetMapping("/main")
     public String main(Model model) {
         LocalDate currentDate = LocalDate.now();
         String year = String.valueOf(currentDate.getYear());
         String month = String.valueOf(currentDate.getMonthValue());
+        checkAndAddNationalHoliday(year);
 
         SearchTargetBean searchYearTargetBean = new SearchTargetBean("Y", year, null);
         SearchTargetBean searchMonthTargetBean = new SearchTargetBean("M", year, month);
@@ -109,4 +121,12 @@ public class ViewController {
             file.setFilePath(path);
         });
     }
+
+    private void checkAndAddNationalHoliday(String year) {
+        if(eventService.isYearEvent(year)) {
+            return;
+        }
+        myRestApi.sendNatureHoliday(year);
+    }
+
 }

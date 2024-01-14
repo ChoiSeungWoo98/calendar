@@ -1,4 +1,4 @@
-package com.choi.calender.application.dto.file;
+package com.choi.calender.application.dto.event;
 
 
 import com.choi.calender.domain.api.file.FileBean;
@@ -11,47 +11,34 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FileDto {
+public class EventDto {
     protected int no;
-    protected String keyNo;
-    protected String identifier;
-    protected String oriFileName;
-    protected String fileName;
-    protected String ext;
-    protected long size;
-    protected Instant regDate;
-    protected String filePath;
+    protected String title;
+    protected Instant event_date;
+    protected String type;
+    protected String holiday_yn;
+    protected String repeat_yn;
+    protected String delete_yn;
+    protected Instant reg_date;
 
-    public FileDto(
+    public EventDto(
         int no,
-        String keyNo,
-        String identifier,
-        String oriFileName,
-        String fileName,
-        String ext,
-        long size,
-        Instant regDate
+        String title,
+        Instant event_date,
+        String type,
+        String holiday_yn,
+        String repeat_yn,
+        String delete_yn,
+        Instant reg_date
     ) {
         this.no = no;
-        this.keyNo = keyNo;
-        this.identifier = identifier;
-        this.oriFileName = oriFileName;
-        this.fileName = fileName;
-        this.ext = ext;
-        this.size = size;
-        this.regDate = regDate;
+        this.title = title;
+        this.event_date = event_date;
+        this.type = type;
+        this.holiday_yn = holiday_yn;
+        this.repeat_yn = repeat_yn;
+        this.delete_yn = delete_yn;
+        this.reg_date = reg_date;
     }
 
-    public FileDto convertBeanToDto(FileBean fileBean) {
-        return new FileDto(
-                fileBean.getNo(),
-                fileBean.getKeyNo(),
-                fileBean.getIdentifier(),
-                fileBean.getOriFileName(),
-                fileBean.getFileName(),
-                fileBean.getExt(),
-                fileBean.getSize(),
-                fileBean.getRegDate()
-        );
-    }
 }

@@ -1,18 +1,18 @@
 package com.choi.calender.application.service;
 
 import com.choi.calender.application.dto.file.FileDto;
+import com.choi.calender.domain.api.event.NationalHolidayBean;
 import com.choi.calender.domain.api.file.SearchFileBean;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
-public interface FileService {
+public interface EventService {
 
-    List<FileDto> selectDiaryFiles(SearchFileBean searchFileBean);
+    boolean isYearEvent(String year);
 
-    String insertFile(List<MultipartFile> file, String no) throws IOException;
+    List<FileDto> selectEventList(SearchFileBean searchFileBean);
 
-    boolean deleteFile(String no) throws IOException;
+    boolean insertEvents(List<NationalHolidayBean> list) throws IOException;
 
 }

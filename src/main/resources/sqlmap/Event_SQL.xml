@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.choi.calender.mapper.FileMapper">
-    <select id="selectDiaryFiles" parameterType="searchFileBean" resultType="fileBean">
+<mapper namespace="com.choi.calender.mapper.EventMapper">
+    <select id="isYearEvent" parameterType="string" resultType="boolean">
+        SELECT
+            IF(COUNT(*) > 0, true, false) as isEvent
+        FROM tb_event
+        WHERE 0=0
+            AND event_date like CONCAT('%',#{year},'%')
+    </select>
+
+    <select id="selectEventList" parameterType="searchFileBean" resultType="fileBean">
         SELECT
             no,
             key_no,
@@ -18,31 +26,24 @@
             AND key_no = #{keyNo}
     </select>
 
-    <insert id="insertFiles" parameterType="list">
-        INSERT INTO tb_file
+    <insert id="insertEvents" parameterType="list">
+        INSERT INTO tb_event
         (
-            key_no,
-            identifier,
-            ori_file_name,
-            file_name,
-            ext,
-            size
+            title,
+            event_date,
+            type,
+            holiday_yn,
+            repeat_yn
         )
         VALUES
-        <foreach collection="list" item="file" separator=",">
+        <foreach collection="list" item="event" separator=",">
         (
-            #{file.keyNo},
-            #{file.identifier},
-            #{file.oriFileName},
-            #{file.fileName},
-            #{file.ext},
-            #{file.size}
+            #{event.title},
+            #{event.eventDate},
+            #{event.type},
+            #{event.holidayYn},
+            #{event.repeatYn}
         )
         </foreach>
     </insert>
-
-    <delete id="deleteFile" parameterType="string">
-        DELETE FROM tb_file
-        WHERE key_no = #{keyNo}
-    </delete>
 </mapper>

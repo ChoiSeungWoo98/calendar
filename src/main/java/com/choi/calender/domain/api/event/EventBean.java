@@ -7,14 +7,14 @@ import java.time.Instant;
 
 @Getter
 @NoArgsConstructor
-public class NationalHolidayBean {
+public class EventBean {
     protected int seq;
     protected String dateKind;
     protected String dateName;
     protected String isHoliday;
     protected Instant locdate;
 
-    public NationalHolidayBean(
+    public EventBean(
             int seq,
             String dateKind,
             String dateName,

@@ -1,5 +1,6 @@
 package com.choi.calender.mapper;
 
+import com.choi.calender.domain.api.event.NationalHolidayBean;
 import com.choi.calender.domain.api.file.FileBean;
 import com.choi.calender.domain.api.file.SearchFileBean;
 import org.apache.ibatis.annotations.Mapper;
@@ -7,12 +8,12 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface FileMapper {
+public interface EventMapper {
 
-    List<FileBean> selectDiaryFiles(SearchFileBean searchFileBean);
+    boolean isYearEvent(String year);
 
-    int insertFiles(List<FileBean> list);
+    List<FileBean> selectEventList(SearchFileBean searchFileBean);
 
-    int deleteFile(String keyNo);
+    int insertEvents(List<NationalHolidayBean> list);
 
 }

@@ -1,85 +1,71 @@
-package com.choi.calender.domain.api.diary;
+package com.choi.calender.domain.api.event;
 
-import com.choi.calender.application.dto.diary.DiaryDto;
-import com.choi.calender.util.AES256;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 @Getter
 @NoArgsConstructor
-public class DiaryBean {
+public class NationalHolidayBean {
     protected int no;
-    protected String diaryDate;
-    protected String dayOfWeek;
-    protected String weather;
-    protected String temp;
-    protected String emotion;
-    protected List<String> emotions;
-    protected String content;
+    protected String title;
+    protected Instant eventDate;
+    protected String type;
+    protected String holidayYn;
+    protected String repeatYn;
+    protected String deleteYn;
+    protected Instant regDate;
 
-    public DiaryBean(
-            int no,
-            String diaryDate,
-            String dayOfWeek,
-            String weather,
-            String temp,
-            String emotion,
-            List<String> emotions,
-            String content
+    public NationalHolidayBean(
+        int no,
+        String title,
+        Instant eventDate,
+        String type,
+        String holidayYn,
+        String repeatYn,
+        String deleteYn,
+        Instant regDate
     ) {
         this.no = no;
-        this.diaryDate = diaryDate;
-        this.dayOfWeek = dayOfWeek;
-        this.weather = weather;
-        this.temp = temp;
-        this.emotion = emotion;
-        this.emotions = emotions;
-        this.content = content;
+        this.title = title;
+        this.eventDate = eventDate;
+        this.type = type;
+        this.holidayYn = holidayYn;
+        this.repeatYn = repeatYn;
+        this.deleteYn = deleteYn;
+        this.regDate = regDate;
     }
 
-    public DiaryBean convertDtoToBean(DiaryDto diaryDto) {
-        try {
-            String convertEmotion = "";
-            int size = diaryDto.getEmotions().size();
-            for(int i = 0; i < diaryDto.getEmotions().size(); i++) {
-                convertEmotion += diaryDto.getEmotions().get(i);
-                if(i != size -1) {
-                    convertEmotion += ", ";
-                }
-            }
-            return new DiaryBean(
-                diaryDto.getNo(),
-                diaryDto.getDiaryDate(),
-                diaryDto.getDayOfWeek(),
-                diaryDto.getWeather(),
-                diaryDto.getTemp(),
-                convertEmotion,
-                null,
-                AES256.encrypt(diaryDto.getContent())
-            );
-        } catch (InvalidAlgorithmParameterException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchPaddingException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException(e);
-        } catch (BadPaddingException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    public NationalHolidayBean(
+            String title,
+            Instant eventDate,
+            String type,
+            String holidayYn,
+            String repeatYn
+    ) {
+        this.title = title;
+        this.eventDate = eventDate;
+        this.type = type;
+        this.holidayYn = holidayYn;
+        this.repeatYn = repeatYn;
     }
+
+    public NationalHolidayBean convertMapToBean(Map data) {
+        String tempTitle = (String) data.get("dateName");
+        tempTitle = "1월1일".equals(tempTitle) ? "신년" : tempTitle;
+
+        return new NationalHolidayBean(
+            tempTitle,
+            LocalDate.parse(String.valueOf(data.get("locdate")), DateTimeFormatter.ofPattern("yyyyMMdd")).atStartOfDay(ZoneId.systemDefault()).toInstant(),
+            "S",
+            (String) data.get("isHoliday"),
+            "N"
+        );
+    }
+
 }
