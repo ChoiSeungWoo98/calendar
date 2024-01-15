@@ -90,17 +90,16 @@ public class ViewController {
         }
 
         if(diaryNo != 0) {
-            SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day, diaryNo);
-            List<TargetDto> todoList = targetService.selectRepeatTodoTarget(searchTargetBean);
-
             SearchFileBean searchFileBean = new SearchFileBean(diaryNo, FileIdentifier.Diary.getValue());
             List<FileDto> fileList = fileService.selectDiaryFiles(searchFileBean);
             setFilePath(fileList);
-
-            model.addAttribute("todoList", todoList);
             model.addAttribute("fileList", fileList);
         }
 
+        SearchTargetBean searchTargetBean = new SearchTargetBean("D", year, month, day, diaryNo);
+        List<TargetDto> todoList = targetService.selectRepeatTodoTarget(searchTargetBean);
+
+        model.addAttribute("todoList", todoList);
         model.addAttribute("diary", diary);
         model.addAttribute("view", "detail");
         setModelDate(model, year, month, day, weekDay);
