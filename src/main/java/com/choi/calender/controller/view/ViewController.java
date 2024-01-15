@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Controller
@@ -55,7 +56,7 @@ public class ViewController {
         String month = String.valueOf(currentDate.getMonthValue());
         String day = String.valueOf(currentDate.getDayOfMonth());
 
-        if("01-15".equals((month.length() == 1 ? "0" + month : month) + "-" + day)) {
+        if("01-01".equals((month.length() == 1 ? "0" + month : month) + "-" + day)) {
             insertLunarData(year);
         }
         checkAndAddNationalHoliday(year);
@@ -134,7 +135,12 @@ public class ViewController {
 
     private void insertLunarData(String year) {
         List<EventDto> eventDtoList = eventService.selectLunarList();
-        System.out.println(eventDtoList);
+        eventDtoList.forEach(event -> {
+            LocalDate eventDate = event.getEventDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String month = String.valueOf(eventDate.getMonthValue());
+            String day = String.valueOf(eventDate.getDayOfMonth());
+            myRestApi.sendSolarToLunar(year, month, day, event.getNo());
+        });
     }
 
 }
