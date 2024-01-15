@@ -1,10 +1,12 @@
 package com.choi.calender.util;
 
 import com.choi.calender.application.service.EventService;
+import com.choi.calender.domain.api.event.LunarBean;
 import com.choi.calender.domain.api.event.NationalHolidayBean;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -37,22 +39,54 @@ public class MyRestApi {
                     + "&numOfRows=" + numOfRows
                     + "&_type=" + type;
 
-            conection(urlWithParams, methodType);
+            conection(urlWithParams, methodType, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void conection(String urlWithParams, String methodType) throws IOException {
+    public String sendSolarToLunar(String lunYear, String lunMonth, String lunDay, String no) {
+        String msg = null;
+        try {
+            String apiUrl = "http://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getSolCalInfo";
+            String type = "json";
+            String serviceKey = "U3F3wbF6hrTzEdO7ERe2XmNqq7vCJhCxp/oVYKmcOqBM5M6b+s484JtBGvOJpBdC17kK1LheFWzXZlmEVJHg2w==";
+            String methodType = "GET";
+
+            String urlWithParams = apiUrl
+                    + "?lunYear=" + lunYear
+                    + "&lunMonth=" + lunMonth
+                    + "&lunDay=" + lunDay
+                    + "&ServiceKey=" + URLEncoder.encode(serviceKey, "UTF-8")
+                    + "&_type=" + type;
+
+            msg = conection(urlWithParams, methodType, no);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return msg;
+    }
+
+    private String conection(String urlWithParams, String methodType, String no) throws IOException {
+        String msg = "음력 저장에 실패하였습니다.";
         URL url = new URL(urlWithParams);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(methodType);
+
         try {
-            connection.setRequestMethod(methodType);
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String response = readResponseValue(connection);
-                List<NationalHolidayBean> list = convertHolidayData(response);
-                eventService.insertEvents(list);
+                if(StringUtils.isBlank(no)) {
+                    List<NationalHolidayBean> list = convertHolidayData(response);
+                    eventService.insertEvents(list);
+                } else {
+                    LunarBean lunarBean = convertSolarToLunar(response, no);
+                    boolean isAdd = eventService.insertLunarEvent(lunarBean);
+                    if(isAdd) {
+                        msg = "음력 저장에 성공 하였습니다.";
+                    }
+                }
             } else {
                 System.out.println("API 요청 실패. 응답 코드: " + responseCode);
             }
@@ -61,6 +95,7 @@ public class MyRestApi {
         } finally {
             connection.disconnect();
         }
+        return msg;
     }
 
     private String readResponseValue(HttpURLConnection connection) throws IOException {
@@ -81,5 +116,12 @@ public class MyRestApi {
         Map<String, Object> items = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items");
         List<Map<String, Object>> item = (List<Map<String, Object>>) items.get("item");
         return item.stream().map(it -> new NationalHolidayBean().convertMapToBean(it)).collect(Collectors.toList());
+    }
+
+    private LunarBean convertSolarToLunar(String response, String no) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> resultMap = objectMapper.readValue(response.toString(), Map.class);
+        Map<String, Object> item = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items")).get("item");
+        return new LunarBean().convertMapToBean(item, no);
     }
 }
