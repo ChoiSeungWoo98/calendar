@@ -75,26 +75,7 @@
                     ON event.no = lunar.event_no
             WHERE 0=0
                 AND lunar.lunar_date like CONCAT('%', #{eventDate},'%')
-#                 AND event.repeat_yn = 'N'
                 AND event.type = 'L'
-#             UNION
-#
-#             SELECT
-#                 event.no,
-#                 event.title,
-#                 lunar.lunar_date as event_date,
-#                 event.type,
-#                 event.holiday_yn,
-#                 event.repeat_yn,
-#                 event.delete_yn,
-#                 event.reg_date
-#             FROM tb_event event
-#                 LEFT JOIN tb_lunar lunar
-#                     ON event.no = lunar.event_no
-#             WHERE 0=0
-#                 AND lunar.lunar_date like CONCAT('%', #{eventDate},'%')
-#                 AND event.repeat_yn = 'Y'
-#                 AND event.type = 'L'
         ) AS event_list
         ORDER BY DAY(event_date)
     </select>
