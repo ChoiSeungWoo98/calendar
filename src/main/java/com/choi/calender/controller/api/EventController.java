@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 @RestController
 @RequestMapping("/calender/event")
 @Slf4j
@@ -49,11 +52,12 @@ public class EventController {
             if("S".equals(eventDto.getType())) {
                 return new ReturnMessage(eventService.addEvent(eventDto));
             }
-            String year = String.valueOf(eventDto.getEventDate().getYear());
-            String month = String.valueOf(eventDto.getEventDate().getMonth());
-            String day = String.valueOf(eventDto.getEventDate().getDate());
-            String no = eventService.addEvent(eventDto);
-            return new ReturnMessage(myRestApi.sendSolarToLunar(year, month, day, no));
+            LocalDate eventDate = eventDto.getEventDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String year = String.valueOf(eventDate.getYear());
+            String month = String.valueOf(eventDate.getMonthValue());
+            String day = String.valueOf(eventDate.getDayOfMonth());
+            eventService.addEvent(eventDto);
+            return new ReturnMessage(myRestApi.sendSolarToLunar(year, month, day, eventDto.getNo()));
         } catch (Exception e) {
             return new ReturnMessage(ReturnStatus.FAIL, "일기 저장 실패", e);
         }

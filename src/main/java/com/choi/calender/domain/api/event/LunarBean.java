@@ -11,7 +11,7 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 public class LunarBean {
-    protected String no;
+    protected int no;
     protected String lunYear;
     protected String lunMonth;
     protected String lunDay;
@@ -20,7 +20,7 @@ public class LunarBean {
     protected String solDay;
 
     public LunarBean(
-        String no,
+        int no,
         String lunYear,
         String lunMonth,
         String lunDay,
@@ -37,7 +37,7 @@ public class LunarBean {
         this.solDay = solDay;
     }
 
-    public LunarBean convertMapToBean(Map data, String no) {
+    public LunarBean convertMapToBean(Map data, int no) {
         return new LunarBean(
             no,
             String.valueOf(data.get("lunYear")),

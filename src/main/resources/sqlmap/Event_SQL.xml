@@ -62,10 +62,29 @@
             #{holidayYn},
             #{repeatYn}
         )
+    </insert>
 
-        <selectKey resultType="_int" keyProperty="no" order="AFTER">
+    <insert id="addEventTest" parameterType="eventDto" useGeneratedKeys="true" keyProperty="no">
+        <selectKey keyProperty="no" resultType="int">
             SELECT LAST_INSERT_ID() AS no
         </selectKey>
+
+        INSERT INTO tb_event
+        (
+        title,
+        event_date,
+        type,
+        holiday_yn,
+        repeat_yn
+        )
+        VALUES
+        (
+        #{title},
+        #{eventDate},
+        #{type},
+        #{holidayYn},
+        #{repeatYn}
+        )
     </insert>
 
     <insert id="insertEvents" parameterType="list">

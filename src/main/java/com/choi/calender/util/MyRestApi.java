@@ -39,13 +39,13 @@ public class MyRestApi {
                     + "&numOfRows=" + numOfRows
                     + "&_type=" + type;
 
-            conection(urlWithParams, methodType, null);
+            conection(urlWithParams, methodType, 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String sendSolarToLunar(String lunYear, String lunMonth, String lunDay, String no) {
+    public String sendSolarToLunar(String lunYear, String lunMonth, String lunDay, int no) {
         String msg = null;
         try {
             String apiUrl = "http://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getSolCalInfo";
@@ -55,7 +55,7 @@ public class MyRestApi {
 
             String urlWithParams = apiUrl
                     + "?lunYear=" + lunYear
-                    + "&lunMonth=" + lunMonth
+                    + "&lunMonth=" + (lunMonth.length() == 1 ? "0" + lunMonth : lunMonth)
                     + "&lunDay=" + lunDay
                     + "&ServiceKey=" + URLEncoder.encode(serviceKey, "UTF-8")
                     + "&_type=" + type;
@@ -67,7 +67,7 @@ public class MyRestApi {
         return msg;
     }
 
-    private String conection(String urlWithParams, String methodType, String no) throws IOException {
+    private String conection(String urlWithParams, String methodType, int no) throws IOException {
         String msg = "음력 저장에 실패하였습니다.";
         URL url = new URL(urlWithParams);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -77,7 +77,7 @@ public class MyRestApi {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String response = readResponseValue(connection);
-                if(StringUtils.isBlank(no)) {
+                if(no == 0) {
                     List<NationalHolidayBean> list = convertHolidayData(response);
                     eventService.insertEvents(list);
                 } else {
@@ -118,7 +118,7 @@ public class MyRestApi {
         return item.stream().map(it -> new NationalHolidayBean().convertMapToBean(it)).collect(Collectors.toList());
     }
 
-    private LunarBean convertSolarToLunar(String response, String no) throws JsonProcessingException {
+    private LunarBean convertSolarToLunar(String response, int no) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> resultMap = objectMapper.readValue(response.toString(), Map.class);
         Map<String, Object> item = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items")).get("item");
