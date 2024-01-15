@@ -17,12 +17,15 @@
             </div>
             <div id="detail-information">
                 <div class="left">
-                    <th:block th:if="${diary == null}">
-                        <div id="weather"><h5 class="weather-txt">날씨 : <span id="weather-value">불러오는 중</span> ( <span class="temp">0</span> °C)</h5></div>
-                    </th:block>
-                    <th:block th:if="${diary != null}">
-                        <div id="weather"><h5 class="weather-txt">날씨 : <span th:text="${diary.weather}"></span> ( <span th:text="${diary.temp}"></span> °C)</h5></div>
-                    </th:block>
+                    <div id="weather">
+                        <th:block th:if="${diary == null}">
+                        <h5 class="weather-txt">날씨 : <span id="weather-value">불러오는 중</span> ( <span class="temp">0</span> °C)</h5>
+                        </th:block>
+                        <th:block th:if="${diary != null}">
+                        <h5 class="weather-txt">날씨 : <span th:text="${diary.weather}"></span> ( <span th:text="${diary.temp}"></span> °C)</h5>
+                        </th:block>
+                    </div>
+
                     <div id="emotion" class="flex-wrap">
                         <div class="happy" data-value="happy"></div>
                         <div class="angry" data-value="angry"></div>
