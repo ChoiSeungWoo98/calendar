@@ -14,6 +14,8 @@ public interface EventMapper {
 
     boolean isYearEvent(String year);
 
+    List<EventBean> selectLunarList();
+
     List<EventBean> selectEventList(SearchEventDto searchEventDto);
 
     int addEvent(EventDto eventDto);

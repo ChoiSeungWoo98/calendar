@@ -10,6 +10,22 @@
             AND event_date like CONCAT('%',#{year},'%')
     </select>
 
+    <select id="selectLunarList" parameterType="string" resultType="EventBean">
+        SELECT
+            no,
+            title,
+            event_date,
+            type,
+            holiday_yn,
+            repeat_yn,
+            delete_yn,
+            reg_date
+        FROM tb_event
+        WHERE 0=0
+            AND type = 'L'
+            AND repeat_yn = 'Y'
+    </select>
+
     <select id="selectEventList" parameterType="searchEventDto" resultType="EventBean">
         SELECT * FROM
         (

@@ -2,6 +2,7 @@ package com.choi.calender.controller.view;
 
 
 import com.choi.calender.application.dto.diary.DiaryDto;
+import com.choi.calender.application.dto.event.EventDto;
 import com.choi.calender.application.dto.event.SearchFileBean;
 import com.choi.calender.application.dto.file.FileDto;
 import com.choi.calender.application.dto.target.TargetDto;
@@ -52,6 +53,11 @@ public class ViewController {
         LocalDate currentDate = LocalDate.now();
         String year = String.valueOf(currentDate.getYear());
         String month = String.valueOf(currentDate.getMonthValue());
+        String day = String.valueOf(currentDate.getDayOfMonth());
+
+        if("01-15".equals((month.length() == 1 ? "0" + month : month) + "-" + day)) {
+            insertLunarData(year);
+        }
         checkAndAddNationalHoliday(year);
 
         SearchTargetBean searchYearTargetBean = new SearchTargetBean("Y", year, null);
@@ -124,6 +130,11 @@ public class ViewController {
             return;
         }
         myRestApi.sendNatureHoliday(year);
+    }
+
+    private void insertLunarData(String year) {
+        List<EventDto> eventDtoList = eventService.selectLunarList();
+        System.out.println(eventDtoList);
     }
 
 }

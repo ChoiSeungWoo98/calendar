@@ -27,6 +27,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<EventDto> selectLunarList() {
+        return eventMapper.selectLunarList().stream().map(event -> new EventDto().convertBeanToDto(event)).collect(Collectors.toList());
+    }
+
+    @Override
     public List<EventDto> selectEventList(SearchEventDto searchEventDto) {
         return eventMapper.selectEventList(searchEventDto).stream().map(event -> new EventDto().convertBeanToDto(event)).collect(Collectors.toList());
     }

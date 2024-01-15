@@ -12,6 +12,8 @@ public interface EventService {
 
     boolean isYearEvent(String year);
 
+    List<EventDto> selectLunarList();
+
     List<EventDto> selectEventList(SearchEventDto searchEventDto);
 
     String addEvent(EventDto eventDto);
