@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @SpringBootTest
-class MyRestTemplateTests {
+class HoliydayTests {
 
 	@Resource
 	EventService eventService;
