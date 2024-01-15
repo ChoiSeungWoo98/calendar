@@ -76,7 +76,7 @@
                 LEFT JOIN tb_lunar lunar
                     ON event.no = lunar.event_no
             WHERE 0=0
-                AND lunar.lunar_date like CONCAT('%-', #{month},'-%')
+                AND lunar.lunar_date like CONCAT('%', #{eventDate},'%')
                 AND event.repeat_yn = 'Y'
                 AND event.type = 'L'
         ) AS event_list
