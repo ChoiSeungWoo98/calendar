@@ -1,6 +1,7 @@
 package com.choi.calender.mapper;
 
 import com.choi.calender.domain.api.event.EventBean;
+import com.choi.calender.domain.api.event.LunarBean;
 import com.choi.calender.domain.api.event.NationalHolidayBean;
 import com.choi.calender.domain.api.event.SearchEventDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,5 +18,7 @@ public interface EventMapper {
     int addEvent(EventBean eventBean);
 
     int insertEvents(List<NationalHolidayBean> list);
+
+    int insertLunarEvent(LunarBean lunarBean);
 
 }
