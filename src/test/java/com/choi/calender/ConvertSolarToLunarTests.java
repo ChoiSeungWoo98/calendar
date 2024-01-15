@@ -61,7 +61,7 @@ class ConvertSolarToLunarTests {
 
 				ObjectMapper objectMapper = new ObjectMapper();
 				Map<String, Object> resultMap = objectMapper.readValue(response.toString(), Map.class);
-				LunarBean item = new LunarBean().convertMapToBean((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items")).get("item"));
+				LunarBean item = new LunarBean().convertMapToBean((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items")).get("item"), "1");
 				System.out.println(item);
 			} else {
 				System.out.println("API 요청 실패. 응답 코드: " + responseCode);
