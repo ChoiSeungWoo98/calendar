@@ -34,13 +34,12 @@ public class EventServiceImpl implements EventService {
     @Override
     public String addEvent(EventDto eventDto) {
         if("S".equals(eventDto.getType())) {
-            return eventMapper.addEventTest(eventDto) > 0
+            return eventMapper.addEvent(eventDto) > 0
                     ? "이벤트를 성공적으로 등록했어요!"
                     : "실패했어요! 코드를 수정해주세요.";
         }
 
-        eventDto.setHolidayYn("N");
-        return String.valueOf(eventMapper.addEventTest(eventDto));
+        return String.valueOf(eventMapper.addEvent(eventDto));
     }
 
     @Override

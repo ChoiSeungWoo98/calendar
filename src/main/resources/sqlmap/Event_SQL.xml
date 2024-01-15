@@ -45,7 +45,10 @@
         ORDER BY DAY(event_date);
     </select>
 
-    <insert id="addEvent" parameterType="eventBean">
+    <insert id="addEvent" parameterType="eventDto" useGeneratedKeys="true" keyProperty="no">
+        <selectKey keyProperty="no" resultType="int">
+            SELECT LAST_INSERT_ID() AS no
+        </selectKey>
         INSERT INTO tb_event
         (
             title,
@@ -59,31 +62,8 @@
             #{title},
             #{eventDate},
             #{type},
-            #{holidayYn},
+            'N',
             #{repeatYn}
-        )
-    </insert>
-
-    <insert id="addEventTest" parameterType="eventDto" useGeneratedKeys="true" keyProperty="no">
-        <selectKey keyProperty="no" resultType="int">
-            SELECT LAST_INSERT_ID() AS no
-        </selectKey>
-
-        INSERT INTO tb_event
-        (
-        title,
-        event_date,
-        type,
-        holiday_yn,
-        repeat_yn
-        )
-        VALUES
-        (
-        #{title},
-        #{eventDate},
-        #{type},
-        #{holidayYn},
-        #{repeatYn}
         )
     </insert>
 

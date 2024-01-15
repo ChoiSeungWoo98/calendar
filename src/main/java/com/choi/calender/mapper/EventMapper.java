@@ -16,9 +16,7 @@ public interface EventMapper {
 
     List<EventBean> selectEventList(SearchEventDto searchEventDto);
 
-    int addEvent(EventBean eventBean);
-
-    int addEventTest(EventDto eventDto);
+    int addEvent(EventDto eventDto);
 
     int insertEvents(List<NationalHolidayBean> list);
 
