@@ -56,7 +56,7 @@ public class MyRestApi {
             String urlWithParams = apiUrl
                     + "?lunYear=" + lunYear
                     + "&lunMonth=" + (lunMonth.length() == 1 ? "0" + lunMonth : lunMonth)
-                    + "&lunDay=" + lunDay
+                    + "&lunDay=" + (lunDay.length() == 1 ? "0" + lunDay : lunDay)
                     + "&ServiceKey=" + URLEncoder.encode(serviceKey, "UTF-8")
                     + "&_type=" + type;
 
@@ -68,7 +68,7 @@ public class MyRestApi {
     }
 
     private String conection(String urlWithParams, String methodType, int no) throws IOException {
-        String msg = "음력 저장에 실패하였습니다.";
+        String msg = "음력 이벤트 저장에 실패하였습니다.";
         URL url = new URL(urlWithParams);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(methodType);
@@ -84,7 +84,7 @@ public class MyRestApi {
                     LunarBean lunarBean = convertSolarToLunar(response, no);
                     boolean isAdd = eventService.insertLunarEvent(lunarBean);
                     if(isAdd) {
-                        msg = "음력 저장에 성공 하였습니다.";
+                        msg = "음력 이벤트 저장에 성공 하였습니다.";
                     }
                 }
             } else {
