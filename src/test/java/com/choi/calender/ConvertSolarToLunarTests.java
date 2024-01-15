@@ -1,6 +1,7 @@
 package com.choi.calender;
 
 import com.choi.calender.application.service.EventService;
+import com.choi.calender.domain.api.event.LunarBean;
 import com.choi.calender.domain.api.event.NationalHolidayBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
@@ -35,7 +36,6 @@ class ConvertSolarToLunarTests {
 			String type = "json";
 			String serviceKey = "U3F3wbF6hrTzEdO7ERe2XmNqq7vCJhCxp/oVYKmcOqBM5M6b+s484JtBGvOJpBdC17kK1LheFWzXZlmEVJHg2w==";
 
-			// URL 및 파라미터 설정
 			String urlWithParams = apiUrl
 					+ "?lunYear=" + lunYear
 					+ "&lunMonth=" + lunMonth
@@ -58,10 +58,10 @@ class ConvertSolarToLunarTests {
 				}
 
 				reader.close();
-				ObjectMapper objectMapper = new ObjectMapper();
 
+				ObjectMapper objectMapper = new ObjectMapper();
 				Map<String, Object> resultMap = objectMapper.readValue(response.toString(), Map.class);
-				Map<String, Object> item = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items")).get("item");
+				LunarBean item = new LunarBean().convertMapToBean((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) resultMap.get("response")).get("body")).get("items")).get("item"));
 				System.out.println(item);
 			} else {
 				System.out.println("API 요청 실패. 응답 코드: " + responseCode);
