@@ -12,6 +12,9 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +36,36 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDto> selectEventList(SearchEventDto searchEventDto) {
-        return eventMapper.selectEventList(searchEventDto).stream().map(event -> new EventDto().convertBeanToDto(event)).collect(Collectors.toList());
+        List<EventDto> tempList = eventMapper.selectEventList(searchEventDto).stream().map(event -> new EventDto().convertBeanToDto(event)).collect(Collectors.toList());
+        List<EventDto> resultList = new ArrayList<>();
+        boolean last = false;
+        int j = 1;
+        for(int i = 0; i < tempList.size() - 1; i++) {
+            EventDto nowEventDto = tempList.get(i);
+            EventDto frontEventDto = tempList.get(j);
+            j++;
+            int nowDay = nowEventDto.getEventDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getDayOfMonth();
+            int frontDay = frontEventDto.getEventDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getDayOfMonth();
+            if (nowDay != frontDay) {
+                resultList.add(nowEventDto);
+                if(j != tempList.size()) {
+                    continue;
+                }
+                if(j == tempList.size()) {
+                    last = true;
+                }
+            }
+            if(last) {
+                resultList.add(frontEventDto);
+                continue;
+            }
+            EventDto eventDto = new EventDto();
+            eventDto.setEventDate(nowEventDto.getEventDate());
+            eventDto.setTitle(nowEventDto.getTitle() + ", " + frontEventDto.getTitle());
+            eventDto.setHolidayYn(nowEventDto.getHolidayYn() + frontEventDto.getHolidayYn());
+            resultList.add(eventDto);
+        }
+        return resultList;
     }
 
     @Override
