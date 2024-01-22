@@ -30,7 +30,12 @@
                 </div>
                 <div id="month-list" class="hidden">
                     <th:block th:each="list : ${monthList}">
-                        <div class="list-detail mb-[1%]" th:text="${list.title}"></div>
+                        <th:block th:if="${list.successYn eq 'Y'}">
+                            <div class="list-detail mb-[1%] cancel" th:value="${list.no}" th:text="${list.title}"></div>
+                        </th:block>
+                        <th:block th:if="${list.successYn eq 'N'}">
+                            <div class="list-detail mb-[1%]" th:value="${list.no}" th:text="${list.title}"></div>
+                        </th:block>
                     </th:block>
                 </div>
                 <button class="add-target">올해 목표 등록</button>
