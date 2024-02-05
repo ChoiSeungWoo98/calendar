@@ -77,11 +77,18 @@
 
     <script>
         let nowType;
+        let nowDate = new Date();
+        let nowMonth = nowDate.getMonth() + 1;
         function openAddTargetModal(title, type) {
             CHOI.blockScroll();
             nowType = type;
-            if(type === 'M') $('#month-select').removeClass('hidden');
-            else $('#month-select').addClass('hidden');
+            if(type === 'M') {
+                $('#month-select').val(nowMonth).prop("selected", true);
+                $('#month-select').removeClass('hidden');
+            }
+            else {
+                $('#month-select').addClass('hidden');
+            }
             $('.target > #modal-title').html(title);
             $('.modalBackGround-target').removeClass('hidden');
         }
@@ -101,7 +108,7 @@
                     openSuccesAlert(response.value);
                     $('#target-title-value').val('');
                     $('#year_select').val(new Date().getFullYear());
-                    $('#month-select').val('1');
+                    $('#month-select').val(nowMonth).prop("selected", true);
                 } else {
                     openErrorAlert(response.value);
                 }
