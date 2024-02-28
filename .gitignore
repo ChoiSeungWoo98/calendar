@@ -48,3 +48,4 @@ tailwind.config.js
 
 ### file ###
 /file/
+src/test/java/com/choi/calender/Main.java
