@@ -6,7 +6,7 @@ phases:
       - echo Installing dependencies...
       - yum update -y
       - yum install -y wget unzip
-      - yum install -y mysql mysql-server
+      - yum install -y mysql-community-server
 
   pre_build:
     commands:
