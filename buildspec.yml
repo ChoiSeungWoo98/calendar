@@ -8,13 +8,14 @@ phases:
       - yum upgrade -y
       - yum install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
       - yum install -y mysql-community-server
-      - systemctl start mysqld
-      - systemctl enable mysqld
 
   pre_build:
     commands:
-      - echo Starting MariaDB service...
-      - systemctl start mariadb
+      - echo Starting MySQL service...
+      - mysqld --initialize-insecure --datadir=/var/lib/mysql
+      - mysqld --daemonize --datadir=/var/lib/mysql
+      - sleep 10
+      - echo Creating database and user...
       - mysql -u root -e "CREATE DATABASE calender;"
       - mysql -u root -e "CREATE USER 'choi'@'localhost' IDENTIFIED BY 'm98dev09tmd@*';"
       - mysql -u root -e "GRANT ALL PRIVILEGES ON calender.* TO 'choi'@'localhost';"
