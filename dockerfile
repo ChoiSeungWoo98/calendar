@@ -1,5 +1,5 @@
-# Use the official OpenJDK image as the base image
-FROM openjdk:11-jdk-slim
+# Stage 1: Build the application
+FROM gradle:7.5-jdk11 as builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,14 +13,20 @@ COPY settings.gradle .
 # Copy the source code
 COPY src ./src
 
-# Make the Gradle wrapper executable
-RUN chmod +x gradlew
-
 # Build the application
-RUN ./gradlew build
+RUN ./gradlew clean build --no-daemon
+
+# Stage 2: Run the application
+FROM openjdk:11-jre-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file from the builder stage
+COPY --from=builder /app/build/libs/calender.jar /app/calender.jar
 
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Set the command to run the application
-CMD ["java", "-jar", "build/libs/calender.jar"]
+CMD ["java", "-jar", "/app/calender.jar"]
