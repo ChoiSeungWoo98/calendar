@@ -4,6 +4,7 @@ phases:
   install:
     commands:
       - echo Installing Gradle and Docker...
+      - sudo su
       - apt update -y
       - apt install wget -y
       - wget https://services.gradle.org/distributions/gradle-7.5-bin.zip
