@@ -5,25 +5,20 @@ phases:
     commands:
       - echo Installing dependencies...
       - yum update -y
-      - yum install -y wget unzip
-      - wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-      - rpm -ivh mysql80-community-release-el7-3.noarch.rpm
-      - yum install -y mysql-community-server
+      - yum install -y docker
+      - service docker start
 
   pre_build:
     commands:
-      - echo Starting MySQL service...
-      - service mysqld start
+      - echo Starting MySQL container...
+      - docker pull mysql:8.0
+      - docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=calender -e MYSQL_USER=choi -e MYSQL_PASSWORD=m98dev09tmd@* -p 3306:3306 -d mysql:8.0
+      - echo Waiting for MySQL to initialize...
+      - sleep 30
       - echo Configuring MySQL...
-      # MySQL 초기 비밀번호 제거 (보안에 취약할 수 있으므로 프로덕션에서는 사용하지 않는 것이 좋음)
-      - mysqladmin -u root password ''
-      - mysql -u root -e "CREATE DATABASE calender;"
-      - mysql -u root -e "CREATE USER 'choi'@'localhost' IDENTIFIED BY 'm98dev09tmd@*';"
-      - mysql -u root -e "GRANT ALL PRIVILEGES ON calender.* TO 'choi'@'localhost';"
-      - mysql -u root -e "FLUSH PRIVILEGES;"
       # 여러 테이블 생성
       - |
-        mysql -u choi -pm98dev09tmd@* -D calender -e "
+        docker exec -i mysql-db mysql -u choi -pm98dev09tmd@* -D calender <<EOF
         CREATE TABLE IF NOT EXISTS tb_diary (
           no INT AUTO_INCREMENT PRIMARY KEY COMMENT '고유 번호',
           diary_date DATE NOT NULL COMMENT '다이어리 작성 일자',
@@ -100,7 +95,7 @@ phases:
           reg_date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '생성 일자',
           UNIQUE KEY date_key (diary_no, target_no)
         ) COMMENT='일일 목표 성공 여부 테이블' CHARSET=utf8mb3;
-        "
+        EOF
       - echo Logging in to Amazon ECR...
       - export AWS_DEFAULT_REGION=ap-northeast-2
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 381491842895.dkr.ecr.ap-northeast-2.amazonaws.com
