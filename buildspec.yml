@@ -5,9 +5,10 @@ phases:
     commands:
       - echo Installing dependencies...
       - yum update -y
-      - amazon-linux-extras install docker -y
-      - yum install -y docker
-      - sudo service docker start
+      - echo "Installing Docker..."
+      - curl -fsSL https://get.docker.com/ | sh
+      - echo "Starting Docker service..."
+      - nohup /usr/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
 
   pre_build:
     commands:
