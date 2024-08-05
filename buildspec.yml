@@ -3,11 +3,24 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing Gradle and Docker...
+      - echo yum update & upgrade
       - yum update -y
+      - yum upgrade -y
+      - yum install -y https://dev.mysql.com/get/mysql84-community-release-el8-1.noarch.rpm
+      - yum install -y mysql-community-server
+      - systemctl start mysqld
+      - systemctl enable mysqld
 
   pre_build:
     commands:
+      - echo Starting MariaDB service...
+      - systemctl start mariadb
+      - mysql -u root -e "CREATE DATABASE calender;"
+      - mysql -u root -e "CREATE USER 'choi'@'localhost' IDENTIFIED BY 'm98dev09tmd@*';"
+      - mysql -u root -e "GRANT ALL PRIVILEGES ON calender.* TO 'choi'@'localhost';"
+      - mysql -u root -e "FLUSH PRIVILEGES;"
+      - echo Running SQL script...
+      - mysql -u choi -pm98dev09tmd@* calender < src/main/resources/scripts/migrations/20240806_cicd_init_table.sql
       - echo Logging in to Amazon ECR...
       - export AWS_DEFAULT_REGION=ap-northeast-2
       - aws --version
