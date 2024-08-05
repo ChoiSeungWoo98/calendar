@@ -5,11 +5,15 @@ phases:
     commands:
       - echo Installing dependencies...
       - yum update -y
+      - amazon-linux-extras install docker -y
       - yum install -y docker
-      - systemctl docker start
+      - echo Starting Docker service...
+      - nohup /usr/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
 
   pre_build:
     commands:
+      - echo Waiting for Docker to start...
+      - sleep 15
       - echo Starting MySQL container...
       - docker pull mysql:8.0
       - docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=calender -e MYSQL_USER=choi -e MYSQL_PASSWORD=m98dev09tmd@* -p 3306:3306 -d mysql:8.0
