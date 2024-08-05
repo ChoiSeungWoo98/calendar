@@ -6,7 +6,7 @@ phases:
       - echo yum update and upgrade...
       - yum update -y
       - yum upgrade -y
-      - yum install -y https://dev.mysql.com/get/mysql84-community-release-el8-1.noarch.rpm
+      - yum install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
       - yum install -y mysql-community-server
       - systemctl start mysqld
       - systemctl enable mysqld
