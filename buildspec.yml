@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo yum update & upgrade
+      - echo yum update and upgrade...
       - yum update -y
       - yum upgrade -y
       - yum install -y https://dev.mysql.com/get/mysql84-community-release-el8-1.noarch.rpm
