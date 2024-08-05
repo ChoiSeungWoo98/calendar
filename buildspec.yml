@@ -6,6 +6,8 @@ phases:
       - echo Installing dependencies...
       - yum update -y
       - yum install -y wget unzip
+      - wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+      - rpm -ivh mysql80-community-release-el7-3.noarch.rpm
       - yum install -y mysql-community-server
 
   pre_build:
