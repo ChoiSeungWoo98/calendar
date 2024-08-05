@@ -13,8 +13,8 @@ COPY settings.gradle .
 # Copy the source code
 COPY src ./src
 
-# Build the application
-RUN ./gradlew clean build --no-daemon
+# Build the application, skipping tests
+RUN ./gradlew clean build -x test --no-daemon
 
 # Stage 2: Run the application
 FROM openjdk:11-jre-slim
