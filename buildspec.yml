@@ -11,11 +11,9 @@ phases:
 
   pre_build:
     commands:
-      - echo Setting up MySQL...
-      - useradd -r -s /sbin/nologin mysql
-      - chown -R mysql:mysql /var/lib/mysql
-      - mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql
-      - mysqld --daemonize --user=mysql --datadir=/var/lib/mysql
+      - echo Starting MySQL service...
+      - mysqld --initialize-insecure --datadir=/var/lib/mysql
+      - mysqld --daemonize --user=root --datadir=/var/lib/mysql
       - sleep 10
       - echo Creating database and user...
       - mysql -u root -e "CREATE DATABASE calender;"
