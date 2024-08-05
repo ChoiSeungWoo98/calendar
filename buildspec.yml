@@ -5,24 +5,26 @@ phases:
     commands:
       - echo Installing dependencies...
       - yum update -y
-      - echo "Installing Docker..."
-      - curl -fsSL https://get.docker.com/ | sh
-      - echo "Starting Docker service..."
-      - nohup /usr/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+      - echo "Adding MariaDB repository..."
+      - curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash
+      - echo "Installing MariaDB server..."
+      - yum install -y MariaDB-server
+      - echo "Starting MariaDB service..."
+      - systemctl start mariadb
+      - systemctl enable mariadb
 
   pre_build:
     commands:
-      - echo Waiting for Docker to start...
-      - sleep 15
-      - echo Starting MySQL container...
-      - docker pull mysql:8.0
-      - docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=calender -e MYSQL_USER=choi -e MYSQL_PASSWORD=m98dev09tmd@* -p 3306:3306 -d mysql:8.0
-      - echo Waiting for MySQL to initialize...
-      - sleep 30
-      - echo Configuring MySQL...
+      - echo Configuring MariaDB...
+      # MariaDB 초기 설정
+      - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root');"
+      - mysql -u root -proot -e "CREATE DATABASE calender;"
+      - mysql -u root -proot -e "CREATE USER 'choi'@'localhost' IDENTIFIED BY 'm98dev09tmd@*';"
+      - mysql -u root -proot -e "GRANT ALL PRIVILEGES ON calender.* TO 'choi'@'localhost';"
+      - mysql -u root -proot -e "FLUSH PRIVILEGES;"
       # 여러 테이블 생성
       - |
-        docker exec -i mysql-db mysql -u choi -pm98dev09tmd@* -D calender <<EOF
+        mysql -u choi -pm98dev09tmd@* -D calender <<EOF
         CREATE TABLE IF NOT EXISTS tb_diary (
           no INT AUTO_INCREMENT PRIMARY KEY COMMENT '고유 번호',
           diary_date DATE NOT NULL COMMENT '다이어리 작성 일자',
