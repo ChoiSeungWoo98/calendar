@@ -8,8 +8,9 @@ phases:
       - yum install wget -y
       - wget https://services.gradle.org/distributions/gradle-7.5-bin.zip
       - unzip gradle-7.5-bin.zip -d /opt
+      - rm -f /usr/bin/gradle
       - ln -s /opt/gradle-7.5/bin/gradle /usr/bin/gradle
-      - yum install docker.io -y
+      - yum install -y docker
 
   pre_build:
     commands:
