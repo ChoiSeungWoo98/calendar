@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - echo Updating and installing dependencies...
-      - yum update -y && upgrade -y
+      - yum update -y && yum upgrade -y
       - yum install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
       - yum install -y mysql-community-server
 
