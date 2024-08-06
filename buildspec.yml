@@ -3,9 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo yum update and upgrade...
-      - yum update -y
-      - yum upgrade -y
+      - echo Updating and installing dependencies...
+      - yum update -y && upgrade -y
       - yum install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
       - yum install -y mysql-community-server
 
@@ -16,12 +15,9 @@ phases:
       - mysqld --daemonize --user=root --datadir=/var/lib/mysql
       - sleep 10
       - echo Creating database and user...
-      - mysql -u root -e "CREATE DATABASE calender;"
-      - mysql -u root -e "CREATE USER 'choi'@'localhost' IDENTIFIED BY 'm98dev09tmd@*';"
-      - mysql -u root -e "GRANT ALL PRIVILEGES ON calender.* TO 'choi'@'localhost';"
-      - mysql -u root -e "FLUSH PRIVILEGES;"
+      - mysql -u root < src/main/resources/scripts/migrations/createInitData.sql
       - echo Running SQL script...
-      - mysql -u choi -pm98dev09tmd@* calender < src/main/resources/scripts/migrations/20240806_cicd_init_table.sql
+      - mysql -u choi -pm98dev09tmd@* calender < src/main/resources/scripts/ci/createInitTable.sql
       - echo Logging in to Amazon ECR...
       - export AWS_DEFAULT_REGION=ap-northeast-2
       - aws --version
