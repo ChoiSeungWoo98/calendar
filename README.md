@@ -34,6 +34,7 @@
 
 ## 📁 Project Structure
 [ChoiSeungWoo98-calendar-main]
+```
 ├── 📁 src
 │   ├── 📁 main
 │   │   ├── 📁 java
@@ -52,6 +53,7 @@
 │   │       └── 📁 templates
 │   └── ...
 └── ...
+```
 
 ## 🚀 Getting Started
 
